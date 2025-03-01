@@ -1,24 +1,29 @@
 <?php
-
 	class Dbh {
     	private static $instance = null;
     	private $conn;
-    	private $host = "sql10.bravehost.com";
-    	private $dbname = "lctms_1744612";
-    	private $username = "malla112";
-    	private $password = "lctms!2025";
 
     	private function __construct() {
-        	try {
-            	$this->conn = new PDO(
-                	"mysql:host=" . $this->host . ";dbname=" . $this->dbname . ";charset=utf8",
-                	$this->username,
-                	$this->password
-            	);
-            	$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        	} catch (PDOException $e) {
-            	die(json_encode(["status" => "error", "message" => "Database connection failed"]));
-        	}
+		  // Fetch environment variables
+		  $db_host = 'sql10.bravehost.com';
+		  $db_name = 'lctms_1744612';
+		  $db_user = 'malla112';
+		  $db_pass = 'lctms!2025';
+
+		  if (!$db_host || !$db_name || !$db_user || !$db_pass) {
+			  die(json_encode(["status" => "error", "message" => "Missing database configuration"]));
+		  }
+
+		  try {
+			  $this->conn = new PDO(
+				  "mysql:host=$db_host;dbname=$db_name;charset=utf8",
+				  $db_user,
+				  $db_pass
+			  );
+			  $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		  } catch (PDOException $e) {
+			  die(json_encode(["status" => "error", "message" => "Database connection failed: " . $e->getMessage()]));
+		  }
     	}
 
     	public static function getInstance() {
@@ -33,4 +38,5 @@
     	}
 	
 	}
+
 ?>

@@ -1,6 +1,13 @@
 <?php
+	require_once '../includes/config.php';
 
-	class Utility {
+	class Utility
+	{
+	 	private static $myAPI_key = '93a7b1d4e8f42f6c5a3e9d8b7c6f1a0e2d4c8f7e5b9a2c3d1f6e4a5b7d9c8e0';
+		  
+		// getters and setters
+		public static function getMyAPI_key() 		{	return self::$myAPI_key;		}
+	  	
 
 		// Validate email format
 	  	public static function validateEmail($email) {
