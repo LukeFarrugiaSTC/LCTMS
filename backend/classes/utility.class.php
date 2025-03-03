@@ -1,13 +1,14 @@
 <?php
-	require_once '../includes/config.php';
+	require_once __DIR__ . '/../includes/config.php';
 
 	class Utility
 	{
-	 	private static $myAPI_key = '93a7b1d4e8f42f6c5a3e9d8b7c6f1a0e2d4c8f7e5b9a2c3d1f6e4a5b7d9c8e0';
-		  
-		// getters and setters
-		public static function getMyAPI_key() 		{	return self::$myAPI_key;		}
-	  	
+		private static $myAPI_key;
+		
+		public static function getMyAPI_key() {
+			self::$myAPI_key = getenv('API_KEY');
+			return self::$myAPI_key;
+		}		
 
 		// Validate email format
 	  	public static function validateEmail($email) {
@@ -54,7 +55,7 @@
 	  	
 	  	// Validate password (Minimum 8 characters with at least one letter and one number) {
 		public static function validatePassword($password){
-			return preg_match("/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/", $password);
+			return preg_match("/^(?=.*[A-Za-z])(?=.*\d).{8,}$/", $password);
 		}
 	  
 	  	// Check if two passwords match

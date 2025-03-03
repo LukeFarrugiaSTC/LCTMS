@@ -31,12 +31,12 @@
 				// Return the JSON-encoded data
 				return json_encode(["status" => "success", "data" => $towns]);			  
 			} catch (PDOException $e) {
-    			die(json_encode(["status" => "error", "message" => "Database error: " . $e->getMessage()]));
+				error_log($e->getMessage());
+				return json_encode([
+					"status"  => "error",
+					"message" => "An unexpected error occurred. Please try again later."
+				]);
 			}
-	  
 		}
 	}
 ?>
-	  
-	  
-	    
