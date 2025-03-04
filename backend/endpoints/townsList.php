@@ -1,45 +1,47 @@
 <?php
-// Include required files
-require_once '../includes/config.php';   // Ensure database connection is available
+require_once '../includes/config.php';
 require_once '../classes/utility.class.php';
 require_once '../classes/town.class.php';
+require_once '../helpers/responseHelper.php';
 
+// Determine if the connection is secure
+$isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+            (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
 
-// Set the response content type to JSON
-header('Content-Type: application/json');
+if (!$isSecure) {
+    sendResponse(["status" => "error", "message" => "HTTPS is required"], 403);
+}
 
-// Get database connection
-$conn = Dbh::getInstance()->getConnection();
+// Ensure the request method is POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    sendResponse(["status" => "error", "message" => "Invalid request method"], 405);
+}
 
-// Check if the request method is POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    // Get the raw POST data
-    $data = json_decode(file_get_contents('php://input'), true);
-  	$utility = new Utility();
-  
+// Get and decode the raw POST data
+$rawInput = file_get_contents('php://input');
+$data = json_decode($rawInput, true);
 
-    // Get the API key from the request
-  	$API_Key = $utility->getMyAPI_key();
-  
-  	// Debugging output to check both keys
-  	if (isset($data['api_key'])){
-		if ($data['api_key'] !== $API_Key){
-			echo json_encode(["status" => "error", "message" => "Invalid API Key"]);
-		  	exit;
-		} else if (empty($data['api_key'])){
-			echo json_encode(["status" => "error", "message" => "API Key is required"]);
-		}
-	  
-		// If API key is valid, fetch towns
-		$town = new Town();
-		echo $town->townRead();
-	  
-	} else {
-		echo json_encode(["status" => "error", "message" => "API Key is required"]);
-	}
+// Check for JSON decoding errors
+if (json_last_error() !== JSON_ERROR_NONE) {
+    sendResponse(["status" => "error", "message" => "Malformed JSON input"], 400);
+}
 
-  } else { // if request is not POST
-	  echo json_encode(["status" => "error", "message" => "Invalid request method"]);
-  }
+// Initialize Utility to get the API key
+$utility = new Utility();
+$expectedAPIKey = $utility->getMyAPI_key();
+
+// Validate that an API key was provided
+if (empty($data['api_key'])) {
+    sendResponse(["status" => "error", "message" => "API Key is required"], 400);
+}
+
+// Validate the provided API key
+if ($data['api_key'] !== $expectedAPIKey) {
+    sendResponse(["status" => "error", "message" => "Invalid API Key"], 403);
+}
+
+// If API key is valid, fetch towns
+$town = new Town();
+$townResponse = json_decode($town->townRead(), true);
+sendResponse($townResponse);
 ?>

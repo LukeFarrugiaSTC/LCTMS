@@ -165,9 +165,10 @@
 					exit;
 			  	}			
 			} catch (PDOException $e) {
+				error_log($e->getMessage());
 				return json_encode([
-					"status"	=>	"Error",
-				  	"message"	=>	"Database Error:".$e->getMessage()
+					"status"  => "error",
+					"message" => "An unexpected error occurred. Please try again later."
 				]);
 			}
 		}
