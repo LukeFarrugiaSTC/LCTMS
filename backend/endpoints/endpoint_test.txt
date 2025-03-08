@@ -6,8 +6,8 @@ curl -k -X POST \
     "fname": "John",
     "lname": "Doe",
     "address": "123 Main St",
-    "streetCode": "12345678",
-    "townCode": "1234",
+    "streetCode": "00410019",
+    "townCode": "0044",
     "mobile": "12345678",
     "dob": "1990-01-01",
     "password": "Password12!",
@@ -20,7 +20,7 @@ curl -k -X POST \
   -H "Content-Type: application/json" \
   -d '{
         "email": "test@example.com",
-        "password": "password"
+        "password": "Password12!"
       }' \
   https://localhost:443/endpoints/login.php
 

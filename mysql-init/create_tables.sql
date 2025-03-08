@@ -1,28 +1,56 @@
+CREATE TABLE IF NOT EXISTS roles (
+    roleId INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS towns (
+    townCode VARCHAR(4) NOT NULL PRIMARY KEY,
+    townName VARCHAR(100) NOT NULL,
+    districtCode VARCHAR(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS streets (
+    streetCode INT AUTO_INCREMENT PRIMARY KEY,
+    townCode VARCHAR(4) NOT NULL,
+    streetName VARCHAR(150) NOT NULL,
+    streetLongitude DECIMAL(10,8) DEFAULT NULL,
+    streetLatitude DECIMAL(10,8) DEFAULT NULL,
+    FOREIGN KEY (townCode) REFERENCES towns(townCode)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     userEmail VARCHAR(255) NOT NULL UNIQUE,
     userFirstname VARCHAR(100) NOT NULL,
     userLastname VARCHAR(100) NOT NULL,
     userAddress VARCHAR(255),
-    streetCode VARCHAR(50),
-    townCode VARCHAR(50),
+    streetCode INT,
+    townCode VARCHAR(4),
     userDob DATE,
     userMobile VARCHAR(20),
     userPassword VARCHAR(255) NOT NULL,
     roleId INT DEFAULT 3,
     isActive TINYINT DEFAULT 1,
-    createdDate DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+    createdDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (roleId) REFERENCES roles(roleId),
+    FOREIGN KEY (streetCode) REFERENCES streets(streetCode),
+    FOREIGN KEY (townCode) REFERENCES towns(townCode)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE `towns` (
-  `townCode` varchar(4) NOT NULL,
-  `townName` varchar(100) NOT NULL,
-  `districtCode` varchar(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+CREATE TABLE IF NOT EXISTS destinations (
+    destinationId INT AUTO_INCREMENT PRIMARY KEY,
+    destination_name VARCHAR(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `towns`
---
+CREATE TABLE IF NOT EXISTS bookings (
+    booking_id INT AUTO_INCREMENT PRIMARY KEY,
+    userId INT NOT NULL,
+    destinationId INT NOT NULL,
+    bookingStatus VARCHAR(100) NOT NULL,
+    bookingDate DATE NOT NULL,
+    FOREIGN KEY (userId) REFERENCES users(id),
+    FOREIGN KEY (destinationId) REFERENCES destinations(destinationId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `towns` (`townCode`, `townName`, `districtCode`) VALUES
 ('0001', 'H\'Attard', '11'),
@@ -114,17 +142,10 @@ INSERT INTO `towns` (`townCode`, `townName`, `districtCode`) VALUES
 ('0104', 'Parti min-Naxxar', '10'),
 ('0105', 'Parti minn Haz-Zebbug (Malta)', '06');
 
-ALTER TABLE `towns`
-  ADD PRIMARY KEY (`townCode`);
-COMMIT;
-
-CREATE TABLE `streets` (
-  `streetCode` varchar(8) NOT NULL,
-  `townCode` varchar(4) NOT NULL,
-  `streetName` varchar(150) NOT NULL,
-  `streetLongitude` decimal(10,8) DEFAULT NULL,
-  `streetLatitude` decimal(10,8) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+INSERT INTO roles (role_name) VALUES 
+('admin'),
+('driver'),
+('user');
 
 INSERT INTO `streets` (`streetCode`, `townCode`, `streetName`, `streetLongitude`, `streetLatitude`) VALUES
 ('00410019', '0044', 'Triq Censu Vella', NULL, NULL),
