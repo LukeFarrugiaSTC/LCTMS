@@ -3,8 +3,9 @@
 
 	class Utility
 	{
+
 		private static $myAPI_key;
-		
+
 		public static function getMyAPI_key() {
 			self::$myAPI_key = getenv('API_KEY');
 			return self::$myAPI_key;

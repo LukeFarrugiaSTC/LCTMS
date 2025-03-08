@@ -1,4 +1,13 @@
 <?php
+	/*
+	 * **************************************************
+	 * Class Name: 	User
+	 * Description: Handles user registration and login
+	 * Author: 		Andrew Mallia
+	 * Date: 		2025-03-08
+	 * **************************************************
+	 */
+	
 	require_once '../includes/config.php';
 	require_once 'utility.class.php';
 
@@ -117,9 +126,47 @@
 			} catch (PDOException $e) {
 				return json_encode([
 					"status"	=>	"error",
-				  	"message"	=>	"There was a problem submitting the registration"
+				  	"message"	=>	$e
 				]);
 			} 
+		}
+
+		public function profileRead() {
+			try {
+				$sql = "SELECT userEmail, userFirstname, userLastname, userAddress, streetCode, townCode, userDob, userMobile FROM users WHERE userEmail = ?";
+				$stmt = $this->conn->prepare($sql);		
+				$stmt->execute([
+					$this->getUserEmail()
+				]);
+
+				if ($stmt->rowCount()>0) {
+					$row = $stmt->fetch(PDO::FETCH_ASSOC);
+					return json_encode([
+						"status"		=>	"success",
+					  	"message"		=>	"Profile found",
+					  	"userEmail"		=>	$row['userEmail'],
+					  	"userFirstname"	=>	$row['userFirstname'],
+					  	"userLastname"	=>	$row['userLastname'],
+					  	"userAddress"	=>	$row['userAddress'],
+					  	"streetCode"	=>	$row['streetCode'],
+					  	"townCode"		=>	$row['townCode'],
+					  	"userDob"		=>	$row['userDob'],
+					  	"userMobile"	=>	$row['userMobile']
+				  	]);
+				  	exit;
+				} else {
+					return json_encode([
+						"status"	=>	"error",
+					  	"message"	=>	"Profile not found"
+					]);
+				  	exit;
+				}
+			} catch (PDOException $e) {
+				return json_encode([
+					"status"	=>	"error",
+				  	"message"	=>	"Database Error:".$e->getMessage()
+				]);
+			}
 		}
 	  
 	  	public function login() {
