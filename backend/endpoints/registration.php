@@ -2,6 +2,7 @@
 require_once '../classes/user.class.php';
 require_once '../helpers/responseHelper.php';
 require_once '../classes/utility.class.php';
+require_once '../helpers/apiSecurityHelper.php';
 
 // Determine if the connection is secure
 $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
@@ -14,6 +15,12 @@ if (!$isSecure) {
 // Ensure the request method is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     sendResponse(["status" => "error", "message" => "Invalid request method"], 405);
+}
+
+$apiSecurity = new ApiSecurity();
+
+if (!$apiSecurity->rateLimiter()) {
+    exit;
 }
 
 // Get and decode the raw POST data
