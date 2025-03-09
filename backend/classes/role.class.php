@@ -1,4 +1,14 @@
 <?php
+
+/*
+    * **************************************************
+    * Class Name: 	Role
+    * Description:  Handles user roles
+    * Author: 		Andrew Mallia
+    * Date: 		2025-03-08
+    * **************************************************
+    */
+
     require_once '../includes/config.php';
     require_once 'utility.class.php';
 
