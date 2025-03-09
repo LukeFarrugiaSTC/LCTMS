@@ -131,6 +131,33 @@
 			} 
 		}
 
+		public function profileUpdate() {
+			try {
+				$sql = "UPDATE users SET userFirstname = ?, userLastname = ?, userAddress = ?, streetCode = ?, townCode = ?, userDob = ?, userMobile = ? WHERE userEmail = ?";
+				$stmt = $this->conn->prepare($sql);
+				$stmt->execute([
+					$this->getUserFirstname(),
+					$this->getUserLastname(),
+					$this->getUserAddress(),
+					$this->getStreetCode(),
+					$this->getTownCode(),
+					$this->getUserDob(),
+					$this->getMobile(),
+					$this->getUserEmail()
+				]);
+				return json_encode([
+					"status"	=>	"success",
+				  	"message"	=>	"Profile updated"
+				]);
+				exit;
+			} catch (PDOException $e) {
+				return json_encode([
+					"status"	=>	"error",
+				  	"message"	=>	"Database Error:".$e->getMessage()
+				]);
+			}
+		}
+
 		public function profileRead() {
 			try {
 				$sql = "SELECT userEmail, userFirstname, userLastname, userAddress, streetCode, townCode, userDob, userMobile FROM users WHERE userEmail = ?";
@@ -151,7 +178,9 @@
 					  	"streetCode"	=>	$row['streetCode'],
 					  	"townCode"		=>	$row['townCode'],
 					  	"userDob"		=>	$row['userDob'],
-					  	"userMobile"	=>	$row['userMobile']
+					  	"userMobile"	=>	$row['userMobile'],
+						"isActive"		=>	$row['isActive'],
+						"roleId"		=>	$row['roleId']
 				  	]);
 				  	exit;
 				} else {
