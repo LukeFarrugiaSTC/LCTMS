@@ -43,6 +43,11 @@
 	  	public static function validateTownCode($townCode){
 			return preg_match("/^\d{4}$/", $townCode);
 		}
+
+		// Validate that userPin contains exactly 11 digits
+		public static function validatePin($pin){
+			return preg_match("/^\d{11}$/", $pin);
+		}
 	  
 	  	// Validate date format (YYYY-MM-DD)
 	  	public static function validateDate($date){
@@ -54,10 +59,27 @@
 			return preg_match("/^\d{8}$/", $mobile);
 		}
 	  	
-	  	// Validate password (Minimum 8 characters with at least one letter and one number) {
-		public static function validatePassword($password){
-			return preg_match("/^(?=.*[A-Za-z])(?=.*\d).{8,}$/", $password);
-		}
+  public static function validatePassword($password) {
+      // Minimum length of 8 characters
+      // At least one uppercase letter
+      // At least one lowercase letter
+      // At least one number
+      // At least one special character
+      // Maximum length of 128 characters to prevent potential DoS attacks
+      $regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,128}$/";
+
+      if (!preg_match($regex, $password)) {
+          return false;
+      }
+
+      // Check against a list of common passwords
+      $commonPasswords = ['password', '123456', 'qwerty', 'admin', 'letmein']; 
+      if (in_array(strtolower($password), $commonPasswords)) {
+          return false;
+      }
+
+      return true;
+  }
 	  
 	  	// Check if two passwords match
 	  	public static function passwordsMatch($password, $confirmPassword) {

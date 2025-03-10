@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS users (
     userDob DATE,
     userMobile VARCHAR(20),
     userPassword VARCHAR(255) NOT NULL,
+    userPin INT(11),
     roleId INT DEFAULT 3,
     isActive TINYINT DEFAULT 1,
     createdDate DATETIME DEFAULT CURRENT_TIMESTAMP,

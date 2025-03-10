@@ -3,9 +3,21 @@
     require_once '../includes/config.php';   // Ensure database connection is available
     require_once '../classes/utility.class.php';
     require_once '../classes/role.class.php';
+    require_once '../helpers/apiSecurityHelper.php';
 
-    // Set the response content type to JSON
-    header('Content-Type: application/json');
+    // Determine if the connection is secure
+    $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+                (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+
+    if (!$isSecure) {
+        sendResponse(["status" => "error", "message" => "HTTPS is required"], 403);
+    }
+
+    $apiSecurity = new ApiSecurity();
+
+    if (!$apiSecurity->rateLimiter()) {
+        exit;
+    }
 
     // Get database connection
     $conn = Dbh::getInstance()->getConnection();
