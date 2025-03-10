@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/custom_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,18 +10,22 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  String _email = '';
-  String _password = '';
-  RegExp _emailRegExp = RegExp(
-    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-  );
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   void _login() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print(_email);
-      print(_password);
+      print(_emailController);
+      print(_passwordController);
     }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -47,48 +52,19 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
                 children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      label: const Text('Email'),
-                      counterText: '',
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    autocorrect: false,
-                    maxLength: 255,
+                  CustomTextField(
+                    labelText: 'Email Address',
+                    controller: _emailController,
+                    textFieldType: TextFieldType.email,
                     textCapitalization: TextCapitalization.none,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Email is required';
-                      } else if (!_emailRegExp.hasMatch(value)) {
-                        return 'Invalid email format';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onSaved: (value) {
-                      _email = value!;
-                    },
                   ),
-
-                  SizedBox(height: 25),
-                  TextFormField(
-                    decoration: InputDecoration(label: const Text('Password')),
-                    autocorrect: false,
+                  const SizedBox(height: 10),
+                  CustomTextField(
+                    labelText: 'Password',
+                    controller: _passwordController,
+                    textFieldType: TextFieldType.textRequired,
+                    textCapitalization: TextCapitalization.none,
                     obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        //checks if password is empty
-                        return 'Password is required';
-                      } else if (value.length < 8) {
-                        //A password smaller than 8 characters is by default invalid and this will reduce an API call.  .trim() not added as a pw can contain spaces.
-                        return 'Invalid password';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onSaved: (value) {
-                      _password = value!;
-                    },
                   ),
                   SizedBox(height: 40),
                   SizedBox(

@@ -7,7 +7,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Home')),
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
+          child: Text('Home'),
+        ),
+      ),
       body: Column(
         children: [
           Expanded(

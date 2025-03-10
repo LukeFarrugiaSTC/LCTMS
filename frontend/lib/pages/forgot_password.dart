@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/custom_text_field.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -8,21 +9,24 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  final TextEditingController _emailController = TextEditingController();
+  final _keyForm = GlobalKey<FormState>();
+
+  void _submitEmail() {
+    if (_keyForm.currentState!.validate()) {
+      _keyForm.currentState!.save();
+      print(_emailController.text);
+    }
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _keyForm = GlobalKey<FormState>();
-    String _email = '';
-    RegExp _emailRegExp = RegExp(
-      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-    );
-
-    void _resetPassword() {
-      if (_keyForm.currentState!.validate()) {
-        _keyForm.currentState!.save();
-        print(_email);
-      }
-    }
-
     return Scaffold(
       appBar: AppBar(title: Text('Forgot Password')),
       body: Padding(
@@ -43,35 +47,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             SizedBox(height: 100),
             Form(
               key: _keyForm,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  label: const Text('Email'),
-                  counterText: '',
-                ),
-                keyboardType: TextInputType.emailAddress,
-                autocorrect: false,
-                maxLength: 255,
+              child: CustomTextField(
+                labelText: 'Email',
+                controller: _emailController,
+                textFieldType: TextFieldType.email,
                 textCapitalization: TextCapitalization.none,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Email is required';
-                  } else if (!_emailRegExp.hasMatch(value)) {
-                    return 'Invalid email format';
-                  } else {
-                    return null;
-                  }
-                },
-                onSaved: (value) {
-                  _email = value!;
-                },
               ),
             ),
             SizedBox(height: 25),
             ElevatedButton(
-              onPressed: () {
-                _resetPassword();
-              },
-
+              onPressed: _submitEmail,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [SizedBox(width: 16), Text("Submit")],
