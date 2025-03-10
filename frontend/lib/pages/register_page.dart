@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/custom_text_field.dart';
 import 'package:intl/intl.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -11,47 +12,67 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _keyForm = GlobalKey<FormState>();
 
-  RegExp _emailRegExp = RegExp(
-    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-  );
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _surnameController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
-  String _name = '';
-  String _surname = '';
-  String _houseNumber = '';
+  final TextEditingController _houseNumberController = TextEditingController();
   String _street = '';
   String _town = '';
-  String _mobileNumber = '';
-  String _email = '';
-  String _password = '';
-  DateTime? _dob;
+  final TextEditingController _mobileNumberController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final formatter = DateFormat('dd/MM/yyyy');
-  final List<String> _tempStreetList = ['street 1', 'street 2'];
+  final List<String> _tempStreetList = ['Street 1', 'street 2'];
   final List<String> _tempTownsList = ['Msida', 'town 2'];
 
+  @override
+  void initState() {
+    super.initState();
+    _town = _tempTownsList[0]; //defaulting to Msida
+  }
+
   Future<void> _selectDate(context) async {
-    final _pickedDate = await showDatePicker(
+    final pickedDate = await showDatePicker(
       context: context,
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     );
 
-    if (_pickedDate != null) {
+    if (pickedDate != null) {
       setState(() {
-        _dob = _pickedDate;
+        _dobController.text = formatter.format(pickedDate);
       });
     }
   }
 
-  bool _isEmpty(String value) {
-    if (value == null || value.trim().isEmpty) {
-      return false;
+  void _register() {
+    if (_keyForm.currentState!.validate()) {
+      _keyForm.currentState!.save();
+      print(_nameController.text);
+      print(_surnameController.text);
+      print(_dobController.text);
+      print(_houseNumberController.text);
+      print(_street);
+      print(_town);
+      print(_mobileNumberController.text);
+      print(_emailController.text);
+      print(_passwordController.text);
+      print(_confirmPasswordController.text);
     }
-    return true;
   }
 
   @override
   void dispose() {
+    _nameController.dispose();
+    _surnameController.dispose();
     _dobController.dispose();
+    _houseNumberController.dispose();
+    _mobileNumberController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -77,36 +98,45 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
-                      TextFormField(
-                        decoration: InputDecoration(label: Text('Name')),
+                      CustomTextField(
+                        labelText: 'Name',
+                        controller: _nameController,
+                        textFieldType: TextFieldType.textRequired,
+                        textCapitalization: TextCapitalization.words,
+                        maxLength: 100,
                       ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        decoration: InputDecoration(label: Text('Surname')),
+                      const SizedBox(height: 10),
+                      CustomTextField(
+                        labelText: 'Surname',
+                        controller: _surnameController,
+                        textFieldType: TextFieldType.textRequired,
+                        textCapitalization: TextCapitalization.words,
+                        maxLength: 100,
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       TextFormField(
                         controller: _dobController,
                         readOnly: true,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.calendar_month),
                           label: Text(
-                            _dob == null
+                            _dobController.text.isEmpty
                                 ? 'Date of Birth'
-                                : formatter.format(_dob!),
+                                : _dobController.text,
                           ),
                           border: OutlineInputBorder(),
                           alignLabelWithHint: true,
                         ),
                         onTap: () => _selectDate(context),
                       ),
-                      SizedBox(height: 5),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          label: Text('House No / Name'),
-                        ),
+                      const SizedBox(height: 5),
+                      CustomTextField(
+                        labelText: 'House Name / Number',
+                        controller: _houseNumberController,
+                        textFieldType: TextFieldType.textRequired,
+                        maxLength: 30,
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       DropdownButtonFormField(
                         value: null,
                         decoration: InputDecoration(
@@ -121,12 +151,11 @@ class _RegisterPageState extends State<RegisterPage> {
                             }).toList(),
                         onChanged: (value) {
                           setState(() {
-                            //Set state might not be needed but according to him, yes
                             _street = value!;
                           });
                         },
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       DropdownButtonFormField(
                         value: _tempTownsList[0],
                         items:
@@ -138,51 +167,49 @@ class _RegisterPageState extends State<RegisterPage> {
                             }).toList(),
                         onChanged: (value) {
                           setState(() {
-                            //Set state might not be needed but according to him, yes
                             _town = value!;
                           });
                         },
                       ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          label: Text('Mobile Number'),
-                        ),
-                        keyboardType: TextInputType.phone,
+                      const SizedBox(height: 10),
+                      CustomTextField(
+                        labelText: 'Mobile Number',
+                        controller: _mobileNumberController,
+                        textFieldType: TextFieldType.mobile,
+                        maxLength: 20,
                       ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          label: Text('Email Address'),
-                        ),
-                        keyboardType: TextInputType.emailAddress,
+                      const SizedBox(height: 10),
+                      CustomTextField(
+                        labelText: 'Email Address',
+                        controller: _emailController,
+                        textFieldType: TextFieldType.email,
+                        textCapitalization: TextCapitalization.none,
                       ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          label: const Text('Password'),
-                        ),
-                        autocorrect: false,
-                        obscureText: true,
+                      const SizedBox(height: 10),
+                      CustomTextField(
+                        labelText: 'Password',
+                        controller: _passwordController,
+                        textFieldType: TextFieldType.password,
+                        textCapitalization: TextCapitalization.none,
                       ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          label: const Text('Confirm Password'),
-                        ),
-                        autocorrect: false,
-                        obscureText: true,
+                      const SizedBox(height: 10),
+                      CustomTextField(
+                        labelText: 'Confirm Password',
+                        controller: _confirmPasswordController,
+                        textFieldType: TextFieldType.confirmPassword,
+                        textCapitalization: TextCapitalization.none,
+                        confirmPasswordController: _passwordController,
                       ),
-                      SizedBox(height: 40),
+                      const SizedBox(height: 40),
                       SizedBox(
                         width: 300,
                         child: Column(
                           children: [
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: _register,
                               child: Text('Register'),
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
 
                             TextButton(
                               onPressed: () {
@@ -198,7 +225,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ),
 
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                           ],
                         ),
                       ),
