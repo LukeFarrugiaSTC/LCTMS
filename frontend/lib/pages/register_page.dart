@@ -89,43 +89,45 @@ class _RegisterPageState extends State<RegisterPage> {
     if (_isRegistered) {
       currentScreen = Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 120),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Your registration has been successfully submitted!',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyLarge!.copyWith(fontSize: 25),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 40),
-                  Text(
-                    'Your submission is now being reviewed by the Local Council staff. '
-                    'Once approved, you will be able to log in using the credentials you have set.',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyLarge!.copyWith(fontSize: 16),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Your registration has been successfully submitted!',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyLarge!.copyWith(fontSize: 25),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 40),
+                    Text(
+                      'Your submission is now being reviewed by the Local Council staff. '
+                      'Once approved, you will be able to log in using the credentials you have set.',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyLarge!.copyWith(fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: () {
-                // Return to home
-                Navigator.pushNamed(context, '/');
-              },
-              child: Text('Home'),
-            ),
-            const SizedBox(height: 10),
-          ],
+              const SizedBox(height: 40),
+              ElevatedButton(
+                onPressed: () {
+                  // Return to home
+                  Navigator.pushNamed(context, '/');
+                },
+                child: Text('Home'),
+              ),
+              const SizedBox(height: 10),
+            ],
+          ),
         ),
       );
     } else {

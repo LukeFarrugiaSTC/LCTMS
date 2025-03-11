@@ -3,18 +3,14 @@ import 'package:frontend/pages/forgot_password.dart';
 import 'package:frontend/pages/home_page.dart';
 import 'package:frontend/pages/landing.dart';
 import 'package:frontend/pages/login_page.dart';
+import 'package:frontend/pages/profile.dart';
 import 'package:frontend/pages/register_page.dart';
+import 'package:frontend/pages/users.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 var kcolourScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 107, 77, 87),
 );
-// ).copyWith(
-//   secondary: Colors.white,
-//   onSecondary:
-//       Colors
-//           .black,
-// );
 
 class LCTMS extends StatelessWidget {
   const LCTMS({super.key});
@@ -67,7 +63,7 @@ class LCTMS extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/',
+      initialRoute: '/landing',
 
       routes: {
         '/': (context) => const HomePage(),
@@ -75,6 +71,8 @@ class LCTMS extends StatelessWidget {
         '/register': (context) => const RegisterPage(),
         '/forgot-password': (context) => const ForgotPassword(),
         '/landing': (context) => const LandingPage(),
+        '/profile': (context) => const ProfilePage(),
+        '/users': (context) => const UsersPage(),
       },
     );
   }
