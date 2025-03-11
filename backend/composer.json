@@ -1,5 +1,6 @@
 {
     "require": {
-        "symfony/mailer": "^7.2"
+        "symfony/mailer": "^7.2",
+        "firebase/php-jwt": "^6.11"
     }
 }

@@ -9,8 +9,8 @@
     * **************************************************
     */
 
-    require_once '../includes/config.php';
-    require_once 'utility.class.php';
+    require_once __DIR__ . '/../includes/config.php';
+    require_once __DIR__ . '/utility.class.php';
 
     class Role {
         private $_roleId;

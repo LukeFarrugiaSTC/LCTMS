@@ -25,7 +25,7 @@ if [ -z "$API_KEY" ]; then
     exit 1
 fi
 
-URL="https://localhost:443/endpoints/townsList.php"
+URL="https://localhost:443/endpoints/locations/townsList.php"
 PAYLOAD='{"api_key": "'"$API_KEY"'"}'
 
 if [ "$RATE_LIMIT_TEST" = true ]; then

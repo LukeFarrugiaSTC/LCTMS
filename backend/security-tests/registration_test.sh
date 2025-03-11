@@ -19,15 +19,15 @@ else
     exit 1
 fi
 
-URL="https://localhost:443/endpoints/registration.php"
+URL="https://localhost:443/endpoints/user/registration.php"
 PAYLOAD=$(cat <<EOF
 {
     "email": "test@example.com",
     "fname": "John",
     "lname": "Doe",
-    "address": "123 Main St",
-    "streetCode": "00410019",
-    "townCode": "0044",
+    "houseNumber": "123 Main St",
+    "streetName": "Triq Censu Vella",
+    "townName": "L-Imsida",
     "mobile": "12345678",
     "dob": "1990-01-01",
     "password": "Password12!",

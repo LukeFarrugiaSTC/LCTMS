@@ -1,6 +1,6 @@
 <?php
-	require_once '../includes/config.php';
-	require_once 'utility.class.php';
+    require_once __DIR__ . '/../includes/config.php';
+    require_once __DIR__ . '/utility.class.php';
 
 	class Town {
 		private $_townCode;
@@ -39,5 +39,29 @@
 				]);
 			}
 		}
+
+		public function getTownCodeFromTownName($townName) {
+			try {
+                $stmt = $this->conn->prepare("SELECT townCode FROM towns WHERE townName =?");
+                $stmt->execute([$townName]);
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $result['townCode'];
+            } catch (PDOException $e) {
+                error_log($e->getMessage());
+                return null;
+            }
+		}
+
+		public function checkIfTownExists($townCode) {
+			try {
+                $stmt = $this->conn->prepare("SELECT COUNT(*) as total FROM towns WHERE townCode =?");
+                $stmt->execute([$townCode]);
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $result['total'] > 0;
+            } catch (PDOException $e) {
+                error_log($e->getMessage());
+                return false;
+            }
+        }
 	}
 ?>

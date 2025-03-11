@@ -35,7 +35,7 @@ if [ -z "$API_KEY" ]; then
 fi
 
 # Define the endpoint URL for profileUpdate (adjust as necessary)
-URL="https://localhost:443/endpoints/profileUpdate.php"
+URL="https://localhost:443/endpoints/user/profileUpdate.php"
 
 # Construct the JSON payload.
 # Adjust the values as required. All required fields are provided:
@@ -46,7 +46,7 @@ PAYLOAD=$(cat <<EOF
     "email": "test@example.com",
     "name": "Jane",
     "surname": "Doe",
-    "address": "123 Main St",
+    "houseNumber": "123 Main St",
     "street": "00410019",
     "town": "0044",
     "mobile": "12345678",

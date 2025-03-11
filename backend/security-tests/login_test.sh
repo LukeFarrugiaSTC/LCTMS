@@ -19,7 +19,7 @@ else
 fi
 
 # The login endpoint doesn't require an API key so we only need email and password
-URL="https://localhost:443/endpoints/login.php"
+URL="https://localhost:443/endpoints/user/login.php"
 PAYLOAD='{"email": "test@example.com", "password": "Password12!"}'
 
 if [ "$RATE_LIMIT_TEST" = true ]; then

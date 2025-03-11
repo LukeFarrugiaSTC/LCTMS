@@ -35,15 +35,15 @@
 		}
 	  
 	  	// Validate that streetCode contains exactly 8 digits
-	  	public static function validateStreetCode($streetCode){
-			return preg_match("/^\d{8}$/", $streetCode);
+		  public static function validateStreetName($streetName){
+			return preg_match("/^[a-zA-Z\s\-\',]+$/", $streetName);
 		}
-	  
-	  	// Validate that townCode contains exactly 4 digits
-	  	public static function validateTownCode($townCode){
-			return preg_match("/^\d{4}$/", $townCode);
+		
+		// Validate that townName allows letters, spaces, hyphens, apostrophes, and commas.
+		public static function validateTownName($townName){
+			return preg_match("/^[a-zA-Z\s\-\',]+$/", $townName);
 		}
-
+		
 		// Validate that userPin contains exactly 11 digits
 		public static function validatePin($pin){
 			return preg_match("/^\d{11}$/", $pin);
@@ -58,28 +58,28 @@
 	  	public static function validateMobile($mobile){
 			return preg_match("/^\d{8}$/", $mobile);
 		}
-	  	
-  public static function validatePassword($password) {
-      // Minimum length of 8 characters
-      // At least one uppercase letter
-      // At least one lowercase letter
-      // At least one number
-      // At least one special character
-      // Maximum length of 128 characters to prevent potential DoS attacks
-      $regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,128}$/";
+			
+	public static function validatePassword($password) {
+		// Minimum length of 8 characters
+		// At least one uppercase letter
+		// At least one lowercase letter
+		// At least one number
+		// At least one special character
+		// Maximum length of 128 characters to prevent potential DoS attacks
+		$regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,128}$/";
 
-      if (!preg_match($regex, $password)) {
-          return false;
-      }
+		if (!preg_match($regex, $password)) {
+			return false;
+		}
 
-      // Check against a list of common passwords
-      $commonPasswords = ['password', '123456', 'qwerty', 'admin', 'letmein']; 
-      if (in_array(strtolower($password), $commonPasswords)) {
-          return false;
-      }
+		// Check against a list of common passwords
+		$commonPasswords = ['password', '123456', 'qwerty', 'admin', 'letmein']; 
+		if (in_array(strtolower($password), $commonPasswords)) {
+			return false;
+		}
 
-      return true;
-  }
+		return true;
+	}
 	  
 	  	// Check if two passwords match
 	  	public static function passwordsMatch($password, $confirmPassword) {

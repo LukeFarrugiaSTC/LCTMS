@@ -8,10 +8,14 @@
 	 * **************************************************
 	 */
 	
-	require_once '../includes/config.php';
-	require_once 'utility.class.php';
+	require_once __DIR__ . '/../includes/config.php';
+	require_once __DIR__ . '/utility.class.php';
+	require_once __DIR__ . '/Exceptions/validationException.class.php';
+	require_once __DIR__ . '/validators/userValidator.class.php';
+	require_once __DIR__ . '/../helpers/responseHelper.php';
 
 	class User {
+		private $_userId;
 		private $_userEmail;
 	  	private $_userFirstname;
 	  	private $_userLastname;
@@ -24,6 +28,7 @@
 	  	private $_userConfirm;
 	  	private $_userRole;
 	  	private $_isActive;
+		public $data;
 		public $conn;
 	  
 	    public function __construct() {
@@ -31,6 +36,7 @@
     	}
 	  
 	  	// Getters and Setters 
+		public function setUserId($var)			{	$this->_userId		=		$var;	}
 	  	public function setUserEmail($var) 		{	$this->_userEmail		=	$var;	}
 	  	public function setUserFirstname($var)	{	$this->_userFirstname 	=	$var;	}
 	  	public function setUserLastname($var)	{	$this->_userLastname 	=	$var;	}
@@ -44,6 +50,7 @@
 	  	public function setUserRoleId($var)		{	$this->_userRole 		=	$var;	}
 	  	public function setIsActive($var)		{	$this->_isActive 		=	$var;	}
 	  
+		public function getUserId()				{	return $this->_userId;				}
 	  	public function getUserEmail()			{	return $this->_userEmail;			}
 	  	public function getUserFirstname()		{	return $this->_userFirstname;		}
 	  	public function getUserLastname()		{	return $this->_userLastname;		}
@@ -56,44 +63,33 @@
 	  	public function getUserConfirm()		{	return $this->_userConfirm;			}
 	  	public function getUserRoleId()			{	return $this->_userRole;			}
 	  	public function getIsActive()			{	return $this->_isActive;			}
+
+		public function getAllUserDetails() {
+
+			$this->data['email'] = $this->getUserEmail();
+			$this->data['fname'] = $this->getUserFirstname();
+			$this->data['lname'] = $this->getUserLastname();
+			$this->data['houseNumber'] = $this->getUserAddress();
+			$this->data['streetCode'] = $this->getStreetCode();
+			$this->data['townCode'] = $this->getTownCode();
+			$this->data['mobile'] = $this->getMobile();
+			$this->data['dob'] = $this->getUserDob();
+			$this->data['password'] = $this->getUserPassword();
+			$this->data['confirm'] = $this->getUserConfirm();
+			$this->data['isActive'] = $this->getIsActive();
+			$this->data['roleId'] = $this->getUserRoleId();
+		}
+
 	  
 	  	public function registration() {
 			try {
 				$stmt = $this->conn->prepare("SELECT userEmail FROM users WHERE userEmail = ?");
 				$stmt->execute([$this->getUserEmail()]);
 				if ($stmt->rowCount() > 0) {
-					return json_encode(["status" => "error", "message" => "Email already exists"]);
+					return sendResponse(["status" => "error", "message" => "Email already exists"]);
 				}
 
-			  	// Validate all user inputs before insertion
-			  	if (!utility::validateEmail($this->getUserEmail())) {
-					return json_encode(["status"	=> "error", "message" => "Invalid email format"]);
-				}
-			  	if (!utility::validateName($this->getUserFirstname())){
-					return json_encode(["status"	=> "error", "message" => "Invalid first name"]);
-				}
-			  	if (!utility::validateSurname($this->getUserLastname())){
-					return json_encode(["status" 	=> "error", "message" => "Invalid last name"]);
-				}
-			 	if (!utility::validateAddress($this->getUserAddress())) {
-					return json_encode(["status"	=> "error", "message" => "Invalid address"]);
-				}
-			  	if (!utility::validateStreetCode($this->getStreetCode())) {
-					return json_encode(["status" 	=> "error", "message" => "Invalid Street"]);
-				}
-			  	if (!utility::validateTownCode($this->getTownCode())){
-					return json_encode(["status" 	=> "error", "message" => "Invalid Town"]);
-				}
-			  	if (!utility::validateDate($this->getUserDob())){
-					return json_encode(["status" 	=> "error", "message" => "Invalid date format"]);
-				}
-			  	if (!utility::validateMobile($this->getMobile())) {
-					return json_encode(["status" 	=> "error", "message" => "Invalid mobile number"]);
-				}
-			  
-			  	if (!utility::passwordsMatch($this->getUserPassword(), $this->getUserConfirm())){
-					return json_encode(['status'	=> "error", "message" => "Passwords do not match"]);
-				}
+				$this->getAllUserDetails();
 			  
 			  	// Hash the password after the validation is found to be TRUE
 			  	$hashedPassword = password_hash($this->getUserPassword(), PASSWORD_DEFAULT);
@@ -115,56 +111,61 @@
 			  	$sql 	.=	"VALUES (?,?,?,?,?,?,?,?,?,3,1,NOW())";
 				$stmt = $this->conn->prepare($sql);
 			  	$stmt->execute([
-					$this->getUserEmail(),
-				  	$this->getUserFirstname(),
-				  	$this->getUserLastname(),
-				  	$this->getUserAddress(),
-				  	$this->getStreetCode(),
-				  	$this->getTownCode(),
-				  	$this->getUserDob(),
-				  	$this->getMobile(),
+					$this->data['email'],
+				  	$this->data['fname'],
+				  	$this->data['lname'],
+				  	$this->data['houseNumber'],
+				  	$this->data['streetCode'],
+				  	$this->data['townCode'],
+				  	$this->data['dob'],
+				  	$this->data['mobile'],
 				  	$hashedPassword
 				]);
-			  	return json_encode([
+			  	return sendResponse([
 					"status"	=> 	"success",
 				  	"message"	=> 	"Insertion completed"
 				]);
 			  	exit;
 			} catch (PDOException $e) {
-				return json_encode([
+				return sendResponse([
 					"status"	=>	"error",
 				  	"message"	=>	$e
 				]);
-			} 
+			} catch (ValidationException $e) {
+				sendResponse(["status" => "error", "message" => implode(', ', $e->getErrors())], 400);
+			}
 		}
 
 		public function profileUpdate() {
 			try {
+
+				$this->getAllUserDetails();
+
 				$stmt = $this->conn->prepare("SELECT userEmail FROM users WHERE userEmail = ?");
-				$stmt->execute([$this->getUserEmail()]);
+				$stmt->execute([$this->data['email']]);
 				if ($stmt->rowCount() === 0) {
-					return json_encode(["status" => "error", "message" => "Email does not exist"]);
+					return sendResponse(["status" => "error", "message" => "Email does not exist"]);
 				}
-				
+
 				$sql = "UPDATE users SET userFirstname = ?, userLastname = ?, userAddress = ?, streetCode = ?, townCode = ?, userDob = ?, userMobile = ? WHERE userEmail = ?";
 				$stmt = $this->conn->prepare($sql);
 				$stmt->execute([
-					$this->getUserFirstname(),
-					$this->getUserLastname(),
-					$this->getUserAddress(),
-					$this->getStreetCode(),
-					$this->getTownCode(),
-					$this->getUserDob(),
-					$this->getMobile(),
-					$this->getUserEmail()
+					$this->data['fname'],
+					$this->data['lname'],
+					$this->data['houseNumber'],
+					$this->data['streetCode'],
+					$this->data['townCode'],
+					$this->data['dob'],
+					$this->data['mobile'],
+					$this->data['email']
 				]);
-				return json_encode([
+				return sendResponse([
 					"status"	=>	"success",
 				  	"message"	=>	"Profile updated"
 				]);
 				exit;
 			} catch (PDOException $e) {
-				return json_encode([
+				return sendResponse([
 					"status"	=>	"error",
 				  	"message"	=>	"Database Error:".$e->getMessage()
 				]);
@@ -173,7 +174,7 @@
 
 		public function profileRead() {
 			try {
-				$sql = "SELECT userEmail, userFirstname, userLastname, userAddress, streetCode, townCode, userDob, userMobile FROM users WHERE userEmail = ?";
+				$sql = "SELECT userEmail, userFirstname, userLastname, userAddress, streetCode, townCode, userDob, userMobile, isActive, roleId FROM users WHERE userEmail = ?";
 				$stmt = $this->conn->prepare($sql);		
 				$stmt->execute([
 					$this->getUserEmail()
@@ -211,53 +212,48 @@
 			}
 		}
 	  
-	  	public function login() {
-		  
-		  	// Validate form fields 
-		  	if (!utility::validateEmail($this->getUserEmail())){
+		public function login() {
+			// Validate form fields 
+			if (!utility::validateEmail($this->getUserEmail())) {
 				return json_encode(["status" => "error", "message" => "Invalid email address"]);
 			}
-		  
+		
 			try {
-			  	$stmt = $this->conn->prepare("SELECT userEmail, userPassword, roleId, isActive FROM users WHERE userEmail = ?");	
-			  	$stmt->execute([
-					$this->getUserEmail()
-				]);
-
-				if ($stmt->rowCount()>0) {
+				$stmt = $this->conn->prepare("
+					SELECT id, userEmail, userPassword, roleId, isActive 
+					FROM users 
+					WHERE userEmail = ?
+				");
+				$stmt->execute([$this->getUserEmail()]);
+		
+				if ($stmt->rowCount() > 0) {
 					$row = $stmt->fetch(PDO::FETCH_ASSOC);
-				  
-				  	if ($row && password_verify($this->getUserPassword(), $row['userPassword']))
-					{
+					if ($row && password_verify($this->getUserPassword(), $row['userPassword'])) {
+						$this->setUserId($row['id']);
 						return json_encode([
-							"status" 	=> "success",
-						  	"message" 	=> "Login successful",
-						  	"roleId" 	=> $row['roleId'],
-						  	"isActive" 	=> $row['isActive']
-					  	]);
-					  	exit;					
-					}
-					else {
-						return  json_encode([
-							"status" 	=> "error",
-						  	"message"	=> "Invalid credentials"
+							"status"   => "success",
+							"message"  => "Login successful",
+							"roleId"   => $row['roleId'],
+							"isActive" => $row['isActive'],
+							"userId"   => $this->getUserId()
 						]);
-					  	exit;
+					} else {
+						return json_encode([
+							"status"  => "error",
+							"message" => "Invalid credentials"
+						]);
 					}
-			  	}
-			  	else 
-			  	{
+				} else {
 					return json_encode([
-						"status"	=>	"error",
-						"message" => 	"Invalid credentials"
+						"status"  => "error",
+						"message" => "Invalid credentials"
 					]);
-					exit;
-			  	}			
+				}
 			} catch (PDOException $e) {
 				error_log($e->getMessage());
 				return json_encode([
 					"status"  => "error",
-					"message" => "An unexpected error occurred. Please try again later."
+					"message" => $e->getMessage()
 				]);
 			}
 		}
