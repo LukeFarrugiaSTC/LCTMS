@@ -12,6 +12,7 @@
     require_once '../classes/utility.class.php';
     require_once '../classes/user.class.php';
     require_once '../helpers/apiSecurityHelper.php';
+    require_once '../helpers/responseHelper.php';
 
     // Determine if the connection is secure
     $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
@@ -20,6 +21,12 @@
     if (!$isSecure) {
     sendResponse(["status" => "error", "message" => "HTTPS is required"], 403);
     }
+
+    // Ensure the request method is POST
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        sendResponse(["status" => "error", "message" => "Invalid request method"], 405);
+    }
+
 
     $apiSecurity = new ApiSecurity();
 
@@ -30,40 +37,34 @@
     // Get database connection
     $conn = Dbh::getInstance()->getConnection();
 
-    // Check if the request method is POST
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
-        // Get the raw POST data
-        $data = json_decode(file_get_contents('php://input'), true);
-      
-        // Create a Utility object and get the API key
-        $utility = new Utility();
-        $API_Key = $utility->getMyAPI_key();
-      
-        // Debugging output to check both keys
-        if (isset($data['api_key'])){
-            if ($data['api_key'] !== $API_Key){
-                echo json_encode(["status" => "error", "message" => "Invalid API Key"]);
-                exit;
-            } else if (empty($data['api_key'])){
-                echo json_encode(["status" => "error", "message" => "API Key is required"]);
-            }
-          
-            if (!isset($data['email']) || empty($data['email']) || !$utility->validateEmail($data['email'])) {
-                echo json_encode(["status" => "error", "message" => "Email is required"]);
-                exit;
-            }
-
-            // If API key is valid, fetch user profile
-            $user = new User();
-            $user->setUserEmail($data['email']);
-            echo $user->profileRead();
-          
-        } else {
-            echo json_encode(["status" => "error", "message" => "API Key is required"]);
+    // Get the raw POST data
+    $data = json_decode(file_get_contents('php://input'), true);
+    
+    // Create a Utility object and get the API key
+    $utility = new Utility();
+    $API_Key = $utility->getMyAPI_key();
+    
+    // Debugging output to check both keys
+    if (isset($data['api_key'])){
+        if ($data['api_key'] !== $API_Key){
+            echo sendResponse(["status" => "error", "message" => "Invalid API Key"]);
+            exit;
+        } else if (empty($data['api_key'])){
+            echo sendResponse(["status" => "error", "message" => "API Key is required"]);
         }
-    } else { // if request is not POST
-        echo json_encode(["status" => "error", "message" => "Invalid request method"]);
+        
+        if (!isset($data['email']) || empty($data['email']) || !$utility->validateEmail($data['email'])) {
+            echo sendResponse(["status" => "error", "message" => "Email is required"]);
+            exit;
+        }
+
+        // If API key is valid, fetch user profile
+        $user = new User();
+        $user->setUserEmail($data['email']);
+        echo $user->profileRead();
+        
+    } else {
+        echo sendResponse(["status" => "error", "message" => "API Key is required"]);
     }
   
  ?>

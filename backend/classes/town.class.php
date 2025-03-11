@@ -6,6 +6,7 @@
 		private $_townCode;
 	  	private $_townName;
 	  	private $_districtCode;
+		public $conn;
 	  
 	    public function __construct() {
         	$this->conn = Dbh::getInstance()->getConnection();
@@ -40,6 +41,3 @@
 		}
 	}
 ?>
-	  
-	  
-	    

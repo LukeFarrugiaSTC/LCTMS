@@ -4,6 +4,7 @@
     require_once '../classes/utility.class.php';
     require_once '../classes/role.class.php';
     require_once '../helpers/apiSecurityHelper.php';
+    require_once '../helpers/responseHelper.php';
 
     // Determine if the connection is secure
     $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
@@ -11,6 +12,11 @@
 
     if (!$isSecure) {
         sendResponse(["status" => "error", "message" => "HTTPS is required"], 403);
+    }
+
+    // Ensure the request method is POST
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        sendResponse(["status" => "error", "message" => "Invalid request method"], 405);
     }
 
     $apiSecurity = new ApiSecurity();
@@ -22,37 +28,30 @@
     // Get database connection
     $conn = Dbh::getInstance()->getConnection();
 
-    // Check if the request method is POST
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
-        // Get the raw POST data
-        $data = json_decode(file_get_contents('php://input'), true);
-        $utility = new Utility();
-      
+    // Get the raw POST data
+    $data = json_decode(file_get_contents('php://input'), true);
+    $utility = new Utility();
+    
 
-        // Get the API key from the utility class
-        $API_Key = $utility->getMyAPI_key();
-      
-        // Debugging output to check both keys
-        if (isset($data['api_key'])){
-            if ($data['api_key'] !== $API_Key){
-                echo json_encode(["status" => "error", "message" => "Invalid API Key"]);
-                exit;
-            } else if (empty($data['api_key'])){
-                echo json_encode(["status" => "error", "message" => "API Key is required"]);
-                exit;
-            }
-          
-            // If API key is valid, fetch roles
-            $role = new Role();
-            echo $role->roleRead();
-          
-        } else {
-            echo json_encode(["status" => "error", "message" => "API Key is required"]);
+    // Get the API key from the utility class
+    $API_Key = $utility->getMyAPI_key();
+    
+    // Debugging output to check both keys
+    if (isset($data['api_key'])){
+        if ($data['api_key'] !== $API_Key){
+            echo sendResponse(["status" => "error", "message" => "Invalid API Key"]);
+            exit;
+        } else if (empty($data['api_key'])){
+            echo sendResponse(["status" => "error", "message" => "API Key is required"]);
+            exit;
         }
-
-    } else { // if request is not POST
-          echo json_encode(["status" => "error", "message" => "Invalid request method"]);
+        
+        // If API key is valid, fetch roles
+        $role = new Role();
+        echo $role->roleRead();
+        
+    } else {
+        echo sendResponse(["status" => "error", "message" => "API Key is required"]);
     }
 ?>
 

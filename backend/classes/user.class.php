@@ -24,6 +24,7 @@
 	  	private $_userConfirm;
 	  	private $_userRole;
 	  	private $_isActive;
+		public $conn;
 	  
 	    public function __construct() {
         	$this->conn = Dbh::getInstance()->getConnection();
@@ -58,6 +59,12 @@
 	  
 	  	public function registration() {
 			try {
+				$stmt = $this->conn->prepare("SELECT userEmail FROM users WHERE userEmail = ?");
+				$stmt->execute([$this->getUserEmail()]);
+				if ($stmt->rowCount() > 0) {
+					return json_encode(["status" => "error", "message" => "Email already exists"]);
+				}
+
 			  	// Validate all user inputs before insertion
 			  	if (!utility::validateEmail($this->getUserEmail())) {
 					return json_encode(["status"	=> "error", "message" => "Invalid email format"]);
@@ -133,6 +140,12 @@
 
 		public function profileUpdate() {
 			try {
+				$stmt = $this->conn->prepare("SELECT userEmail FROM users WHERE userEmail = ?");
+				$stmt->execute([$this->getUserEmail()]);
+				if ($stmt->rowCount() === 0) {
+					return json_encode(["status" => "error", "message" => "Email does not exist"]);
+				}
+				
 				$sql = "UPDATE users SET userFirstname = ?, userLastname = ?, userAddress = ?, streetCode = ?, townCode = ?, userDob = ?, userMobile = ? WHERE userEmail = ?";
 				$stmt = $this->conn->prepare($sql);
 				$stmt->execute([

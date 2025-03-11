@@ -32,11 +32,11 @@ if [ "$RATE_LIMIT_TEST" = true ]; then
     echo "Running rate limit test for townsList endpoint..."
     for i in $(seq 1 70); do
         echo "Sending request $i"
-        curl -ks -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$URL" &
+        curl -ks -X POST -d "$PAYLOAD" "$URL" &
     done
     wait
     echo "Rate limit test completed."
 else
-    curl -ks -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$URL"
+    curl -ks -X POST -d "$PAYLOAD" "$URL"
     echo
 fi

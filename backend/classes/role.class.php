@@ -15,6 +15,7 @@
     class Role {
         private $_roleId;
         private $_roleName;
+        public $conn;
 
         public function __construct() {
             $this->conn = Dbh::getInstance()->getConnection();

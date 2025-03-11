@@ -3,7 +3,7 @@
 
 	class Utility
 	{
-
+		public $conn;
 		private static $myAPI_key;
 
 		public static function getMyAPI_key() {

@@ -37,12 +37,6 @@ def main():
         default=100,
         help="Total number of requests to send (default: 100)",
     )
-    parser.add_argument(
-        "--header",
-        type=str,
-        default='{"Content-Type": "application/json"}',
-        help='HTTP headers as JSON (default: {"Content-Type": "application/json"})',
-    )
     args = parser.parse_args()
 
     try:
