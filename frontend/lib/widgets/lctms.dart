@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/forgot_password.dart';
 import 'package:frontend/pages/home_page.dart';
+import 'package:frontend/pages/landing.dart';
 import 'package:frontend/pages/login_page.dart';
 import 'package:frontend/pages/register_page.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,6 +74,7 @@ class LCTMS extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/forgot-password': (context) => const ForgotPassword(),
+        '/landing': (context) => const LandingPage(),
       },
     );
   }
