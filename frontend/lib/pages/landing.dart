@@ -3,9 +3,13 @@ import 'package:frontend/widgets/main_drawer.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
+  final int _role = 1;
+
 
   @override
   Widget build(BuildContext context) {
+
+
     void _setPage(String identifier) {
       if (identifier == '/login') {
         //logs out user
@@ -20,19 +24,22 @@ class LandingPage extends StatelessWidget {
       Navigator.pushNamed(context, identifier); //navigate to chosen screen
     }
 
+    //Logic to create nav menu
+
+    
+
+
+
+
     return Scaffold(
-      appBar: AppBar(title: const Text('LCTMS')),
-      drawer: MainDrawer(onSelectPage: _setPage),
+      appBar: AppBar(title: const Text('Book a Ride')),
+      drawer: MainDrawer(onSelectPage: _setPage, roleId: _role,),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(onPressed: () {}, child: const Text('Book a Ride!')),
-            const SizedBox(height: 30),
-            ElevatedButton(onPressed: () {}, child: const Text('My Bookings')),
-            const SizedBox(height: 30),
-            ElevatedButton(onPressed: () {}, child: const Text('Contact Us!')),
+            
           ],
         ),
       ),

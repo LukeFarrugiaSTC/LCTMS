@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/helpers/icon_helper.dart';
+import 'package:frontend/models/role_nav_widgets_list.dart';
 import 'package:frontend/widgets/custom_list_tile_drawer.dart';
 
+
 class MainDrawer extends StatelessWidget {
-  const MainDrawer({super.key, required this.onSelectPage});
+  MainDrawer({super.key, required this.onSelectPage, required this.roleId})
+  : menuItems = RoleNavWidgetsList.navItems[roleId] ?? [];
 
   final void Function(String identifier) onSelectPage;
+  final int roleId; 
+  final List<Map<String, String>> menuItems;
+ 
+  void printMenuItems(){
+    for (var item in menuItems){
+      print('Title: ${item['title']}');
+      print('Title: ${item['icon']}');
+      print('Title: ${item['destinationPath']}');
+    }
+
+  }
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,20 +59,26 @@ class MainDrawer extends StatelessWidget {
               ],
             ),
           ),
-
+          Expanded(
+            child: ListView.builder(
+              itemCount: menuItems.length,
+              itemBuilder: (context, index){
+                final item = menuItems[index];
+                return CustomListTileDrawer(
+                  icon: getIconData(item['icon']!),
+                  title: item['title']!,
+                  destinationPath: item['destinationPath']!,
+                  onSelectPage: onSelectPage);
+                  
+              },),
+          ),
+          Spacer(),
           CustomListTileDrawer(
             icon: Icons.person,
             title: 'My Profile',
             destinationPath: '/profile',
             onSelectPage: onSelectPage,
           ),
-          CustomListTileDrawer(
-            icon: Icons.people,
-            title: 'Users',
-            destinationPath: '/users',
-            onSelectPage: onSelectPage,
-          ),
-          Spacer(),
           CustomListTileDrawer(
             icon: Icons.logout_rounded,
             title: 'Logout',
