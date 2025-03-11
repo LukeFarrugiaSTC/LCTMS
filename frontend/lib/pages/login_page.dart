@@ -12,13 +12,19 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final String _username = 'lukefarrugia@stcmalta.edu.mt';
+  final String _password = 'a';
+  bool _isValid = false;
+  String? _invaldCredentials;
 
-  void _login() {
+  bool _login() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       print(_emailController);
       print(_passwordController);
+      return true;
     }
+    return false;
   }
 
   @override
@@ -72,9 +78,36 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       children: [
                         ElevatedButton(
-                          onPressed: _login,
+                          onPressed: () {
+                            setState(() {
+                              _isValid = _login();
+
+                              if (_isValid &&
+                                  _emailController.text == _username &&
+                                  _passwordController.text == _password) {
+                                _invaldCredentials =
+                                    null; //clears error message
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  '/landing',
+                                  (Route<dynamic> route) => false,
+                                );
+                              } else {
+                                _invaldCredentials =
+                                    'Invalid email or password. Please try again.';
+                              }
+                            });
+                          },
                           child: const Text('Log in'),
                         ),
+                        if (_invaldCredentials != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              _invaldCredentials!,
+                              style: TextStyle(color: Colors.red, fontSize: 14),
+                            ),
+                          ),
                         SizedBox(height: 5),
                         Row(
                           children: [
