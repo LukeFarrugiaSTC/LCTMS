@@ -68,39 +68,3 @@ class MainDrawer extends StatelessWidget {
     );
   }
 }
-
-
-// ListTile(
-//             leading: Icon(
-//               Icons.person,
-//               size: 26,
-//               color: Theme.of(context).colorScheme.onSurface,
-//             ),
-//             title: Text(
-//               'My Profile',
-//               style: Theme.of(context).textTheme.titleSmall!.copyWith(
-//                 color: Theme.of(context).colorScheme.onSurface,
-//                 fontSize: 24,
-//               ),
-//             ),
-//             onTap: () {
-//               onSelectPage('/profile');
-//             },
-//           ),
-//           ListTile(
-//             leading: Icon(
-//               Icons.people,
-//               size: 26,
-//               color: Theme.of(context).colorScheme.onSurface,
-//             ),
-//             title: Text(
-//               'Users',
-//               style: Theme.of(context).textTheme.titleSmall!.copyWith(
-//                 color: Theme.of(context).colorScheme.onSurface,
-//                 fontSize: 24,
-//               ),
-//             ),
-//             onTap: () {
-//               onSelectPage('/users');
-//             },
-//           ),
