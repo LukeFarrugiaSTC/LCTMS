@@ -3,17 +3,19 @@ services:
   backend:
     build: ./backend
     expose:
-      - "80"       # Exposes port internally only
+      - "80"       
     volumes:
       - ./backend:/var/www/html
     depends_on:
       - mysql
+      - redis
     environment:
       API_KEY: ${API_KEY}
       DB_HOST: mysql
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
       DB_NAME: ${DB_NAME}
+      MAILER_DSN: ${MAILER_DSN}
 
   mysql:
     image: mysql:8.0
