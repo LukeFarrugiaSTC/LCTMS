@@ -49,6 +49,13 @@ services:
     ports:
       - "6379:6379"
 
+  mailhog:  # Added MailHog for local SMTP testing
+    image: mailhog/mailhog
+    restart: always
+    ports:
+      - "1025:1025"  # SMTP server
+      - "8025:8025"  # Web UI to check sent emails      
+
 volumes:
   mysql-data:
   nginx-ssl:
