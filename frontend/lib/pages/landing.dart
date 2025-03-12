@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/book_ride.dart';
+import 'package:frontend/widgets/book_ride.dart';
 import 'package:frontend/widgets/main_drawer.dart';
 
 class LandingPage extends StatelessWidget {

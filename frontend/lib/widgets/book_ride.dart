@@ -77,7 +77,7 @@ class _BookRide extends State<BookRide> {
   }
 
   void _resetForm() {
-    _keyForm.currentState?.reset();
+    //_keyForm.currentState?.reset();   <=== with this I get an error due to thedrop down menu, but without it the form's state will not reset
     _nameController.clear();
     _surnameController.clear();
     _emailController.clear();
@@ -195,7 +195,7 @@ class _BookRide extends State<BookRide> {
                 ),
                 const SizedBox(height: 10),
                 DropdownButtonFormField(
-                  value: _dropOffLocation == '' ? null : _dropOffLocation,
+                  value: _dropOffLocation.isEmpty ? null : _dropOffLocation,
                   decoration: InputDecoration(
                     label: Text(
                       _dropOffLocation.isEmpty
