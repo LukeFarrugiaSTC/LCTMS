@@ -25,18 +25,18 @@ if [ -z "$API_KEY" ]; then
     exit 1
 fi
 
-URL="https://localhost:443/endpoints/townsList.php"
+URL="https://localhost:443/endpoints/locations/townsList.php"
 PAYLOAD='{"api_key": "'"$API_KEY"'"}'
 
 if [ "$RATE_LIMIT_TEST" = true ]; then
     echo "Running rate limit test for townsList endpoint..."
     for i in $(seq 1 70); do
         echo "Sending request $i"
-        curl -ks -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$URL" &
+        curl -ks -X POST -d "$PAYLOAD" "$URL" &
     done
     wait
     echo "Rate limit test completed."
 else
-    curl -ks -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$URL"
+    curl -ks -X POST -d "$PAYLOAD" "$URL"
     echo
 fi

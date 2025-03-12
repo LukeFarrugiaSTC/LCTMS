@@ -40,7 +40,11 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS destinations (
     destinationId INT AUTO_INCREMENT PRIMARY KEY,
-    destination_name VARCHAR(250) NOT NULL
+    destination_name VARCHAR(250) NOT NULL,
+    streetCode INT NOT NULL,
+    townCode VARCHAR(4) NOT NULL,
+    FOREIGN KEY (streetCode) REFERENCES streets(streetCode),
+    FOREIGN KEY (townCode) REFERENCES towns(townCode)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS bookings (
@@ -48,7 +52,7 @@ CREATE TABLE IF NOT EXISTS bookings (
     userId INT NOT NULL,
     destinationId INT NOT NULL,
     bookingStatus VARCHAR(100) NOT NULL,
-    bookingDate DATE NOT NULL,
+    bookingDate DATETIME NOT NULL,
     FOREIGN KEY (userId) REFERENCES users(id),
     FOREIGN KEY (destinationId) REFERENCES destinations(destinationId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -266,6 +270,13 @@ INSERT INTO `streets` (`streetCode`, `townCode`, `streetName`, `streetLongitude`
 ('01020009', '0102', 'Triq l-Ahwa Cefai', 0.00000000, 0.00000000),
 ('01021962', '0102', 'Triq il- Balliju Guttenberg, Blk A, Ent. 2', 14.47873000, 35.89671000),
 ('01029008', '0102', 'Triq San Gorg Preca, Blk 2B', NULL, NULL);
+
+INSERT INTO destinations (destination_name, streetCode, townCode) VALUES
+  ('Mater Dei Hospital', '00441919', '0044'),
+  ('St. Luke''s Hospital', '00440284', '0044'),
+  ('Bank of Valletta', '00440015', '0044'),
+  ('HSBC Bank Malta', '00440141', '0044'),
+  ('APS Bank', '00440200', '0044');
 
 ALTER TABLE `streets`
   ADD PRIMARY KEY (`streetCode`),

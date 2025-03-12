@@ -16,6 +16,7 @@ services:
       DB_PASS: ${DB_PASS}
       DB_NAME: ${DB_NAME}
       MAILER_DSN: ${MAILER_DSN}
+      JWT_KEY: ${JWT_KEY}
 
   mysql:
     image: mysql:8.0

@@ -19,19 +19,19 @@ else
     exit 1
 fi
 
-URL="https://localhost:443/endpoints/registration.php"
+URL="https://localhost:443/endpoints/user/registration.php"
 PAYLOAD=$(cat <<EOF
 {
-  "email": "newuser@example.com",
-  "fname": "John",
-  "lname": "Doe",
-  "address": "123 Main St",
-  "streetCode": "ST123",
-  "townCode": "TN456",
-  "mobile": "1234567890",
-  "dob": "1990-01-01",
-  "password": "Password12!",
-  "confirm": "Password12!"
+    "email": "test@example.com",
+    "fname": "John",
+    "lname": "Doe",
+    "houseNumber": "123 Main St",
+    "streetName": "Triq Censu Vella",
+    "townName": "L-Imsida",
+    "mobile": "12345678",
+    "dob": "1990-01-01",
+    "password": "Password12!",
+    "confirm": "Password12!"
 }
 EOF
 )
@@ -42,11 +42,11 @@ if [ "$RATE_LIMIT_TEST" = true ]; then
     echo "Running rate limit test for registration endpoint..."
     for i in $(seq 1 70); do
         echo "Sending request $i"
-        curl -ks -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$URL" &
+        curl -ks -X POST -d "$PAYLOAD" "$URL" &
     done
     wait
     echo "Rate limit test completed."
 else
-    curl -ks -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$URL"
+    curl -ks -X POST -d "$PAYLOAD" "$URL"
     echo
 fi

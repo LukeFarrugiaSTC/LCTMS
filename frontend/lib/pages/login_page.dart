@@ -1,4 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
+
+// Import your custom text field widget
 import 'package:frontend/widgets/custom_text_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,22 +14,74 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // Keys and controllers
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final String _username = 'lukefarrugia@stcmalta.edu.mt';
-  final String _password = 'a';
-  bool _isValid = false;
-  String? _invaldCredentials;
 
+  // Validation / state variables
+  bool _isValid = false;
+  String? _invalidCredentials;
+
+  /// Validates the form inputs using the validators 
+  /// defined in each `CustomTextField`.
   bool _login() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print(_emailController);
-      print(_passwordController);
       return true;
     }
     return false;
+  }
+
+  /// Makes a POST request to your PHP login endpoint.
+  /// If successful, it retrieves the JWT token and stores 
+  /// it securely, then navigates to the Landing page.
+  Future<void> _submitLogin() async {
+    try {
+      final url = Uri.parse('https://localhost:443/endpoints/user/login.php');
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': _emailController.text.trim(),
+          'password': _passwordController.text.trim(),
+        }),
+      );
+
+      print('Status code: ${response.statusCode}');
+      print('Response body: ${response.body}'); // <-- Add this for debugging
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        if (data['status'] == 'success') {
+          // Extract the JWT token
+          final String token = data['token'];
+
+          // Securely store it using flutter_secure_storage
+          const storage = FlutterSecureStorage();
+          await storage.write(key: 'jwt_token', value: token);
+
+          // Navigate to landing page
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/landing', (Route<dynamic> route) => false);
+        } else {
+          // Show error message from server or a default one
+          setState(() {
+            _invalidCredentials = data['message'] ?? 'Invalid credentials.';
+          });
+        }
+      } else {
+        setState(() {
+          _invalidCredentials =
+              'Error: ${response.statusCode}. Please try again.';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _invalidCredentials = 'An error occurred: $e';
+      });
+    }
   }
 
   @override
@@ -41,17 +98,20 @@ class _LoginPageState extends State<LoginPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Top "Welcome" text
           Expanded(
             child: Center(
               child: Text(
                 'Welcome',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge!.copyWith(fontSize: 30),
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 30,
+                    ),
               ),
             ),
           ),
-          Spacer(),
+
+          // Form fields and buttons
+          const Spacer(),
           Form(
             key: _formKey,
             child: Padding(
@@ -72,43 +132,38 @@ class _LoginPageState extends State<LoginPage> {
                     textCapitalization: TextCapitalization.none,
                     obscureText: true,
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   SizedBox(
                     width: 300,
                     child: Column(
                       children: [
                         ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             setState(() {
                               _isValid = _login();
-
-                              if (_isValid &&
-                                  _emailController.text == _username &&
-                                  _passwordController.text == _password) {
-                                _invaldCredentials =
-                                    null; //clears error message
-                                Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  '/landing',
-                                  (Route<dynamic> route) => false,
-                                );
-                              } else {
-                                _invaldCredentials =
-                                    'Invalid email or password. Please try again.';
-                              }
+                              _invalidCredentials = null;
                             });
+
+                            if (_isValid) {
+                              await _submitLogin();
+                            }
                           },
                           child: const Text('Log in'),
                         ),
-                        if (_invaldCredentials != null)
+
+                        // Show any error messages
+                        if (_invalidCredentials != null)
                           Padding(
                             padding: const EdgeInsets.only(top: 10),
                             child: Text(
-                              _invaldCredentials!,
-                              style: TextStyle(color: Colors.red, fontSize: 14),
+                              _invalidCredentials!,
+                              style: const TextStyle(
+                                color: Colors.red,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        SizedBox(height: 5),
+                        const SizedBox(height: 5),
                         Row(
                           children: [
                             TextButton(
@@ -116,16 +171,13 @@ class _LoginPageState extends State<LoginPage> {
                                 Navigator.pushNamed(context, '/register');
                               },
                               style: TextButton.styleFrom(
-                                fixedSize: Size(150, 40),
+                                fixedSize: const Size(150, 40),
                                 padding: EdgeInsets.zero,
                                 alignment: Alignment.centerLeft,
                               ),
-                              child: const Text(
-                                'Register now',
-                                textAlign: TextAlign.start,
-                              ),
+                              child: const Text('Register now'),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             TextButton(
                               onPressed: () {
                                 Navigator.pushNamed(
@@ -134,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                                 );
                               },
                               style: TextButton.styleFrom(
-                                fixedSize: Size(150, 40),
+                                fixedSize: const Size(150, 40),
                                 padding: EdgeInsets.zero,
                                 alignment: Alignment.centerRight,
                               ),
@@ -149,8 +201,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );

@@ -19,18 +19,18 @@ else
 fi
 
 # The login endpoint doesn't require an API key so we only need email and password
-URL="https://localhost:443/endpoints/login.php"
+URL="https://localhost:443/endpoints/user/login.php"
 PAYLOAD='{"email": "test@example.com", "password": "Password12!"}'
 
 if [ "$RATE_LIMIT_TEST" = true ]; then
     echo "Running rate limit test for login endpoint..."
     for i in $(seq 1 70); do
         echo "Sending request $i"
-        curl -ks -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$URL" &
+        curl -ks -X POST -d "$PAYLOAD" "$URL" &
     done
     wait
     echo "Rate limit test completed."
 else
-    curl -ks -X POST -H "Content-Type: application/json" -d "$PAYLOAD" "$URL"
+    curl -ks -X POST -d "$PAYLOAD" "$URL"
     echo
 fi

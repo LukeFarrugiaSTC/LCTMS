@@ -1,5 +1,5 @@
 #!/bin/bash
-# Test the profileRead endpoint with optional rate limit test
+# Test the townsList endpoint with optional rate limit test
 
 # Parse command-line arguments
 RATE_LIMIT_TEST=false
@@ -19,24 +19,24 @@ else
     exit 1
 fi
 
-# Ensure API_KEY is set (required for this endpoint)
+# API_KEY is required for streetList
 if [ -z "$API_KEY" ]; then
     echo "API_KEY is not set in the .env file."
     exit 1
 fi
 
-URL="https://localhost:443/endpoints/user/profileRead.php"
-PAYLOAD='{"api_key": "'"$API_KEY"'", "email": "test@example.com"}'
+URL="https://localhost:443/endpoints/locations/streetList.php"
+PAYLOAD='{"api_key": "'"$API_KEY"'"}'
 
 if [ "$RATE_LIMIT_TEST" = true ]; then
-    echo "Running rate limit test for profileRead endpoint..."
+    echo "Running rate limit test for streetList endpoint..."
     for i in $(seq 1 70); do
         echo "Sending request $i"
-        curl -ks -X POST  -d "$PAYLOAD" "$URL" &
+        curl -ks -X POST -d "$PAYLOAD" "$URL" &
     done
     wait
     echo "Rate limit test completed."
 else
-    curl -ks -X POST  -d "$PAYLOAD" "$URL"
+    curl -ks -X POST -d "$PAYLOAD" "$URL"
     echo
 fi
