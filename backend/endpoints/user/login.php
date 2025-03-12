@@ -10,7 +10,6 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../../helpers/JwtHelper.php';
 
 use Helpers\JwtHelper;
-use \Firebase\JWT\JWT;
 
 try {
     $apiSecurity = new ApiSecurity();
