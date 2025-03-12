@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS towns (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS streets (
-    streetCode INT AUTO_INCREMENT PRIMARY KEY,
+    streetCode VARCHAR(8) AUTO_INCREMENT PRIMARY KEY,
     townCode VARCHAR(4) NOT NULL,
     streetName VARCHAR(150) NOT NULL,
     streetLongitude DECIMAL(10,8) DEFAULT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS users (
     userFirstname VARCHAR(100) NOT NULL,
     userLastname VARCHAR(100) NOT NULL,
     userAddress VARCHAR(255),
-    streetCode INT,
+    streetCode VARCHAR(8),
     townCode VARCHAR(4),
     userDob DATE,
     userMobile VARCHAR(20),
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS destinations (
     destinationId INT AUTO_INCREMENT PRIMARY KEY,
     destination_name VARCHAR(250) NOT NULL,
-    streetCode INT NOT NULL,
+    streetCode VARCHAR(8) NOT NULL,
     townCode VARCHAR(4) NOT NULL,
     FOREIGN KEY (streetCode) REFERENCES streets(streetCode),
     FOREIGN KEY (townCode) REFERENCES towns(townCode)
