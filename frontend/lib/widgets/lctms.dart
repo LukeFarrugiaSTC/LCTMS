@@ -63,7 +63,7 @@ class LCTMS extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: '/landing',
+      initialRoute: '/',
 
       routes: {
         '/': (context) => const HomePage(),

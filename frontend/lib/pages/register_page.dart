@@ -49,7 +49,6 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   bool _register() {
-    print(_confirmPasswordController.text);
     if (_keyForm.currentState!.validate()) {
       _keyForm.currentState!.save();
 
