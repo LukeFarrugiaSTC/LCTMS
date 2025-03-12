@@ -6,6 +6,7 @@ import 'package:frontend/pages/login_page.dart';
 import 'package:frontend/pages/profile.dart';
 import 'package:frontend/pages/register_page.dart';
 import 'package:frontend/pages/users.dart';
+import 'package:frontend/pages/view_bookings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 var kcolourScheme = ColorScheme.fromSeed(
@@ -35,7 +36,7 @@ class LCTMS extends StatelessWidget {
           ),
         ),
         cardTheme: const CardTheme().copyWith(
-          color: kcolourScheme.secondaryContainer,
+          color: const Color.fromARGB(255, 243, 231, 231),
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -62,17 +63,22 @@ class LCTMS extends StatelessWidget {
             fontSize: 16,
           ),
         ),
+
+        drawerTheme: DrawerThemeData(
+          backgroundColor: const Color.fromARGB(255, 243, 231, 231),
+        ),
       ),
-      initialRoute: '/',
+      initialRoute: '/landing',
 
       routes: {
         '/': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
-        '/forgot-password': (context) => const ForgotPassword(),
+        '/forgot-password': (context) => const ForgotPasswordPage(),
         '/landing': (context) => const LandingPage(),
         '/profile': (context) => const ProfilePage(),
         '/users': (context) => const UsersPage(),
+        '/view_bookings': (context) => ViewBookingsPage(),
       },
     );
   }

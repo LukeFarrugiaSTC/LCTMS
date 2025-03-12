@@ -29,10 +29,8 @@ class MainDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Theme.of(context).colorScheme.primaryContainer,
-                  Theme.of(
-                    context,
-                  ).colorScheme.primaryContainer.withValues(alpha: 0.8),
+                  const Color.fromARGB(255, 243, 231, 231),
+                  const Color.fromARGB(200, 243, 231, 231),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,

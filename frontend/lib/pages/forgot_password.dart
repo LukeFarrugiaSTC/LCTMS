@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/custom_text_field.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({super.key});
+class ForgotPasswordPage extends StatefulWidget {
+  const ForgotPasswordPage({super.key});
 
   @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
+  State<ForgotPasswordPage> createState() => _ForgotPasswordState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _ForgotPasswordState extends State<ForgotPasswordPage> {
   final TextEditingController _emailController = TextEditingController();
   final _keyForm = GlobalKey<FormState>();
 
