@@ -3,25 +3,21 @@ import 'package:frontend/helpers/icon_helper.dart';
 import 'package:frontend/models/role_nav_widgets_list.dart';
 import 'package:frontend/widgets/custom_list_tile_drawer.dart';
 
-
 class MainDrawer extends StatelessWidget {
   MainDrawer({super.key, required this.onSelectPage, required this.roleId})
-  : menuItems = RoleNavWidgetsList.navItems[roleId] ?? [];
+    : menuItems = RoleNavWidgetsList.navItems[roleId] ?? [];
 
   final void Function(String identifier) onSelectPage;
-  final int roleId; 
+  final int roleId;
   final List<Map<String, String>> menuItems;
- 
-  void printMenuItems(){
-    for (var item in menuItems){
+
+  void printMenuItems() {
+    for (var item in menuItems) {
       print('Title: ${item['title']}');
       print('Title: ${item['icon']}');
       print('Title: ${item['destinationPath']}');
     }
-
   }
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,15 +58,16 @@ class MainDrawer extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemCount: menuItems.length,
-              itemBuilder: (context, index){
+              itemBuilder: (context, index) {
                 final item = menuItems[index];
                 return CustomListTileDrawer(
                   icon: getIconData(item['icon']!),
                   title: item['title']!,
                   destinationPath: item['destinationPath']!,
-                  onSelectPage: onSelectPage);
-                  
-              },),
+                  onSelectPage: onSelectPage,
+                );
+              },
+            ),
           ),
           Spacer(),
           CustomListTileDrawer(
@@ -82,7 +79,7 @@ class MainDrawer extends StatelessWidget {
           CustomListTileDrawer(
             icon: Icons.logout_rounded,
             title: 'Logout',
-            destinationPath: '/',
+            destinationPath: '/login',
             onSelectPage: onSelectPage,
           ),
           SizedBox(height: 30),
