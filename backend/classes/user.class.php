@@ -13,6 +13,11 @@
 	require_once __DIR__ . '/Exceptions/validationException.class.php';
 	require_once __DIR__ . '/validators/userValidator.class.php';
 	require_once __DIR__ . '/../helpers/responseHelper.php';
+	require_once __DIR__ . '/../vendor/autoload.php';
+
+	use Symfony\Component\Mailer\Transport;
+	use Symfony\Component\Mailer\Mailer;
+	use Symfony\Component\Mime\Email;
 
 	class User {
 		private $_userId;
@@ -228,8 +233,6 @@
 		
 					// Step 3: Store the PIN in the database (Optional: Store with expiration time)
 					$sqlUpdate = "UPDATE users SET userPin = ? WHERE userEmail = ?";
-					echo $sqlUpdate;
-					
 					$stmtUpdate = $this->conn->prepare($sqlUpdate);
 					$stmtUpdate->execute([$randomPIN, $this->getUserEmail()]);
 		
@@ -256,6 +259,10 @@
 
 		// Add this function inside your User class
 		private function sendResetPinEmail($userEmail, $pin) {
+			$mailerDsn = $_ENV['MAILER_DSN'] ?? 'Not found'; // Using $_ENV
+			echo $mailerDsn;
+			exit;
+						
 			// Step 1: Configure the mail transport
 			$transport = Transport::fromDsn('smtp://mailhog:1025'); 
 

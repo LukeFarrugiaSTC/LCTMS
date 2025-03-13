@@ -54,7 +54,13 @@ services:
     restart: always
     ports:
       - "1025:1025"  # SMTP server
-      - "8025:8025"  # Web UI to check sent emails      
+      - "8025:8025"  # Web UI to check sent emails  
+    environment:
+      MH_OUTGOING_SMTP: 'mail.bravehost.com:587'
+      MH_OUTGOING_SMTP_USERNAME: 'info@andrewmallia.com'
+      MH_OUTGOING_SMTP_PASSWORD: 'andrew%261234'  # URL-encoded '&' as %26
+      MH_OUTGOING_SMTP_AUTH: 'plain'
+      MH_OUTGOING_SMTP_STARTTLS: 'always'  # Use TLS/StartTLS as required by Bravehost    
 
 volumes:
   mysql-data:

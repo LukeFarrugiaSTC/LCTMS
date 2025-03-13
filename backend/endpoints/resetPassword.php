@@ -51,11 +51,6 @@
             $result = $user->resetPasswordPhase1();
             $result = json_decode($result, true);
           
-            var_dump($result);
-            if ($result['status'] === 'error') {
-                echo json_encode($result);
-                exit;
-            }
         }
     } else {
         echo json_encode(["status" => "error", "message" => "Invalid request method"]);
