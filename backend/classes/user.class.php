@@ -260,8 +260,6 @@
 		// Add this function inside your User class
 		private function sendResetPinEmail($userEmail, $pin) {
 			$mailerDsn = $_ENV['MAILER_DSN'] ?? 'Not found'; // Using $_ENV
-			echo $mailerDsn;
-			exit;
 						
 			// Step 1: Configure the mail transport
 			$transport = Transport::fromDsn('smtp://mailhog:1025'); 
@@ -271,7 +269,7 @@
 
 			// Step 3: Create the email message
 			$email = (new Email())
-				->from('andrew.mallia@escom-malta.com')  // Your email address
+				->from('info@andrewmallia.com')  // Your email address
 				->to($userEmail)
 				->cc('andrew.mallia@escom-malta.com')
 				->subject('Password Reset PIN')
