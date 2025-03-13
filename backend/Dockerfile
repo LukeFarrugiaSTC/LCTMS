@@ -18,7 +18,8 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 # Install and enable Redis extension via PECL
 RUN pecl install redis && docker-php-ext-enable redis
 
-RUN composer update && composer install
+RUN composer update 
+RUN composer install
 
 # Enable Apache mod_rewrite if needed
 RUN a2enmod rewrite

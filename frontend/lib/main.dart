@@ -6,10 +6,8 @@ import 'dart:io';
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    final client = super.createHttpClient(context);
-    // This disables ALL certificate checks
-    client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-    return client;
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }
 
