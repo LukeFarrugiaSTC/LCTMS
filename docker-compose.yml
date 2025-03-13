@@ -49,18 +49,21 @@ services:
     ports:
       - "6379:6379"
 
-  mailhog:  # Added MailHog for local SMTP testing
-    image: mailhog/mailhog
+  mailhog:
+    image: mailhog/mailhog:latest
+    platform: "linux/amd64"
     restart: always
     ports:
-      - "1025:1025"  # SMTP server
-      - "8025:8025"  # Web UI to check sent emails  
+      - "1025:1025"
+      - "8025:8025"
+    volumes:
+      - ./entrypoint.sh:/entrypoint.sh:ro
+      - ./config:/config
     environment:
-      MH_OUTGOING_SMTP: 'mail.bravehost.com:587'
-      MH_OUTGOING_SMTP_USERNAME: 'info@andrewmallia.com'
-      MH_OUTGOING_SMTP_PASSWORD: 'andrew%261234'  # URL-encoded '&' as %26
-      MH_OUTGOING_SMTP_AUTH: 'plain'
-      MH_OUTGOING_SMTP_STARTTLS: 'always'  # Use TLS/StartTLS as required by Bravehost    
+      MAIL_HOST: "127.0.0.1"
+      MAIL_PORT: "1025"
+    entrypoint: ["/entrypoint.sh"]
+    command: ["-outgoing-smtp", "/config/outgoing_smtp.json"]
 
 volumes:
   mysql-data:

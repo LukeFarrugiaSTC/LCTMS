@@ -18,6 +18,13 @@ frontend/web/icons/Icon-maskable-192.png
 frontend/web/icons/Icon-maskable-512.png
 frontend/windows/runner/resources/app_icon.ico
 
+frontend/macos/*
+frontend/ios/*
+frontend/android/*
+frontend/web/*
+frontend/linux/*
+frontend/test/*
+
 # Generated files
 .dart_tool/
 .packages
