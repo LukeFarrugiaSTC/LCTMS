@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/models/booking.dart';
+import 'package:frontend/widgets/bookings/bookings_list.dart';
 
 class UpcomingBookingsPage extends StatelessWidget {
-  const UpcomingBookingsPage({super.key});
+  const UpcomingBookingsPage({super.key, required this.tempBookings});
+
+  final List<Booking> tempBookings;
 
   @override
   Widget build(BuildContext context) {
-    return Text('Upcoming bookings page');
+    return Center(
+      child: Column(
+        children: [
+          SizedBox(height: 10),
+          Expanded(child: BookingsList(bookings: tempBookings)),
+        ],
+      ),
+    );
   }
 }
