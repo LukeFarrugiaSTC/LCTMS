@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-//import 'package:frontend/config/api_config.dart';
-
-// Import your custom text field widget
+import 'package:frontend/config/api_config.dart';
 import 'package:frontend/widgets/custom_text_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,12 +18,11 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  // Validation / state variables
+  // State variables
   bool _isValid = false;
   String? _invalidCredentials;
 
-  /// Validates the form inputs using the validators
-  /// defined in each `CustomTextField`.
+  /// Validates the form inputs using validators defined in CustomTextField.
   bool _login() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -35,14 +32,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   /// Makes a POST request to your PHP login endpoint.
-  /// If successful, it retrieves the JWT token and stores
-  /// it securely, then navigates to the Landing page.
+  /// On success, stores the JWT token securely and navigates to the Landing page.
   Future<void> _submitLogin() async {
     try {
-      //final url = Uri.parse('$apiBaseUrl/endpoints/user/login.php');
-      final url = Uri.parse(
-        '/endpoints/user/login.php',
-      ); //temp to delete until emma pushes
+      final url = Uri.parse('$apiBaseUrl/endpoints/user/login.php');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
@@ -56,21 +49,21 @@ class _LoginPageState extends State<LoginPage> {
         final data = jsonDecode(response.body);
 
         if (data['status'] == 'success') {
-          // Extract the JWT token
+          // Extract the JWT token without logging sensitive data.
           final String token = data['token'];
 
-          // Securely store it using flutter_secure_storage
+          // Securely store the token using flutter_secure_storage.
           const storage = FlutterSecureStorage();
           await storage.write(key: 'jwt_token', value: token);
 
-          // Navigate to landing page
+          // Navigate to landing page (clear previous routes).
           Navigator.pushNamedAndRemoveUntil(
             context,
             '/landing',
             (Route<dynamic> route) => false,
           );
         } else {
-          // Show error message from server or a default one
+          // Show an error message from the server or a default one.
           setState(() {
             _invalidCredentials = data['message'] ?? 'Invalid credentials.';
           });
@@ -82,9 +75,11 @@ class _LoginPageState extends State<LoginPage> {
         });
       }
     } catch (e) {
+      // Avoid exposing sensitive error details.
       setState(() {
-        _invalidCredentials = 'An error occurred: $e';
+        _invalidCredentials = 'An error occurred. Please try again later.';
       });
+      debugPrint('Login error: $e');
     }
   }
 
@@ -107,13 +102,13 @@ class _LoginPageState extends State<LoginPage> {
             child: Center(
               child: Text(
                 'Welcome',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge!.copyWith(fontSize: 30),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(fontSize: 30),
               ),
             ),
           ),
-
           // Form fields and buttons
           const Spacer(),
           Form(
@@ -147,15 +142,12 @@ class _LoginPageState extends State<LoginPage> {
                               _isValid = _login();
                               _invalidCredentials = null;
                             });
-
                             if (_isValid) {
                               await _submitLogin();
                             }
                           },
                           child: const Text('Log in'),
                         ),
-
-                        // Show any error messages
                         if (_invalidCredentials != null)
                           Padding(
                             padding: const EdgeInsets.only(top: 10),
@@ -184,10 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                             const Spacer(),
                             TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  '/forgot-password',
-                                );
+                                Navigator.pushNamed(context, '/forgot-password');
                               },
                               style: TextButton.styleFrom(
                                 fixedSize: const Size(150, 40),

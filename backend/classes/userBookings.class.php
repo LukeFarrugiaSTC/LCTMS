@@ -39,6 +39,46 @@
             }
         }
 
+        public function getUserUpcomingBookings($userId) {
+            try {
+                $currentDateTime = date('Y-m-d H:i:s');
+                $stmt = $this->conn->prepare("
+                    SELECT destinationId, bookingStatus, bookingDate 
+                    FROM user_bookings 
+                    WHERE userId = ? AND bookingDate > ? AND bookingStatus != 'completed'
+                    ORDER BY bookingDate ASC
+                ");
+                $stmt->execute([$userId, $currentDateTime]);
+    
+                // Fetch all results as an associative array
+                $upcomingBookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $upcomingBookings;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+    
+        public function getUserPastBookings($userId) {
+            try {
+                $currentDateTime = date('Y-m-d H:i:s');
+                $stmt = $this->conn->prepare("
+                    SELECT destinationId, bookingStatus, bookingDate 
+                    FROM user_bookings 
+                    WHERE userId = ? AND (bookingDate < ? OR bookingStatus = 'completed')
+                    ORDER BY bookingDate DESC
+                ");
+                $stmt->execute([$userId, $currentDateTime]);
+    
+                // Fetch all results as an associative array
+                $pastBookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+                return $pastBookings;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
         public function updateBookingStatus($userId, $destinationId, $newStatus) {
             try {
                 $stmt = $this->conn->prepare("UPDATE bookings SET bookingStatus =? WHERE userId =? AND destinationId =?;");

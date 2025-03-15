@@ -40,6 +40,18 @@
 			}
 		}
 
+		public function getAllTownNames() {
+			try {
+                $stmt = $this->conn->prepare("SELECT townName FROM towns");
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_COLUMN);
+                return $result;
+            } catch (PDOException $e) {
+                error_log($e->getMessage());
+                return [];
+            }
+		}
+		
 		public function getTownCodeFromTownName($townName) {
 			try {
                 $stmt = $this->conn->prepare("SELECT townCode FROM towns WHERE townName =?");

@@ -74,4 +74,18 @@
             }
         }
 
+        public function getStreetsFromTownCode($townCode) {
+            try {
+                $stmt = $this->conn->prepare("SELECT streetName FROM streets WHERE townCode =?;");
+                $stmt->execute([$townCode]);
+
+                // Fetch all results as an associative array
+                $streets = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                return $streets;
+            } catch (PDOException $e) {
+                error_log($e->getMessage());
+                return [];
+            }
+        }
     }
