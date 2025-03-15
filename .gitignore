@@ -6,6 +6,13 @@
 */frontend/windows/*
 */frontend/android/*
 
+frontend/macos/*
+frontend/ios/*
+frontend/android/*
+frontend/web/*
+frontend/linux/*
+frontend/test/*
+
 # Generated files
 .dart_tool/
 .packages

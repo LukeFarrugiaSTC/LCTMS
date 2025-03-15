@@ -49,6 +49,22 @@ services:
     ports:
       - "6379:6379"
 
+  mailhog:
+    image: mailhog/mailhog:latest
+    platform: "linux/amd64"
+    restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    volumes:
+      - ./entrypoint.sh:/entrypoint.sh:ro
+      - ./config:/config
+    environment:
+      MAIL_HOST: "127.0.0.1"
+      MAIL_PORT: "1025"
+    entrypoint: ["/entrypoint.sh"]
+    command: ["-outgoing-smtp", "/config/outgoing_smtp.json"]
+
 volumes:
   mysql-data:
   nginx-ssl:
