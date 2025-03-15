@@ -1,0 +1,10 @@
+{
+  "default" :{
+    "host": "",
+    "port": "",
+    "username": "",
+    "password": "",
+    "auth": "",
+    "autotls": ""
+  }
+}

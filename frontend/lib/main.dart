@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/widgets/lctms.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
@@ -18,5 +19,5 @@ void main() async {
   // mobile devices will always view the app in portrait mode
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  runApp(LCTMS());
+  runApp(ProviderScope(child: LCTMS()));
 }

@@ -13,6 +13,11 @@
 	require_once __DIR__ . '/Exceptions/validationException.class.php';
 	require_once __DIR__ . '/validators/userValidator.class.php';
 	require_once __DIR__ . '/../helpers/responseHelper.php';
+	require_once __DIR__ . '/../vendor/autoload.php';
+
+	use Symfony\Component\Mailer\Transport;
+	use Symfony\Component\Mailer\Mailer;
+	use Symfony\Component\Mime\Email;
 
 	class User {
 		private $_userId;
@@ -28,9 +33,10 @@
 	  	private $_userConfirm;
 	  	private $_userRole;
 	  	private $_isActive;
+		private $_userPin;
 		public $data;
 		public $conn;
-	  
+
 	    public function __construct() {
         	$this->conn = Dbh::getInstance()->getConnection();
     	}
@@ -48,6 +54,7 @@
 	  	public function setUserPassword($var)	{	$this->_userPassword	=	$var;	}
 	  	public function setUserConfirm($var)	{	$this->_userConfirm 	=	$var;	}
 	  	public function setUserRoleId($var)		{	$this->_userRole 		=	$var;	}
+		public function serUserPin($var) 		{	$this->_userPin 		= 	$var;	}
 	  	public function setIsActive($var)		{	$this->_isActive 		=	$var;	}
 	  
 		public function getUserId()				{	return $this->_userId;				}
@@ -212,6 +219,66 @@
 			}
 		}
 	  
+		public function resetPasswordPhase1() {
+
+			try {
+				// Step 1: Check if email exists in the database
+				$sql = "SELECT COUNT(*) FROM users WHERE userEmail = ?;";
+				$stmt = $this->conn->prepare($sql);
+				$stmt->execute([$this->getUserEmail()]);
+		
+				if ($stmt->fetchColumn() > 0) {
+					// Step 2: Generate a random 6-digit PIN
+					$randomPIN = rand(100000, 999999);
+		
+					// Step 3: Store the PIN in the database (Optional: Store with expiration time)
+					$sqlUpdate = "UPDATE users SET userPin = ? WHERE userEmail = ?";
+					$stmtUpdate = $this->conn->prepare($sqlUpdate);
+					$stmtUpdate->execute([$randomPIN, $this->getUserEmail()]);
+		
+					// Step 4: Send email using Symfony Mailer
+					$this->sendResetPinEmail($this->getUserEmail(), $randomPIN);
+		
+					return json_encode([
+						"status" => "success",
+						"message" => "A PIN has been sent to your email"
+					]);
+				} else {
+					return json_encode([
+						"status" => "error",
+						"message" => "Email not found"
+					]);
+				}
+			} catch (PDOException $e) {
+				return json_encode([
+					"status" => "error",
+					"message" => "Database Error: " . $e->getMessage()
+				]);
+			}
+		}
+
+		// Add this function inside your User class
+		private function sendResetPinEmail($userEmail, $pin) {
+			$mailerDsn = $_ENV['MAILER_DSN'] ?? 'Not found'; // Using $_ENV
+						
+			// Step 1: Configure the mail transport
+			$transport = Transport::fromDsn('smtp://mailhog:1025'); 
+
+			// Step 2: Create the Mailer instance
+			$mailer = new Mailer($transport);
+
+			// Step 3: Create the email message
+			$email = (new Email())
+				->from('info@andrewmallia.com')  // Your email address
+				->to($userEmail)
+				->cc('andrew.mallia@escom-malta.com')
+				->subject('Password Reset PIN')
+				->text("Your password reset PIN is: $pin. This PIN is valid for 10 minutes.");
+
+			// Step 4: Send the email
+			$mailer->send($email);
+		}
+
 		public function login() {
 			// Validate form fields 
 			if (!utility::validateEmail($this->getUserEmail())) {

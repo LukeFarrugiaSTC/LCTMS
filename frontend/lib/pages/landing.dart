@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend/models/user.dart';
 import 'package:frontend/widgets/book_ride.dart';
 import 'package:frontend/widgets/main_drawer.dart';
+import 'package:frontend/providers/user_info_provider.dart';
 
-class LandingPage extends StatelessWidget {
+class LandingPage extends ConsumerWidget {
   const LandingPage({super.key});
-  final int _role = 3;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final User user = ref.read(userInfoProvider);
+
     void setPage(String identifier) {
       if (identifier == '/login') {
         //logs out user
@@ -28,7 +32,7 @@ class LandingPage extends StatelessWidget {
           false, //since there are is only the landing page in stack, this prevents the user from using the native back button
       child: Scaffold(
         appBar: AppBar(title: const Text('Book a Ride')),
-        drawer: MainDrawer(onSelectPage: setPage, roleId: _role),
+        drawer: MainDrawer(onSelectPage: setPage, roleId: user.userRole),
         body: BookRide(),
       ),
     );
