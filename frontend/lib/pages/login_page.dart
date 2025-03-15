@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:frontend/config/api_config.dart';
 
 // Import your custom text field widget
 import 'package:frontend/widgets/custom_text_field.dart';
@@ -38,8 +39,8 @@ class _LoginPageState extends State<LoginPage> {
   /// it securely, then navigates to the Landing page.
   Future<void> _submitLogin() async {
     try {
-      final url = Uri.parse('https://localhost:443/endpoints/user/login.php');
-      final response = await http.post(
+        final url = Uri.parse('$apiBaseUrl/endpoints/user/login.php');  
+        final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
@@ -47,9 +48,6 @@ class _LoginPageState extends State<LoginPage> {
           'password': _passwordController.text.trim(),
         }),
       );
-
-      print('Status code: ${response.statusCode}');
-      print('Response body: ${response.body}'); // <-- Add this for debugging
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
