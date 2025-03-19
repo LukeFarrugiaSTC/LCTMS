@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/models/user.dart';
 
 class UserInfoNotifier extends StateNotifier<User> {
-  UserInfoNotifier() : super(User(userID: 3, userRole: 1, token: 'no_token'));
+  UserInfoNotifier() : super(User(userID: 0, userRole: 3, token: 'no_token'));
 
   //Method to add logged user's details
   void loginUser(User user) {
