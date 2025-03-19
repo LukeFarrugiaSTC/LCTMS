@@ -6,11 +6,6 @@ class RoleNavWidgetsList {
     return {
       1: [
         {
-          'title': 'Upcoming Bookings',
-          'icon': 'edit_calendar',
-          'destinationPath': '/upcoming_bookings_driver',
-        },
-        {
           'title': 'Bookings',
           'icon': 'history',
           'destinationPath': '/view_bookings',

@@ -2,13 +2,13 @@ CREATE TABLE IF NOT EXISTS roles (
     roleId INT AUTO_INCREMENT PRIMARY KEY,
     role_name VARCHAR(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+ 
 CREATE TABLE IF NOT EXISTS towns (
     townCode VARCHAR(4) NOT NULL PRIMARY KEY,
     townName VARCHAR(100) NOT NULL,
     districtCode VARCHAR(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+ 
 CREATE TABLE IF NOT EXISTS streets (
     streetCode VARCHAR(8) PRIMARY KEY,
     townCode VARCHAR(4) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS streets (
     streetLatitude DECIMAL(10,8) DEFAULT NULL,
     FOREIGN KEY (townCode) REFERENCES towns(townCode)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+ 
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     userEmail VARCHAR(255) NOT NULL UNIQUE,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS users (
     FOREIGN KEY (streetCode) REFERENCES streets(streetCode),
     FOREIGN KEY (townCode) REFERENCES towns(townCode)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+ 
 CREATE TABLE IF NOT EXISTS destinations (
     destinationId INT AUTO_INCREMENT PRIMARY KEY,
     destination_name VARCHAR(250) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS destinations (
     FOREIGN KEY (streetCode) REFERENCES streets(streetCode),
     FOREIGN KEY (townCode) REFERENCES towns(townCode)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+ 
 CREATE TABLE IF NOT EXISTS bookings (
     booking_id INT AUTO_INCREMENT PRIMARY KEY,
     userId INT NOT NULL,

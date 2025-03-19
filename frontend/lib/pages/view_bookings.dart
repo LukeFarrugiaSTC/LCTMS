@@ -41,7 +41,7 @@ class ViewBookingsPage extends ConsumerStatefulWidget {
       surname: 'Tanti',
       pickUpLocation: _tempPickUpAddresses[0],
       dropOffLocation: _tempDestinationAddresses[1],
-      bookingTime: DateTime(2025, 4, 15, 15, 30),
+      bookingTime: DateTime(2025, 4, 15, 08, 00),
       bookingStatus: BookingStatus.booked,
     ),
 
@@ -52,7 +52,7 @@ class ViewBookingsPage extends ConsumerStatefulWidget {
       surname: 'Mifsud Bonnici',
       pickUpLocation: _tempPickUpAddresses[1],
       dropOffLocation: _tempDestinationAddresses[3],
-      bookingTime: DateTime(2025, 2, 13, 07, 00),
+      bookingTime: DateTime(2025, 3, 15, 08, 30),
       bookingStatus: BookingStatus.inProgress,
     ),
 
@@ -168,15 +168,56 @@ class _ViewBookingsPageState extends ConsumerState<ViewBookingsPage> {
     });
   }
 
+  void _changeBookingStatus(BuildContext context, Booking booking) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize:
+                MainAxisSize.min, // Shrinks the bottom sheet to fit its content
+            children: [
+              Text(
+                "Change Booking Status",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Divider(),
+              ...BookingStatus.values
+                  .map(
+                    (status) => ListTile(
+                      title: Text(status.toString().split('.').last),
+                      onTap: () {
+                        setState(() {
+                          booking = booking.copyWith(bookingStatus: status);
+                        });
+
+                        Navigator.pop(context); // Close the bottom sheet
+                        extractBookingsLists();
+                      },
+                    ),
+                  )
+                  .toList(),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget activePage = UpcomingBookingsPage(
       tempBookings: _upcomingBookingsList,
+      onBookingTap: _changeBookingStatus,
     );
     String activePageTitle = 'Bookings';
 
     if (_selectedPageIndex == 1) {
-      activePage = BookingHistoryPage(tempBookings: _bookingsHistoryList);
+      activePage = BookingHistoryPage(
+        tempBookings: _bookingsHistoryList,
+        onBookingTap: _changeBookingStatus,
+      );
       activePageTitle = 'Booking History';
     }
 
@@ -218,80 +259,3 @@ class _ViewBookingsPageState extends ConsumerState<ViewBookingsPage> {
     );
   }
 }
-
-// //Sorts bookings to different lists to be used in different pages
-// void _sortBookingList() {
-//   List<Booking> upcoming = [];
-//   List<Booking> history = [];
-
-//   // Create temporary lists before updating state according to the role of the user
-
-//   switch (user.userRole) {
-//     //Driver role
-//     case 1:
-//     //Admin role
-//     case 2:
-//       for (var booking in widget._tempBookings) {
-//         bool isUpcoming =
-//             booking.bookingTime.isAfter(DateTime.now()) &&
-//             booking.bookingStatus != BookingStatus.completed;
-
-//         //true if booking is within the past 2 hours and status is in progress or booked
-//         //Allows leeway in case the booking time is in the past but the job is still being done.  Currently set for 2hrs
-//         bool isOngoing =
-//             booking.bookingTime.isBefore(
-//               DateTime.now().subtract(Duration(hours: 2)),
-//             ) &&
-//             (booking.bookingStatus == BookingStatus.inProgress ||
-//                 booking.bookingStatus == BookingStatus.booked);
-//         if (isUpcoming || isOngoing) {
-//           upcoming.add(booking);
-//         } else {
-//           history.add(booking);
-//         }
-//       }
-//       break;
-//     //User role
-//     case 3:
-//       for (var booking in widget._tempBookings) {
-//         if (booking.userID != user.userID) {
-//           continue;
-//         }
-
-//         //true if booking is in the future or is not completed yet
-//         bool isUpcoming =
-//             booking.bookingTime.isAfter(DateTime.now()) &&
-//             booking.bookingStatus != BookingStatus.completed;
-
-//         //true if booking is within the past 2 hours and status is in progress or booked
-//         bool isOngoing =
-//             booking.bookingTime.isBefore(
-//               DateTime.now().subtract(Duration(hours: 2)),
-//             ) &&
-//             (booking.bookingStatus == BookingStatus.inProgress ||
-//                 booking.bookingStatus == BookingStatus.booked);
-
-//         if (isUpcoming || isOngoing) {
-//           upcoming.add(booking);
-//         } else {
-//           history.add(booking);
-//         }
-//       }
-//       break;
-//     default:
-//       Navigator.pushNamedAndRemoveUntil(
-//         context,
-//         '/login',
-//         (Route<dynamic> route) => false,
-//       );
-//   }
-
-//   //Reverses the order of Upcoming list so that the user sees the next booking
-//   upcoming = upcoming.reversed.toList();
-
-//   //Updates UI with new lists
-//   setState(() {
-//     _upcomingBookingsList = upcoming;
-//     _bookingsHistoryList = history;
-//   });
-// }

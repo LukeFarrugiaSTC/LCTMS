@@ -22,6 +22,9 @@ class CustomTextField extends StatelessWidget {
     this.maxLength = 255,
     this.counterText = '',
     this.autocorrect = false,
+    this.enabled = true,
+    this.textStyle,
+    this.isEditing = true,
   });
 
   final RegExp _emailRegExp = RegExp(
@@ -37,6 +40,9 @@ class CustomTextField extends StatelessWidget {
   final int maxLength;
   final String counterText;
   final bool autocorrect;
+  final bool enabled;
+  final TextStyle? textStyle;
+  final bool isEditing;
 
   //helper method that autoselects keyboard type according to textFiledType
 
@@ -102,6 +108,15 @@ class CustomTextField extends StatelessWidget {
       autocorrect: autocorrect,
       textCapitalization: textCapitalization,
       validator: _validateUserInput,
+      enabled: enabled && isEditing,
+      style:
+          textStyle ??
+          TextStyle(
+            color:
+                enabled && isEditing
+                    ? Colors.black
+                    : Colors.grey, // Change text color when disabled
+          ),
     );
   }
 }

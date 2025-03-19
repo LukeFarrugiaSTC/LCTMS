@@ -23,9 +23,9 @@ class BookingSorter {
 
       case 3: // User role
         for (var booking in bookings) {
-          if (booking.userID != user.userID)
+          if (booking.userID != user.userID) {
             continue; //filter out bookings belonging to other users
-
+          }
           if (_isUpcomingBooking(booking) || _isOngoingBooking(booking)) {
             upcoming.add(booking);
           } else {
@@ -50,10 +50,10 @@ class BookingSorter {
   }
 
   static bool _isOngoingBooking(Booking booking) {
-    return booking.bookingTime.isBefore(
-          DateTime.now().subtract(Duration(hours: 2)),
-        ) &&
+    final now = DateTime.now();
+    return (booking.bookingTime.isBefore(now) &&
+        booking.bookingTime.isAfter(now.subtract(Duration(hours: 2))) &&
         (booking.bookingStatus == BookingStatus.inProgress ||
-            booking.bookingStatus == BookingStatus.booked);
+            booking.bookingStatus == BookingStatus.booked));
   }
 }

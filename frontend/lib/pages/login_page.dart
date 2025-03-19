@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _isValid = false;
   String? _invalidCredentials;
 
-  /// Validates the form inputs using the validators 
+  /// Validates the form inputs using the validators
   /// defined in each `CustomTextField`.
   bool _login() {
     if (_formKey.currentState!.validate()) {
@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   /// Makes a POST request to your PHP login endpoint.
-  /// If successful, it retrieves the JWT token and stores 
+  /// If successful, it retrieves the JWT token and stores
   /// it securely, then navigates to the Landing page.
   Future<void> _submitLogin() async {
     try {
@@ -62,7 +62,10 @@ class _LoginPageState extends State<LoginPage> {
 
           // Navigate to landing page
           Navigator.pushNamedAndRemoveUntil(
-              context, '/landing', (Route<dynamic> route) => false);
+            context,
+            '/landing',
+            (Route<dynamic> route) => false,
+          );
         } else {
           // Show error message from server or a default one
           setState(() {
@@ -101,9 +104,9 @@ class _LoginPageState extends State<LoginPage> {
             child: Center(
               child: Text(
                 'Welcome',
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontSize: 30,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge!.copyWith(fontSize: 30),
               ),
             ),
           ),
