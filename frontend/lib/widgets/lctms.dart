@@ -69,7 +69,7 @@ class LCTMS extends StatelessWidget {
           backgroundColor: const Color.fromARGB(255, 243, 231, 231),
         ),
       ),
-      initialRoute: '/landing',
+      initialRoute: '/',
 
       routes: {
         '/': (context) => const HomePage(),

@@ -1,55 +1,168 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:frontend/config/api_config.dart';
 import 'package:frontend/widgets/custom_text_field.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart'; // Import dotenv
 
 class BookRide extends StatefulWidget {
   const BookRide({super.key, this.showScaffold = true});
   final bool showScaffold;
 
   @override
-  State<BookRide> createState() {
-    return _BookRide();
-  }
+  State<BookRide> createState() => _BookRideState();
 }
 
-class _BookRide extends State<BookRide> {
+class _BookRideState extends State<BookRide> {
   final _keyForm = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _surnameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _bookingDateController = TextEditingController();
-  String _dropOffLocation = '';
+
+  // For destinations (drop-off locations)
+  List<String> _destinationsList = [];
+  String _selectedDestination = '';
+  String? _destinationError;
+
   bool _isBooked = false;
   final DateFormat dateTimeFormatter = DateFormat('dd/MM/yyyy HH:mm');
 
-  final List<String> _tempDropOffList = ['DropOff1', 'DropOff2'];
+  @override
+  void initState() {
+    super.initState();
+    _fetchDestinations();
+  }
+
+  Future<void> _submitBooking() async {
+    // Retrieve the token from secure storage
+    const storage = FlutterSecureStorage();
+    final token = await storage.read(key: 'jwt_token');
+    if (token == null) {
+      // Handle missing token, perhaps redirect to the login page
+      setState(() {
+        _destinationError = 'Authentication token not found. Please log in again.';
+      });
+      return;
+    }
+
+    // Convert the booking date from "dd/MM/yyyy HH:mm" to "yyyy-MM-dd HH:mm:ss"
+    DateTime dateTime;
+    try {
+      final inputFormat = DateFormat('dd/MM/yyyy HH:mm');
+      dateTime = inputFormat.parse(_bookingDateController.text);
+    } catch (e) {
+      setState(() {
+        _destinationError = 'Invalid booking date format.';
+      });
+      return;
+    }
+    final outputFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+    final formattedDate = outputFormat.format(dateTime);
+
+    final url = Uri.parse('$apiBaseUrl/endpoints/bookings/addBooking.php');
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'destinationName': _selectedDestination,
+        'bookingDateTime': formattedDate,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      if (data['status'] == 'success') {
+        setState(() {
+          _isBooked = true;
+        });
+      } else {
+        setState(() {
+          _destinationError = data['message'] ?? 'Booking failed.';
+        });
+      }
+    } else {
+      setState(() {
+        _destinationError = 'Error: ${response.statusCode}. Please try again.';
+      });
+    }
+  }
+
+  /// Fetches the drop-off locations from the API.
+  Future<void> _fetchDestinations() async {
+    final url = Uri.parse('$apiBaseUrl/endpoints/locations/destinationList.php');
+    
+    // Get the API key from the .env file
+    final String? apiKey = dotenv.env['API_KEY'];
+    if (apiKey == null || apiKey.isEmpty) {
+      setState(() {
+        _destinationError = 'API key is missing in .env file.';
+      });
+      return;
+    }
+    
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'api_key': apiKey, // Use API key from the environment file
+        }),
+      );
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        List<String> destinations;
+        if (data is List) {
+          destinations = data
+              .map<String>((item) => item['destination_name'].toString())
+              .toList();
+        } else if (data is Map && data.containsKey('destinations')) {
+          destinations = (data['destinations'] as List)
+              .map<String>((item) => item['destination_name'].toString())
+              .toList();
+        } else {
+          throw Exception('Unexpected response format for destinations');
+        }
+        setState(() {
+          _destinationsList = destinations;
+          _selectedDestination = destinations.isNotEmpty ? destinations[0] : '';
+        });
+      } else {
+        setState(() {
+          _destinationError = 'Error: ${response.statusCode}';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _destinationError = 'An error occurred: $e';
+      });
+    }
+  }
 
   Future<void> _selectDateTime(BuildContext context) async {
     final DateTime now = DateTime.now();
     final DateTime firstDate = now.add(Duration(days: 2));
     final DateTime lastDate = now.add(Duration(days: 365));
 
-    // First, select a date.
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: firstDate,
       firstDate: firstDate,
       lastDate: lastDate,
     );
-
-    // If no date is selected, exit.
     if (pickedDate == null) return;
 
-    // Then, select a time.
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay(hour: 0, minute: 0),
     );
-
-    // If no time is selected, exit.
     if (pickedTime == null) return;
 
-    // Combine the date and time into a single DateTime.
     final DateTime combinedDateTime = DateTime(
       pickedDate.year,
       pickedDate.month,
@@ -59,7 +172,6 @@ class _BookRide extends State<BookRide> {
     );
 
     setState(() {
-      // Assuming you have a DateFormat that handles both date and time, e.g. 'dd/MM/yyyy HH:mm'
       _bookingDateController.text = dateTimeFormatter.format(combinedDateTime);
     });
   }
@@ -67,24 +179,25 @@ class _BookRide extends State<BookRide> {
   bool _bookRide() {
     if (_keyForm.currentState!.validate()) {
       _keyForm.currentState!.save();
-
-      print(_nameController.text);
-      print(_surnameController.text);
-      print(_emailController.text);
-      print(_bookingDateController.text);
+      print("Name: ${_nameController.text}");
+      print("Surname: ${_surnameController.text}");
+      print("Email: ${_emailController.text}");
+      print("Booking Date: ${_bookingDateController.text}");
+      print("Destination: $_selectedDestination");
       return true;
     }
     return false;
   }
 
   void _resetForm() {
-    //_keyForm.currentState?.reset();   <=== with this I get an error due to thedrop down menu, but without it the form's state will not reset
     _nameController.clear();
     _surnameController.clear();
     _emailController.clear();
     _bookingDateController.clear();
-
-    _dropOffLocation = '';
+    setState(() {
+      _selectedDestination =
+          _destinationsList.isNotEmpty ? _destinationsList[0] : '';
+    });
   }
 
   @override
@@ -99,41 +212,30 @@ class _BookRide extends State<BookRide> {
   @override
   Widget build(BuildContext context) {
     Widget content;
-
     if (_isBooked) {
       content = Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 120),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Your booking is confirmed!',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyLarge!.copyWith(fontSize: 25),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 40),
-
-                    ElevatedButton(
-                      onPressed: () {
-                        // Return to home
-                        setState(() {
-                          _isBooked = false;
-                          _resetForm();
-                        });
-                      },
-                      child: Text('Back'),
-                    ),
-                    const SizedBox(height: 10),
-                  ],
-                ),
+              Text(
+                'Your booking is confirmed!',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(fontSize: 25),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 40),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _isBooked = false;
+                    _resetForm();
+                  });
+                },
+                child: const Text('Back'),
               ),
             ],
           ),
@@ -147,14 +249,15 @@ class _BookRide extends State<BookRide> {
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   'Booking Form',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyLarge!.copyWith(fontSize: 30),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(fontSize: 30),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomTextField(
                   labelText: 'Name',
                   controller: _nameController,
@@ -182,41 +285,51 @@ class _BookRide extends State<BookRide> {
                   controller: _bookingDateController,
                   readOnly: true,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.calendar_month),
+                    prefixIcon: const Icon(Icons.calendar_month),
                     label: Text(
                       _bookingDateController.text.isEmpty
                           ? 'Select Date & Time'
                           : _bookingDateController.text,
                     ),
-                    border: OutlineInputBorder(),
+                    border: const OutlineInputBorder(),
                     alignLabelWithHint: true,
                   ),
-                  // Use the combined picker function
                   onTap: () => _selectDateTime(context),
                 ),
                 const SizedBox(height: 10),
-                DropdownButtonFormField(
-                  value: _dropOffLocation.isEmpty ? null : _dropOffLocation,
-                  decoration: InputDecoration(
-                    label: Text(
-                      _dropOffLocation.isEmpty
-                          ? 'Select Drop Off location'
-                          : '',
-                    ),
-                  ),
-                  items:
-                      _tempDropOffList.map((String dropOff) {
-                        return DropdownMenuItem<String>(
-                          value: dropOff,
-                          child: Text(dropOff),
-                        );
-                      }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      _dropOffLocation = value!;
-                    });
-                  },
-                ),
+                // Destination dropdown
+                _destinationsList.isEmpty
+                    ? _destinationError != null
+                        ? Text(
+                            _destinationError!,
+                            style: const TextStyle(color: Colors.red),
+                          )
+                        : const CircularProgressIndicator()
+                    : DropdownButtonFormField<String>(
+                        value: _selectedDestination.isNotEmpty
+                            ? _selectedDestination
+                            : null,
+                        decoration: const InputDecoration(
+                          labelText: 'Select Destination',
+                        ),
+                        items: _destinationsList.map((String destination) {
+                          return DropdownMenuItem<String>(
+                            value: destination,
+                            child: Text(destination),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedDestination = value!;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select a destination';
+                          }
+                          return null;
+                        },
+                      ),
                 const SizedBox(height: 10),
                 const SizedBox(height: 40),
                 SizedBox(
@@ -224,21 +337,18 @@ class _BookRide extends State<BookRide> {
                   child: Column(
                     children: [
                       ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _isBooked = _bookRide();
-                          });
+                        onPressed: () async {
+                          if (_bookRide()) {
+                            await _submitBooking();
+                          }
                         },
-                        child: Text('Submit Booking'),
+                        child: const Text('Submit Booking'),
                       ),
                       const SizedBox(height: 5),
-
                       TextButton(
-                        onPressed: () {
-                          _resetForm();
-                        },
+                        onPressed: _resetForm,
                         style: TextButton.styleFrom(
-                          fixedSize: Size(300, 40),
+                          fixedSize: const Size(300, 40),
                           padding: EdgeInsets.zero,
                         ),
                         child: const Text(
@@ -246,7 +356,6 @@ class _BookRide extends State<BookRide> {
                           textAlign: TextAlign.start,
                         ),
                       ),
-
                       const SizedBox(height: 20),
                     ],
                   ),

@@ -46,10 +46,18 @@ class ApiSecurity {
     
     public function getJsonInput() {
         $rawInput = file_get_contents('php://input');
+    
+        // If body is empty, return empty array instead of decoding
+        if (empty($rawInput)) {
+            return [];
+        }
+    
         $data = json_decode($rawInput, true);
+    
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new ApiSecurityException("Malformed JSON input", 400);
         }
+    
         return $data;
     }
 
