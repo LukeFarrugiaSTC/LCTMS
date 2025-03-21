@@ -3,7 +3,8 @@ import 'package:frontend/widgets/custom_text_field.dart';
 import 'package:intl/intl.dart';
 
 class BookRide extends StatefulWidget {
-  const BookRide({super.key});
+  const BookRide({super.key, this.showScaffold = true});
+  final bool showScaffold;
 
   @override
   State<BookRide> createState() {
@@ -256,6 +257,10 @@ class _BookRide extends State<BookRide> {
         ),
       );
     }
-    return content;
+
+    //Only returns scaffold if this is accessed through the navbar
+    return widget.showScaffold
+        ? Scaffold(appBar: AppBar(title: Text('Book a Ride')), body: content)
+        : content;
   }
 }

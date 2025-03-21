@@ -33,7 +33,7 @@ class LandingPage extends ConsumerWidget {
       child: Scaffold(
         appBar: AppBar(title: const Text('Book a Ride')),
         drawer: MainDrawer(onSelectPage: setPage, roleId: user.userRole),
-        body: BookRide(),
+        body: BookRide(showScaffold: false),
       ),
     );
   }

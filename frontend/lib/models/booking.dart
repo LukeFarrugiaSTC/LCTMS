@@ -1,6 +1,6 @@
 import 'package:frontend/models/address.dart';
 
-enum BookingStatus { booked, cancelled, inProgress, completed }
+enum BookingStatus { booked, inProgress, completed, cancelled }
 
 class Booking {
   Booking({
