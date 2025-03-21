@@ -76,8 +76,6 @@ class _RegisterPageState extends State<RegisterPage> {
           'townName': townName,
         }),
       );
-      debugPrint('Response status: ${response.statusCode}');
-      debugPrint('Response body: ${response.body}');
       
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
