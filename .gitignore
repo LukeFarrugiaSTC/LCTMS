@@ -12,6 +12,7 @@ frontend/android/*
 frontend/web/*
 frontend/linux/*
 frontend/test/*
+*/frontend/assets/certs/*
 
 # Generated files
 .dart_tool/
@@ -219,3 +220,5 @@ key.properties
 
 
 **/api_config.dart
+
+frontend/assets/certs/*

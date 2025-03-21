@@ -1,5 +1,4 @@
 <?php
-
 namespace Helpers;
 
 use Firebase\JWT\JWT;
@@ -27,9 +26,9 @@ class JwtHelper {
             $decoded = JWT::decode($jwtToken, new Key($this->secretKey, $this->algorithm));
             return $decoded;
         } catch(ExpiredException $e) {
-            throw new Exception("Token has expired.", 401);
-        } catch(Exception $e) {
-            throw new Exception("Invalid token.", 401);
+            throw new \Exception("Token has expired.", 401);
+        } catch(\Exception $e) {
+            throw new \Exception("Invalid token.", 401);
         }
     }
 

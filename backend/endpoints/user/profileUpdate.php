@@ -1,42 +1,38 @@
 <?php
-require_once __DIR__ . '/../../includes/config.php';
-require_once __DIR__ . '/../../classes/utility.class.php';
+require_once __DIR__ . '/../../classes/Controllers/BaseApiController.php';
 require_once __DIR__ . '/../../classes/user.class.php';
-require_once __DIR__ . '/../../helpers/responseHelper.php';
-require_once __DIR__ . '/../../helpers/apiSecurityHelper.php';
-require_once __DIR__ . '/../../classes/Exceptions/validationException.class.php';
 require_once __DIR__ . '/../../classes/validators/userValidator.class.php';
+require_once __DIR__ . '/../../classes/Exceptions/validationException.class.php';
 
-
-    try {
-
-        $apiSecurity = new ApiSecurity();
-        
-        // Perform all security checks
-        $apiSecurity->checkHttps();
-        $apiSecurity->checkRequestMethod('POST');
-        $apiSecurity->rateLimiter();
-        $data = $apiSecurity->getJsonInput();
-        $apiSecurity->checkIfAPIKeyExistsAndIsValid($data['api_key']?? '');
-
-        UserValidator::validateProfileUpdate($data);
-
-        // Proceed with the update
-        $user = new User();
-        $user->setUserEmail($data['email']);
-        $user->setUserFirstname($data['name']);
-        $user->setUserLastname($data['surname']);
-        $user->setUserAddress($data['houseNumber']);
-        $user->setStreetCode($data['street']);
-        $user->setTownCode($data['town']);
-        $user->setUserDob($data['dob']);
-        $user->setMobile($data['mobile']);
-        echo $user->profileUpdate();
-
-    } catch (ValidationException $e) {
-        sendResponse(["status" => "error", "message" => implode(', ', $e->getErrors())], 400);
-    } catch (ApiSecurityException $e) {
-        sendResponse(["status" => "error", "message" => $e->getMessage()], $e->getCode());
-        exit;
+class ProfileUpdateController extends BaseApiController {
+    public function handle() {
+        try {
+            // Validate API key if provided
+            $this->apiSecurity->checkIfAPIKeyExistsAndIsValid($this->data['api_key'] ?? '');
+            // Validate the profile update data
+            UserValidator::validateProfileUpdate($this->data);
+            
+            // Proceed with updating the user profile
+            $user = new User();
+            $user->setUserEmail($this->data['email']);
+            $user->setUserFirstname($this->data['name']);
+            $user->setUserLastname($this->data['surname']);
+            $user->setUserAddress($this->data['houseNumber']);
+            $user->setStreetCode($this->data['street']);
+            $user->setTownCode($this->data['town']);
+            $user->setUserDob($this->data['dob']);
+            $user->setMobile($this->data['mobile']);
+            
+            echo $user->profileUpdate();
+        } catch (ValidationException $e) {
+            sendResponse(["status" => "error", "message" => implode(', ', $e->getErrors())], 400);
+        } catch (ApiSecurityException $e) {
+            sendResponse(["status" => "error", "message" => $e->getMessage()], $e->getCode());
+            exit;
+        }
     }
+}
+
+$controller = new ProfileUpdateController();
+$controller->handle();
 ?>

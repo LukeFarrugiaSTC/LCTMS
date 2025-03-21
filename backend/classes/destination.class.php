@@ -23,7 +23,7 @@
 
         public function getAllDestinations() {
             try {
-                $stmt = $this->conn->prepare("SELECT destination_name, streetCode, townCode FROM destinations;");
+                $stmt = $this->conn->prepare("SELECT destination_name FROM destinations;");
                 $stmt->execute();
 
                 // Fetch all results as an associative array

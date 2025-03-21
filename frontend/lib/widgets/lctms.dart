@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/contact_us.dart';
 import 'package:frontend/pages/forgot_password.dart';
 import 'package:frontend/pages/home_page.dart';
 import 'package:frontend/pages/landing.dart';
@@ -69,7 +70,7 @@ class LCTMS extends StatelessWidget {
           backgroundColor: const Color.fromARGB(255, 243, 231, 231),
         ),
       ),
-      initialRoute: '/landing',
+      initialRoute: '/',
 
       routes: {
         '/': (context) => const HomePage(),
@@ -81,6 +82,7 @@ class LCTMS extends StatelessWidget {
         '/users': (context) => const UsersPage(),
         '/view_bookings': (context) => ViewBookingsPage(),
         '/book_ride': (context) => BookRide(),
+        '/contact_us': (context) => ContactUs(),
       },
     );
   }
