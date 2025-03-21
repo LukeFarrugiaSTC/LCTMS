@@ -4,6 +4,7 @@ class RoleNavWidgetsList {
 
   static Map<int, List<Map<String, String>>> get navItems {
     return {
+      //driver
       1: [
         {
           'title': 'Bookings',
@@ -11,6 +12,7 @@ class RoleNavWidgetsList {
           'destinationPath': '/view_bookings',
         },
       ],
+      //Admin
       2: [
         {
           'title': 'Bookings',
@@ -24,6 +26,7 @@ class RoleNavWidgetsList {
         },
         {'title': 'Users', 'icon': 'people', 'destinationPath': '/users'},
       ],
+      //User
       3: [
         {
           'title': 'Book a Ride!',
