@@ -51,11 +51,15 @@ class _LoginPageState extends State<LoginPage> {
         if (data['status'] == 'success') {
           // Extract the JWT token without logging sensitive data.
           final String token = data['token'];
+          final String email = data['email'];
+          final int roleId = data['roleId'];
 
           // Securely store the token using flutter_secure_storage.
           const storage = FlutterSecureStorage();
           await storage.write(key: 'jwt_token', value: token);
-
+          await storage.write(key: 'email', value: email);
+          await storage.write(key: 'roleId', value: roleId.toString());
+          
           // Navigate to landing page (clear previous routes).
           Navigator.pushNamedAndRemoveUntil(
             context,
