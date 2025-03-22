@@ -46,6 +46,7 @@ class LoginController extends BaseApiController {
                 $redisHelper = new RedisHelper();
                 $redisHelper->storeAuthToken($responseData['userId'], $jwt, 3600);
                 $responseData['token'] = $jwt;
+                $responseData['email'] = $this->data['email'];
             }
 
             sendResponse($responseData);
