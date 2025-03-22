@@ -11,6 +11,7 @@ import 'package:frontend/pages/view_bookings.dart';
 import 'package:frontend/widgets/book_ride.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// Defining a colour scheme based on a seed colour
 var kcolourScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 107, 77, 87),
 );
@@ -70,8 +71,10 @@ class LCTMS extends StatelessWidget {
           backgroundColor: const Color.fromARGB(255, 243, 231, 231),
         ),
       ),
+      // Initial route shown when the app starts
       initialRoute: '/',
 
+      // Route table mapping route names to widget pages
       routes: {
         '/': (context) => const HomePage(),
         '/login': (context) => const LoginPage(),

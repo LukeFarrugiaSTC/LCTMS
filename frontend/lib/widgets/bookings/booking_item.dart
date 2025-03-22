@@ -3,6 +3,7 @@ import 'package:frontend/helpers/booking_status_helper.dart';
 import 'package:frontend/models/booking.dart';
 import 'package:intl/intl.dart';
 
+//Class defining the booking cards structure
 class BookingItem extends StatelessWidget {
   const BookingItem({super.key, required this.booking});
 
@@ -16,6 +17,7 @@ class BookingItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Date & Status Row
             Row(
               children: [
                 Text(
@@ -37,18 +39,25 @@ class BookingItem extends StatelessWidget {
               ],
             ),
             SizedBox(height: 4),
+            //Name and Surname
             Text(
               'Name: ${booking.name} ${booking.surname}',
               style: Theme.of(context).textTheme.bodyLarge!,
             ),
+
+            //Pick Up Address
             Text(
               'Pick Up: ${booking.pickUpLocation.houseNameNo}, ${booking.pickUpLocation.street}, ${booking.pickUpLocation.town}',
               style: Theme.of(context).textTheme.bodyLarge!,
             ),
+
+            //Drop Off Address
             Text(
-              'Drop Off: ${booking.dropOffLocation.houseNameNo}, ${booking.dropOffLocation.street}, ${booking.dropOffLocation.town}',
+              'Drop Off: ${booking.dropOffLocation.street}, ${booking.dropOffLocation.town}',
               style: Theme.of(context).textTheme.bodyLarge!,
             ),
+
+            //Booking Status
             Text(
               'Status: ${booking.bookingStatus.bookingStatusValue}',
               style: Theme.of(context).textTheme.bodyLarge!,

@@ -8,6 +8,7 @@ import 'package:frontend/config/api_config.dart';
 import 'package:frontend/widgets/custom_text_field.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+// Class for displaying and editing the user's profile details
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
@@ -39,7 +40,8 @@ class _ProfilePageState extends State<ProfilePage> {
   List<String> _streetList = [];
   String? _street; // Must be nullable to avoid invalid default
 
-  final DateFormat formatter = DateFormat('dd/MM/yyyy');
+  final DateFormat formatterOnSave = DateFormat('yyyy-MM-dd');
+  final DateFormat formatterUI = DateFormat('dd-MM-yyyy');
 
   @override
   void initState() {
@@ -81,7 +83,10 @@ class _ProfilePageState extends State<ProfilePage> {
         // Parse out the fields (adjust keys to match your actual JSON)
         _nameController.text = messageObj['userFirstname'] ?? '';
         _surnameController.text = messageObj['userLastname'] ?? '';
-        _dobController.text = messageObj['userDob'] ?? '';
+        if (messageObj['userDob'] != null && messageObj['userDob'].isNotEmpty) {
+          final parsed = formatterOnSave.parse(messageObj['userDob']);
+          _dobController.text = formatterUI.format(parsed);
+        }
         _houseNumberController.text = messageObj['userAddress'] ?? '';
         _mobileNumberController.text = messageObj['userMobile'] ?? '';
         _emailController.text = messageObj['userEmail'] ?? '';
@@ -175,7 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
     if (pickedDate != null) {
       setState(() {
-        _dobController.text = formatter.format(pickedDate);
+        _dobController.text = formatterUI.format(pickedDate);
       });
     }
   }
@@ -203,7 +208,8 @@ class _ProfilePageState extends State<ProfilePage> {
       // Retrieve the user’s email from secure storage or from the controller
       const storage = FlutterSecureStorage();
       final String? userEmail = await storage.read(key: 'email');
-
+      DateTime parsedDate = formatterUI.parse(_dobController.text);
+      String formattedDate = formatterOnSave.format(parsedDate);
       final url = Uri.parse('$apiBaseUrl/endpoints/user/profileUpdate.php');
       final response = await http.post(
         url,
@@ -213,7 +219,7 @@ class _ProfilePageState extends State<ProfilePage> {
           'email': userEmail,
           'name': _nameController.text.trim(),
           'surname': _surnameController.text.trim(),
-          'dob': _dobController.text.trim(),
+          'dob': formattedDate,
           'houseNumber': _houseNumberController.text.trim(),
           'street': _street,
           'town': _town,
@@ -232,7 +238,7 @@ class _ProfilePageState extends State<ProfilePage> {
           debugPrint('Update failed: ${data['message']}');
         }
       } else {
-        debugPrint('Error updating profile: ${response.statusCode}');
+        debugPrint('Error updating profile: ${_dobController.text.trim()}');
       }
     } catch (e, st) {
       debugPrint('Exception in _saveProfile: $e\n$st');

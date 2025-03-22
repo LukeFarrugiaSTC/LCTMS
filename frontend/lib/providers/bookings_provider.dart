@@ -7,11 +7,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/config/api_config.dart';
 
+// Class managing booking data and sync with backend using Riverpod StateNotifier
 class BookingsNotifier extends StateNotifier<List<Booking>> {
   BookingsNotifier() : super([]) {
     fetchBookings();
   }
 
+  // Updates the booking status for a specific booking ID
   void updateStatus(int bookingId, BookingStatus newStatus) {
     state =
         state.map((booking) {
@@ -22,17 +24,20 @@ class BookingsNotifier extends StateNotifier<List<Booking>> {
         }).toList();
   }
 
+  // Returns list of upcoming bookings (future bookings)
   List<Booking> get upcomingBookings =>
       state.where((b) => b.bookingTime.isAfter(DateTime.now())).toList();
 
+  // Returns list of past bookings (already occurred)
   List<Booking> get historyBookings =>
       state.where((b) => b.bookingTime.isBefore(DateTime.now())).toList();
 
-  //resets state so that refresh button works
+  // Resets bookings state and triggers re-fetch
   void resetBookings() {
     fetchBookings();
   }
 
+  // Fetches bookings from backend API using stored credentials
   Future<void> fetchBookings() async {
     try {
       const storage = FlutterSecureStorage();
@@ -71,12 +76,14 @@ class BookingsNotifier extends StateNotifier<List<Booking>> {
         if (data['status'] == 'success') {
           final bookingsRaw = data['bookings'] as List;
 
-              // Adjust parsing to match PHP response keys:
-              final parsedBookings = (bookingsRaw as List).map<Booking>((json) {
+          // Adjust parsing to match PHP response keys:
+          final parsedBookings =
+              (bookingsRaw).map<Booking>((json) {
                 return Booking(
-                  id: json['booking_id'] != null 
-                      ? int.tryParse(json['booking_id'].toString()) 
-                      : null,
+                  id:
+                      json['booking_id'] != null
+                          ? int.tryParse(json['booking_id'].toString())
+                          : null,
                   userID: int.parse(json['userId'].toString()),
                   name: json['name'] ?? '',
                   surname: json['surname'] ?? '',
@@ -88,7 +95,8 @@ class BookingsNotifier extends StateNotifier<List<Booking>> {
                     town: json['pickupTown'] ?? '',
                   ),
                   dropOffLocation: Address(
-                    houseNameNo: '', // If there's no house number for drop-off, use an empty string.
+                    houseNameNo:
+                        '', // If there's no house number for drop-off, use an empty string.
                     street: json['dropoffStreet'] ?? '',
                     town: json['dropoffTown'] ?? '',
                   ),
@@ -108,6 +116,7 @@ class BookingsNotifier extends StateNotifier<List<Booking>> {
     }
   }
 
+  // Converts status string from backend into enum value
   BookingStatus _parseStatus(String status) {
     switch (status.toLowerCase()) {
       case 'inprogress':
@@ -122,6 +131,7 @@ class BookingsNotifier extends StateNotifier<List<Booking>> {
   }
 }
 
+// Provider used to access and interact with booking data
 final bookingsProvider = StateNotifierProvider<BookingsNotifier, List<Booking>>(
   (ref) => BookingsNotifier(),
 );

@@ -6,6 +6,7 @@ import 'package:frontend/widgets/custom_text_field.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart'; // Import flutter_dotenv
 
+// Class handling user registration with form fields, validations, and API submission
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -57,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _fetchStreets("L-Imsida");
   }
 
-  /// Fetches streets based on the selected town from the streetList endpoint.
+  // Fetches streets based on the selected town from the streetList endpoint.
   Future<void> _fetchStreets(String townName) async {
     final url = Uri.parse('$apiBaseUrl/endpoints/locations/streetList.php');
 
@@ -114,6 +115,7 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  //Method for the date time picker
   Future<void> _selectDate(context) async {
     final pickedDate = await showDatePicker(
       context: context,
@@ -135,6 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return false;
   }
 
+  // Sends the form data to the backend to complete registration
   Future<void> _submitRegistration() async {
     final url = Uri.parse('$apiBaseUrl/endpoints/user/registration.php');
     try {

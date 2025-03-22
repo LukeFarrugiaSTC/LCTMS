@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/contact_us_tile.dart';
 
+// Class displaying contact information for the local council using ContactUsTile widgets
 class ContactUs extends StatelessWidget {
   const ContactUs({super.key});
 
