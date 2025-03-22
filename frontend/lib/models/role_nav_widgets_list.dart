@@ -7,9 +7,9 @@ class RoleNavWidgetsList {
       //driver
       1: [
         {
-          'title': 'Bookings',
-          'icon': 'history',
-          'destinationPath': '/view_bookings',
+          'title': 'Bookings', // Title displayed in the navigation tile
+          'icon': 'history', // Icon identifier used in the UI
+          'destinationPath': '/view_bookings', // Route path for the screen
         },
       ],
       //Admin

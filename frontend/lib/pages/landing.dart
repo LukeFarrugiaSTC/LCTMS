@@ -5,6 +5,7 @@ import 'package:frontend/widgets/book_ride.dart';
 import 'package:frontend/widgets/main_drawer.dart';
 import 'package:frontend/providers/user_info_provider.dart';
 
+// Class representing the post-login landing screen with navigation and booking access
 class LandingPage extends ConsumerWidget {
   const LandingPage({super.key});
 

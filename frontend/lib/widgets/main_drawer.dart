@@ -7,9 +7,10 @@ import 'package:frontend/helpers/icon_helper.dart';
 import 'package:frontend/models/role_nav_widgets_list.dart';
 import 'package:frontend/widgets/custom_list_tile_drawer.dart';
 
+//Class definind the side drawer menu
 class MainDrawer extends StatelessWidget {
   MainDrawer({super.key, required this.onSelectPage, required this.roleId})
-      : menuItems = RoleNavWidgetsList.navItems[roleId] ?? [];
+    : menuItems = RoleNavWidgetsList.navItems[roleId] ?? [];
 
   final void Function(String identifier) onSelectPage;
   final int roleId;
@@ -48,17 +49,10 @@ class MainDrawer extends StatelessWidget {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('An error occurred. Please try again later.')),
+          content: Text('An error occurred. Please try again later.'),
+        ),
       );
       debugPrint('Logout error: $e');
-    }
-  }
-
-  void printMenuItems() {
-    for (var item in menuItems) {
-      print('Title: ${item['title']}');
-      print('Icon: ${item['icon']}');
-      print('Destination Path: ${item['destinationPath']}');
     }
   }
 
@@ -89,10 +83,9 @@ class MainDrawer extends StatelessWidget {
                 const SizedBox(width: 18),
                 Text(
                   'LCTMS',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(color: Theme.of(context).colorScheme.primary),
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
               ],
             ),

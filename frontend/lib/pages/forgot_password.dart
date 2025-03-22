@@ -6,6 +6,7 @@ import 'package:frontend/config/api_config.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart'; // To access .env
 import 'package:frontend/pages/enter_pin_page.dart';
 
+// Class for requesting a password reset PIN using the user's email address
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
 
@@ -31,9 +32,9 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
       // Get the API key from .env
       final String? apiKey = dotenv.env['API_KEY'];
       if (apiKey == null || apiKey.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('API key is missing.')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('API key is missing.')));
         setState(() {
           _isLoading = false;
         });
@@ -47,7 +48,7 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
           body: json.encode({'email': email, 'api_key': apiKey}),
         );
         final data = json.decode(response.body);
-         debugPrint('Forgot password error: $data');
+        debugPrint('Forgot password error: $data');
         if (response.statusCode == 200) {
           final data = json.decode(response.body);
           ScaffoldMessenger.of(context).showSnackBar(
@@ -56,9 +57,7 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
 
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => EnterPinPage(email: email),
-            ),
+            MaterialPageRoute(builder: (context) => EnterPinPage(email: email)),
           );
         } else {
           final data = json.decode(response.body);
@@ -70,8 +69,8 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
         debugPrint('Forgot password error: $e');
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content:
-                  Text('An error occurred. Please try again later.')),
+            content: Text('An error occurred. Please try again later.'),
+          ),
         );
         debugPrint('Error: $e');
       } finally {
@@ -101,10 +100,9 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
                 child: Text(
                   'Reset Your Password',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontSize: 30),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge!.copyWith(fontSize: 30),
                 ),
               ),
             ),
@@ -122,15 +120,12 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
             _isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: _submitEmail,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        SizedBox(width: 16),
-                        Text("Submit"),
-                      ],
-                    ),
+                  onPressed: _submitEmail,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [SizedBox(width: 16), Text("Submit")],
                   ),
+                ),
             const Spacer(),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/models/user.dart';
 
+// Class managing user authentication state using Riverpod's StateNotifier
 class UserInfoNotifier extends StateNotifier<User> {
   UserInfoNotifier() : super(User(userID: 0, userRole: 3, token: 'no_token'));
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Enum representing the types of text fields supported
 enum TextFieldType {
   textRequired,
   textOptional,
@@ -60,6 +61,7 @@ class CustomTextField extends StatelessWidget {
     }
   }
 
+  // Validates user input depending on textFieldType
   String? _validateUserInput(String? value) {
     //general validation for all TextFieldTypes
     if (value == null ||

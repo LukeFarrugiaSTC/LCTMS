@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Class defining the tiles inside the nav bar menu
 class CustomListTileDrawer extends StatelessWidget {
   const CustomListTileDrawer({
     super.key,

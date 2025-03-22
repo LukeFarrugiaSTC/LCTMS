@@ -7,9 +7,11 @@ class ContactUsTile extends StatelessWidget {
     required this.contactMethod,
     required this.contactDetail,
   });
-  final IconData icon;
-  final String contactMethod;
-  final String contactDetail;
+  final IconData icon; // Icon representing the contact method
+  final String
+  contactMethod; // Label for the type of contact (e.g., Email, Phone)
+  final String
+  contactDetail; // Actual contact information (e.g., email address)
 
   @override
   Widget build(BuildContext context) {

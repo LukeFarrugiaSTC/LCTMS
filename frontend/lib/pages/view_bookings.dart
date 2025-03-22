@@ -4,6 +4,7 @@ import 'package:frontend/pages/booking_history.dart';
 import 'package:frontend/pages/upcoming_bookings.dart';
 import 'package:frontend/providers/bookings_provider.dart';
 
+// Class defining the view for toggling between upcoming and historical bookings
 class ViewBookingsPage extends ConsumerStatefulWidget {
   const ViewBookingsPage({super.key});
 
@@ -15,12 +16,14 @@ class _ViewBookingsPageState extends ConsumerState<ViewBookingsPage> {
   int _selectedPageIndex = 0;
   double _rotationAngle = 0.0;
 
+  // Handles switching between upcoming and history tabs
   void _selectPage(int index) {
     setState(() {
       _selectedPageIndex = index;
     });
   }
 
+  // Triggers rotation animation and refreshes the bookings list
   Future<void> _rotateIcon() async {
     // Start rotation
     setState(() {

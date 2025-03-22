@@ -15,8 +15,11 @@ class BookRide extends StatefulWidget {
   State<BookRide> createState() => _BookRideState();
 }
 
+// Class defining the form used by the user to add a booking
 class _BookRideState extends State<BookRide> {
   final _keyForm = GlobalKey<FormState>();
+
+  // Controllers for form fields
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _surnameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -36,6 +39,7 @@ class _BookRideState extends State<BookRide> {
     _fetchDestinations();
   }
 
+  // Submits the booking to the backend
   Future<void> _submitBooking() async {
     // Retrieve the token from secure storage
     const storage = FlutterSecureStorage();
@@ -43,7 +47,8 @@ class _BookRideState extends State<BookRide> {
     if (token == null) {
       // Handle missing token, perhaps redirect to the login page
       setState(() {
-        _destinationError = 'Authentication token not found. Please log in again.';
+        _destinationError =
+            'Authentication token not found. Please log in again.';
       });
       return;
     }
@@ -75,6 +80,7 @@ class _BookRideState extends State<BookRide> {
       }),
     );
 
+    // Handle response
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       if (data['status'] == 'success') {
@@ -93,10 +99,12 @@ class _BookRideState extends State<BookRide> {
     }
   }
 
-  /// Fetches the drop-off locations from the API.
+  // Fetches the drop-off locations from the API.
   Future<void> _fetchDestinations() async {
-    final url = Uri.parse('$apiBaseUrl/endpoints/locations/destinationList.php');
-    
+    final url = Uri.parse(
+      '$apiBaseUrl/endpoints/locations/destinationList.php',
+    );
+
     // Get the API key from the .env file
     final String? apiKey = dotenv.env['API_KEY'];
     if (apiKey == null || apiKey.isEmpty) {
@@ -105,7 +113,7 @@ class _BookRideState extends State<BookRide> {
       });
       return;
     }
-    
+
     try {
       final response = await http.post(
         url,
@@ -118,13 +126,15 @@ class _BookRideState extends State<BookRide> {
         final data = jsonDecode(response.body);
         List<String> destinations;
         if (data is List) {
-          destinations = data
-              .map<String>((item) => item['destination_name'].toString())
-              .toList();
+          destinations =
+              data
+                  .map<String>((item) => item['destination_name'].toString())
+                  .toList();
         } else if (data is Map && data.containsKey('destinations')) {
-          destinations = (data['destinations'] as List)
-              .map<String>((item) => item['destination_name'].toString())
-              .toList();
+          destinations =
+              (data['destinations'] as List)
+                  .map<String>((item) => item['destination_name'].toString())
+                  .toList();
         } else {
           throw Exception('Unexpected response format for destinations');
         }
@@ -144,6 +154,7 @@ class _BookRideState extends State<BookRide> {
     }
   }
 
+  // Allows user to select date and time
   Future<void> _selectDateTime(BuildContext context) async {
     final DateTime now = DateTime.now();
     final DateTime firstDate = now.add(Duration(days: 2));
@@ -179,11 +190,6 @@ class _BookRideState extends State<BookRide> {
   bool _bookRide() {
     if (_keyForm.currentState!.validate()) {
       _keyForm.currentState!.save();
-      print("Name: ${_nameController.text}");
-      print("Surname: ${_surnameController.text}");
-      print("Email: ${_emailController.text}");
-      print("Booking Date: ${_bookingDateController.text}");
-      print("Destination: $_selectedDestination");
       return true;
     }
     return false;
@@ -221,10 +227,9 @@ class _BookRideState extends State<BookRide> {
             children: [
               Text(
                 'Your booking is confirmed!',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .copyWith(fontSize: 25),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge!.copyWith(fontSize: 25),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
@@ -252,10 +257,9 @@ class _BookRideState extends State<BookRide> {
                 const SizedBox(height: 20),
                 Text(
                   'Booking Form',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontSize: 30),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge!.copyWith(fontSize: 30),
                 ),
                 const SizedBox(height: 20),
                 CustomTextField(
@@ -301,35 +305,37 @@ class _BookRideState extends State<BookRide> {
                 _destinationsList.isEmpty
                     ? _destinationError != null
                         ? Text(
-                            _destinationError!,
-                            style: const TextStyle(color: Colors.red),
-                          )
+                          _destinationError!,
+                          style: const TextStyle(color: Colors.red),
+                        )
                         : const CircularProgressIndicator()
                     : DropdownButtonFormField<String>(
-                        value: _selectedDestination.isNotEmpty
-                            ? _selectedDestination
-                            : null,
-                        decoration: const InputDecoration(
-                          labelText: 'Select Destination',
-                        ),
-                        items: _destinationsList.map((String destination) {
-                          return DropdownMenuItem<String>(
-                            value: destination,
-                            child: Text(destination),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedDestination = value!;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please select a destination';
-                          }
-                          return null;
-                        },
+                      value:
+                          _selectedDestination.isNotEmpty
+                              ? _selectedDestination
+                              : null,
+                      decoration: const InputDecoration(
+                        labelText: 'Select Destination',
                       ),
+                      items:
+                          _destinationsList.map((String destination) {
+                            return DropdownMenuItem<String>(
+                              value: destination,
+                              child: Text(destination),
+                            );
+                          }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedDestination = value!;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please select a destination';
+                        }
+                        return null;
+                      },
+                    ),
                 const SizedBox(height: 10),
                 const SizedBox(height: 40),
                 SizedBox(
@@ -367,7 +373,7 @@ class _BookRideState extends State<BookRide> {
       );
     }
 
-    //Only returns scaffold if this is accessed through the navbar
+    //Only wraps in a Scaffold if opened through navigation side bar
     return widget.showScaffold
         ? Scaffold(appBar: AppBar(title: Text('Book a Ride')), body: content)
         : content;

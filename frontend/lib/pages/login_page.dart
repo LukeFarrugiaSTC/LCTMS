@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:frontend/config/api_config.dart';
 import 'package:frontend/widgets/custom_text_field.dart';
 
+// Class responsible for user authentication and login interaction
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -59,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
           await storage.write(key: 'jwt_token', value: token);
           await storage.write(key: 'email', value: email);
           await storage.write(key: 'roleId', value: roleId.toString());
-          
+
           // Navigate to landing page (clear previous routes).
           Navigator.pushNamedAndRemoveUntil(
             context,
@@ -106,10 +107,9 @@ class _LoginPageState extends State<LoginPage> {
             child: Center(
               child: Text(
                 'Welcome',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .copyWith(fontSize: 30),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge!.copyWith(fontSize: 30),
               ),
             ),
           ),
@@ -180,7 +180,10 @@ class _LoginPageState extends State<LoginPage> {
                             const Spacer(),
                             TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, '/forgot-password');
+                                Navigator.pushNamed(
+                                  context,
+                                  '/forgot-password',
+                                );
                               },
                               style: TextButton.styleFrom(
                                 fixedSize: const Size(150, 40),

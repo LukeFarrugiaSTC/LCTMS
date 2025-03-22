@@ -16,6 +16,7 @@ extension BookingStatusExtension on BookingStatus {
     }
   }
 
+  // Returns a specific color based on the booking status
   Color get bookingStatusColour {
     switch (this) {
       case BookingStatus.booked:
@@ -38,13 +39,16 @@ List<BookingStatus> getEditableStatusesForRole(int roleID) {
         BookingStatus.booked,
         BookingStatus.inProgress,
         BookingStatus.completed,
-      ];
+      ]; // Drivers have limited control
 
     case 2: // Admin
-      return BookingStatus.values;
+      return BookingStatus.values; // Admins can access all statuses
 
     case 3: // User
-      return [BookingStatus.booked, BookingStatus.cancelled];
+      return [
+        BookingStatus.booked,
+        BookingStatus.cancelled,
+      ]; // Users have limited control
 
     default:
       return [];

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// Class representing the post-login landing screen with navigation and booking access
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
