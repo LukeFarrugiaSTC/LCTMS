@@ -30,15 +30,34 @@ class UserBookings {
     public function getUserBookingsByUserId($userId) {
         try {
             $stmt = $this->conn->prepare("
-                SELECT booking_id, userId, destinationId, bookingStatus, bookingDate
-                FROM bookings
-                WHERE userId =?
-                ORDER BY bookingDate ASC
+                SELECT 
+                  b.booking_id, 
+                  b.userId, 
+                  b.destinationId, 
+                  b.bookingStatus, 
+                  b.bookingDate,
+                  u.userFirstname AS name,
+                  u.userLastname AS surname,
+                  u.userAddress AS pickupHouse,
+                  ps.streetName AS pickupStreet,
+                  pt.townName AS pickupTown,
+                  d.destination_name,
+                  ds.streetName AS dropoffStreet,
+                  dt.townName AS dropoffTown
+                FROM bookings b
+                JOIN users u ON b.userId = u.id
+                JOIN destinations d ON b.destinationId = d.destinationId
+                LEFT JOIN streets ps ON u.streetCode = ps.streetCode
+                LEFT JOIN towns pt ON u.townCode = pt.townCode
+                LEFT JOIN streets ds ON d.streetCode = ds.streetCode
+                LEFT JOIN towns dt ON d.townCode = dt.townCode
+                WHERE b.userId = ?
+                ORDER BY b.bookingDate ASC
             ");
             $stmt->execute([$userId]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch (PDOException $e) {
-            echo "Error: ". $e->getMessage();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
         }
     }
  
@@ -46,10 +65,31 @@ class UserBookings {
         try {
             $currentDateTime = date('Y-m-d H:i:s');
             $stmt = $this->conn->prepare("
-                SELECT destinationId, bookingStatus, bookingDate
-                FROM bookings
-                WHERE userId = ? AND bookingDate > ? AND bookingStatus != 'completed'
-                ORDER BY bookingDate ASC
+                SELECT 
+                  b.booking_id, 
+                  b.userId, 
+                  b.destinationId, 
+                  b.bookingStatus, 
+                  b.bookingDate,
+                  u.userFirstname AS name,
+                  u.userLastname AS surname,
+                  u.userAddress AS pickupHouse,
+                  ps.streetName AS pickupStreet,
+                  pt.townName AS pickupTown,
+                  d.destination_name,
+                  ds.streetName AS dropoffStreet,
+                  dt.townName AS dropoffTown
+                FROM bookings b
+                JOIN users u ON b.userId = u.id
+                JOIN destinations d ON b.destinationId = d.destinationId
+                LEFT JOIN streets ps ON u.streetCode = ps.streetCode
+                LEFT JOIN towns pt ON u.townCode = pt.townCode
+                LEFT JOIN streets ds ON d.streetCode = ds.streetCode
+                LEFT JOIN towns dt ON d.townCode = dt.townCode
+                WHERE b.userId = ? 
+                  AND b.bookingDate > ? 
+                  AND b.bookingStatus != 'completed'
+                ORDER BY b.bookingDate ASC
             ");
             $stmt->execute([$userId, $currentDateTime]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -57,14 +97,35 @@ class UserBookings {
             echo "Error: " . $e->getMessage();
         }
     }
+    
     public function getUserPastBookings($userId) {
         try {
             $currentDateTime = date('Y-m-d H:i:s');
             $stmt = $this->conn->prepare("
-                SELECT destinationId, bookingStatus, bookingDate
-                FROM bookings
-                WHERE userId = ? AND (bookingDate < ? OR bookingStatus = 'completed')
-                ORDER BY bookingDate DESC
+                SELECT 
+                  b.booking_id, 
+                  b.userId, 
+                  b.destinationId, 
+                  b.bookingStatus, 
+                  b.bookingDate,
+                  u.userFirstname AS name,
+                  u.userLastname AS surname,
+                  u.userAddress AS pickupHouse,
+                  ps.streetName AS pickupStreet,
+                  pt.townName AS pickupTown,
+                  d.destination_name,
+                  ds.streetName AS dropoffStreet,
+                  dt.townName AS dropoffTown
+                FROM bookings b
+                JOIN users u ON b.userId = u.id
+                JOIN destinations d ON b.destinationId = d.destinationId
+                LEFT JOIN streets ps ON u.streetCode = ps.streetCode
+                LEFT JOIN towns pt ON u.townCode = pt.townCode
+                LEFT JOIN streets ds ON d.streetCode = ds.streetCode
+                LEFT JOIN towns dt ON d.townCode = dt.townCode
+                WHERE b.userId = ? 
+                  AND (b.bookingDate < ? OR b.bookingStatus = 'completed')
+                ORDER BY b.bookingDate DESC
             ");
             $stmt->execute([$userId, $currentDateTime]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

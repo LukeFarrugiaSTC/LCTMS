@@ -11,21 +11,12 @@ class GetUserBookingsController extends JwtController {
             // Retrieve the user's bookings using the authenticated $userId
             $userBookings = new UserBookings();
             $bookings = $userBookings->getUserBookingsByUserId($this->userId);
-            
-            $formattedBookings = [];
-            foreach ($bookings as $booking) {
-                $formattedBookings[] = [
-                    'id'               => $booking['id'],
-                    'destinationName'  => $booking['destination_name'],
-                    'bookingDateTime'  => $booking['booking_datetime'],
-                    'status'           => $booking['status']
-                ];
-            }
+
             $response = [
                 "status"  => "success",
                 "message" => "User bookings retrieved successfully",
                 "userId"  => $this->userId,
-                "bookings"=> $formattedBookings
+                "bookings"=> $bookings
             ];
             sendResponse($response);
         } catch (ValidationException $e) {

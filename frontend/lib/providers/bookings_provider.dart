@@ -60,35 +60,37 @@ class BookingsNotifier extends StateNotifier<List<Booking>> {
         body: jsonEncode({'email': email, 'api_key': apiKey}),
       );
 
+      final responseBody = response.body;
+      final pattern = RegExp('.{1,800}'); // Adjust chunk size as needed
+      pattern.allMatches(responseBody).forEach((match) {
+        print(match.group(0));
+      });
+
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['status'] == 'success') {
           final bookingsRaw = data['bookings'] as List;
 
-          // Adjust parsing to match PHP response keys:
-          final parsedBookings =
-              bookingsRaw.map((json) {
+              // Adjust parsing to match PHP response keys:
+              final parsedBookings = (bookingsRaw as List).map<Booking>((json) {
                 return Booking(
-                  // PHP returns 'id' instead of 'bookingID'
-                  id: int.tryParse(json['id'].toString()),
-                  // If userId is not returned by PHP, you might have to assign it elsewhere
-                  userID: 0,
-                  // PHP returns destinationName. Adapt as needed.
-                  name: json['destinationName'] ?? '',
-                  surname: '',
-                  // PHP returns bookingDateTime instead of bookingTime
-                  bookingTime: DateTime.parse(json['bookingDateTime']),
-                  bookingStatus: _parseStatus(json['status']),
-                  // PHP response doesn’t include address details; adjust or remove these as needed.
+                  id: json['booking_id'] != null 
+                      ? int.tryParse(json['booking_id'].toString()) 
+                      : null,
+                  userID: int.parse(json['userId'].toString()),
+                  name: json['name'] ?? '',
+                  surname: json['surname'] ?? '',
+                  bookingTime: DateTime.parse(json['bookingDate']),
+                  bookingStatus: _parseStatus(json['bookingStatus']),
                   pickUpLocation: Address(
-                    houseNameNo: '',
-                    street: '',
-                    town: '',
+                    houseNameNo: json['pickupHouse'] ?? '',
+                    street: json['pickupStreet'] ?? '',
+                    town: json['pickupTown'] ?? '',
                   ),
                   dropOffLocation: Address(
-                    houseNameNo: '',
-                    street: '',
-                    town: '',
+                    houseNameNo: '', // If there's no house number for drop-off, use an empty string.
+                    street: json['dropoffStreet'] ?? '',
+                    town: json['dropoffTown'] ?? '',
                   ),
                 );
               }).toList();
@@ -102,7 +104,7 @@ class BookingsNotifier extends StateNotifier<List<Booking>> {
       }
     } catch (e) {
       final singleLineError = e.toString().replaceAll('\n', ' ');
-      print('Fetch error: $singleLineError');
+      print('Fetch error 1232: $singleLineError');
     }
   }
 
