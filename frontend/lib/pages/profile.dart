@@ -21,7 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   final _keyForm = GlobalKey<FormState>();
 
-  // Controllers
+  // Controller
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _surnameController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
