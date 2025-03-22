@@ -16,8 +16,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  bool _isLoading = true;   // For showing a spinner until profile data is loaded
-  bool _isEditing = false;  // Toggles read-only vs. editable mode
+  bool _isLoading = true; // For showing a spinner until profile data is loaded
+  bool _isEditing = false; // Toggles read-only vs. editable mode
 
   final _keyForm = GlobalKey<FormState>();
 
@@ -31,7 +31,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // If you need password fields for an "edit password" feature, keep them. Otherwise remove.
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   // Town / Street
   String? _town;
@@ -66,14 +67,11 @@ class _ProfilePageState extends State<ProfilePage> {
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'api_key': apiKey,
-          'email': userEmail
-        }),
+        body: jsonEncode({'api_key': apiKey, 'email': userEmail}),
       );
 
-      debugPrint('Profile fetch status: ${response.statusCode}');
-      debugPrint('Profile fetch body: ${response.body}');
+      // debugPrint('Profile fetch status: ${response.statusCode}');
+      // debugPrint('Profile fetch body: ${response.body}');
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -89,8 +87,8 @@ class _ProfilePageState extends State<ProfilePage> {
         _emailController.text = messageObj['userEmail'] ?? '';
 
         // For Town / Street
-        _town = messageObj['town'] ?? '';     
-        _street = messageObj['streetName'] ?? ''; 
+        _town = messageObj['town'] ?? '';
+        _street = messageObj['streetName'] ?? '';
 
         _town = 'L-Imsida';
 
@@ -121,10 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'api_key': apiKey,
-          'townName': townName,
-        }),
+        body: jsonEncode({'api_key': apiKey, 'townName': townName}),
       );
 
       if (response.statusCode == 200) {
@@ -133,14 +128,16 @@ class _ProfilePageState extends State<ProfilePage> {
         List<String> fetchedStreets;
         if (data is List) {
           // If the endpoint returns an array
-          fetchedStreets = data
-              .map<String>((item) => item['streetName'].toString())
-              .toList();
+          fetchedStreets =
+              data
+                  .map<String>((item) => item['streetName'].toString())
+                  .toList();
         } else if (data is Map && data.containsKey('streets')) {
           // If there's a "streets" key
-          fetchedStreets = (data['streets'] as List)
-              .map<String>((item) => item['streetName'].toString())
-              .toList();
+          fetchedStreets =
+              (data['streets'] as List)
+                  .map<String>((item) => item['streetName'].toString())
+                  .toList();
         } else {
           throw Exception('Unexpected format for street data: $data');
         }
@@ -213,7 +210,7 @@ class _ProfilePageState extends State<ProfilePage> {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'api_key': apiKey,
-          'email': userEmail,            
+          'email': userEmail,
           'name': _nameController.text.trim(),
           'surname': _surnameController.text.trim(),
           'dob': _dobController.text.trim(),
@@ -259,9 +256,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     // While loading, just show a spinner
     if (_isLoading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
@@ -343,33 +338,43 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 10),
 
                   // Street
-                  DropdownButtonFormField<String>(
-                    value: (_streetList.contains(_street)) ? _street : null,
-                    decoration: InputDecoration(
-                      labelText: 'Select Street',
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: _isEditing ? Colors.black : Colors.grey,
-                        ),
-                      ),
-                    ),
-                    items: _streetList.map((String street) {
-                      return DropdownMenuItem<String>(
-                        value: street,
-                        child: Text(
-                          street,
-                          style: TextStyle(
+                  SizedBox(
+                    width: double.infinity,
+                    child: DropdownButtonFormField<String>(
+                      isExpanded: true, // to prevent overflow
+                      value: (_streetList.contains(_street)) ? _street : null,
+                      decoration: InputDecoration(
+                        labelText: 'Select Street',
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
                             color: _isEditing ? Colors.black : Colors.grey,
                           ),
                         ),
-                      );
-                    }).toList(),
-                    onChanged: _isEditing
-                        ? (value) => setState(() => _street = value)
-                        : null,
-                    iconDisabledColor:
-                        !_isEditing ? Colors.grey : Colors.black,
+                      ),
+                      items:
+                          _streetList.map((String street) {
+                            return DropdownMenuItem<String>(
+                              value: street,
+                              child: Text(
+                                street,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  color:
+                                      _isEditing ? Colors.black : Colors.grey,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                      onChanged:
+                          _isEditing
+                              ? (value) => setState(() => _street = value)
+                              : null,
+                      iconDisabledColor:
+                          !_isEditing ? Colors.grey : Colors.black,
+                    ),
                   ),
+
                   const SizedBox(height: 10),
 
                   // Town (read-only; if you want to change it, remove IgnorePointer)
