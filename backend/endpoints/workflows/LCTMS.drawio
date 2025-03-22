@@ -1,0 +1,1219 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.16 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" version="26.0.16" pages="11">
+  <diagram name="townList.php" id="M31BY5aTOprwsSKjsGwH">
+    <mxGraphModel dx="880" dy="524" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SoKKNeOcZNkd3AV9cQXY-1" target="SoKKNeOcZNkd3AV9cQXY-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-1" value="&amp;lt;?php" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SoKKNeOcZNkd3AV9cQXY-2" target="SoKKNeOcZNkd3AV9cQXY-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="414" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-2" value="require_once __DIR__ . &#39;/../../includes/config.php&#39;;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/utility.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/town.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/responsHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/apiSecurityHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/Exceptions/validationException.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/validators/userValidator.class.php&#39;;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="110" width="452" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="SoKKNeOcZNkd3AV9cQXY-6" target="SoKKNeOcZNkd3AV9cQXY-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-6" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;try {&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity = new ApiSecurity();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkHttps();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkRequestMethod(&#39;POST&#39;);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;rateLimiter();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $data = $apiSecurity-&amp;gt;getJsonInput();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkIfAPIKeyExistsAndIsValid($data[&#39;api_key&#39;] ?? &#39;&#39;);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; // if API key is valid&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $town = new Town();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $townResponse = json_decode($town-&amp;gt;townRead(), true);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; sendResponse($townResponse);&lt;/div&gt;&lt;div&gt;}&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=1;verticalAlign=top;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="280" width="452" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SoKKNeOcZNkd3AV9cQXY-9" target="SoKKNeOcZNkd3AV9cQXY-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-9" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="560" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-11" value="catch&lt;div&gt;(ValidationException $e)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="340" y="645" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-12" value="sendResponse(&lt;br&gt;&amp;nbsp; &amp;nbsp; [&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; &quot;implode(&#39;,&#39; , $e-&amp;gt;getErrors())&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; ],&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; 400&lt;/div&gt;&lt;div&gt;);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="514" y="620" width="286" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SoKKNeOcZNkd3AV9cQXY-14" target="SoKKNeOcZNkd3AV9cQXY-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-14" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="375" y="740" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-15" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SoKKNeOcZNkd3AV9cQXY-11" target="SoKKNeOcZNkd3AV9cQXY-14">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="340" y="710" as="sourcePoint" />
+            <mxPoint x="730" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-16" value="catch (ApiSecurityException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="342" y="820" width="144" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="SoKKNeOcZNkd3AV9cQXY-17" target="SoKKNeOcZNkd3AV9cQXY-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-17" value="sendResponse(&lt;br&gt;&amp;nbsp; &amp;nbsp; [&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; $e-&amp;gt;getMessage(),&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; $e-&amp;gt;getCode()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; ],&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; 400&lt;/div&gt;&lt;div&gt;);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="514" y="800" width="286" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="SoKKNeOcZNkd3AV9cQXY-18" value="exit;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="637" y="980" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SkOQwDQqwjZ4nv7pme7u-1" value="Filename: \endpoints\locations\townList.php&lt;div&gt;Last Update: 19-03-2025&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1040" width="320" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="guGBvBqBIgwj6JvmyfIR" name="streetList.php">
+    <mxGraphModel dx="880" dy="524" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sIGbdYWxlLt386EBgFYj-1" value="&amp;lt;?php" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sIGbdYWxlLt386EBgFYj-2" value="require_once __DIR__ . &#39;/../../includes/config.php&#39;;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/utility.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/street.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/responsHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/apiSecurityHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/Exceptions/validationException.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/validators/userValidator.class.php&#39;;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="110" width="452" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="4dKY0ez28WQPyNn-CXa--5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sIGbdYWxlLt386EBgFYj-3" target="4dKY0ez28WQPyNn-CXa--4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sIGbdYWxlLt386EBgFYj-3" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;try {&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity = new ApiSecurity();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkHttps();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkRequestMethod(&#39;POST&#39;);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;rateLimiter();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $data = $apiSecurity-&amp;gt;getJsonInput();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkIfAPIKeyExistsAndIsValid($data[&#39;api_key&#39;] ?? &#39;&#39;);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; // if API key is valid&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $street = new Street();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $streetResponse = json_decode($street-&amp;gt;streetRead(), true);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; sendResponse($streetResponse);&lt;/div&gt;&lt;div&gt;}&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=1;verticalAlign=top;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="280" width="452" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="sIGbdYWxlLt386EBgFYj-4" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="sIGbdYWxlLt386EBgFYj-1" target="sIGbdYWxlLt386EBgFYj-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="730" y="40" as="sourcePoint" />
+            <mxPoint x="740" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sIGbdYWxlLt386EBgFYj-5" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sIGbdYWxlLt386EBgFYj-2" target="sIGbdYWxlLt386EBgFYj-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="690" y="300" as="sourcePoint" />
+            <mxPoint x="740" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4dKY0ez28WQPyNn-CXa--7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="4dKY0ez28WQPyNn-CXa--4" target="4dKY0ez28WQPyNn-CXa--6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4dKY0ez28WQPyNn-CXa--4" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="560" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="4dKY0ez28WQPyNn-CXa--6" value="sendResponse(&lt;br&gt;&amp;nbsp; &amp;nbsp; [&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; &quot;implode(&#39;,&#39; , $e-&amp;gt;getErrors())&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; ],&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; 400&lt;/div&gt;&lt;div&gt;);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="514" y="620" width="286" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="oxySzQ7x_JEKgLJWEM8y-1" value="catch&lt;div&gt;(ValidationException $e)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="339" y="640" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="oxySzQ7x_JEKgLJWEM8y-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="oxySzQ7x_JEKgLJWEM8y-2" target="oxySzQ7x_JEKgLJWEM8y-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oxySzQ7x_JEKgLJWEM8y-2" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="720" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="oxySzQ7x_JEKgLJWEM8y-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="oxySzQ7x_JEKgLJWEM8y-1" target="oxySzQ7x_JEKgLJWEM8y-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="414" y="780" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="KKRxwn1vlOYUrcVXbRJ7-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="oxySzQ7x_JEKgLJWEM8y-5" target="KKRxwn1vlOYUrcVXbRJ7-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oxySzQ7x_JEKgLJWEM8y-5" value="sendResponse(&lt;br&gt;&amp;nbsp; &amp;nbsp; [&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; $e-&amp;gt;getMessage(),&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; $e-&amp;gt;getCode()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; ],&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; 400&lt;/div&gt;&lt;div&gt;);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="514" y="780" width="286" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="fsX9Ivu-sFPYEZ2K-YJm-1" value="catch (ApiSecurityException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="342" y="810" width="144" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="KKRxwn1vlOYUrcVXbRJ7-1" value="exit;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="637" y="950" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wJVV1kmZNKYA2gkplnvR-1" value="Filename: \endpoints\locations\streetList.php&lt;div&gt;Last Update: 19-03-2025&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1040" width="320" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="EuF-dD526xKG8SsANK5V" name="destinationList">
+    <mxGraphModel dx="880" dy="524" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eMufvqMuO_hOdsbeHBka-1" value="&amp;lt;?php" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-2" value="require_once __DIR__ . &#39;/../../includes/config.php&#39;;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/utility.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/destination.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/responsHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/apiSecurityHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/Exceptions/validationException.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/validators/userValidator.class.php&#39;;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="110" width="452" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="eMufvqMuO_hOdsbeHBka-4" target="eMufvqMuO_hOdsbeHBka-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-4" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;try {&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity = new ApiSecurity();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkHttps();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkRequestMethod(&#39;POST&#39;);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;rateLimiter();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $data = $apiSecurity-&amp;gt;getJsonInput();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkIfAPIKeyExistsAndIsValid($data[&#39;api_key&#39;] ?? &#39;&#39;);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; // if API key is valid&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $destination = new Destination();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $destinationResponse = $destination-&amp;gt;getAllDestinations();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; sendResponse($destinationResponse);&lt;/div&gt;&lt;div&gt;}&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=1;verticalAlign=top;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="280" width="452" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-5" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="eMufvqMuO_hOdsbeHBka-1" target="eMufvqMuO_hOdsbeHBka-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="730" y="40" as="sourcePoint" />
+            <mxPoint x="740" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-6" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="eMufvqMuO_hOdsbeHBka-2" target="eMufvqMuO_hOdsbeHBka-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="690" y="300" as="sourcePoint" />
+            <mxPoint x="740" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="eMufvqMuO_hOdsbeHBka-8" target="eMufvqMuO_hOdsbeHBka-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-8" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="560" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-9" value="sendResponse(&lt;br&gt;&amp;nbsp; &amp;nbsp; [&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; &quot;implode(&#39;,&#39; , $e-&amp;gt;getErrors())&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; ],&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; 400&lt;/div&gt;&lt;div&gt;);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="514" y="620" width="286" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-10" value="catch&lt;div&gt;(ValidationException $e)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="339" y="640" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="eMufvqMuO_hOdsbeHBka-12" target="eMufvqMuO_hOdsbeHBka-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-12" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="720" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="eMufvqMuO_hOdsbeHBka-10" target="eMufvqMuO_hOdsbeHBka-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="414" y="780" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="eMufvqMuO_hOdsbeHBka-15" target="eMufvqMuO_hOdsbeHBka-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-15" value="sendResponse(&lt;br&gt;&amp;nbsp; &amp;nbsp; [&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; $e-&amp;gt;getMessage(),&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; $e-&amp;gt;getCode()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; ],&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; 400&lt;/div&gt;&lt;div&gt;);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="514" y="780" width="286" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-16" value="catch (ApiSecurityException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="342" y="810" width="144" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="eMufvqMuO_hOdsbeHBka-17" value="exit;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="637" y="950" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Bl84fyXGpYwqzGWlXaJ3-1" value="Filename: \endpoints\locations\destinationList.php&lt;div&gt;Last Update: 19-03-2025&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1040" width="320" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="L68HRvb8SL2568mtcLu7" name="addDestination">
+    <mxGraphModel dx="880" dy="524" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-1" value="&amp;lt;?php" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-2" value="require_once __DIR__ . &#39;/../../includes/config.php&#39;;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/utility.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/destination.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/town.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/street.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/responsHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/apiSecurityHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/Exceptions/validationException.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/validators/userValidator.class.php&#39;;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="110" width="452" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="HHYuuBf4bpGeSxRhmgnz-3" target="HHYuuBf4bpGeSxRhmgnz-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-3" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;try {&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity = new ApiSecurity();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkHttps();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkRequestMethod(&#39;POST&#39;);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;rateLimiter();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $data = $apiSecurity-&amp;gt;getJsonInput();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkIfAPIKeyExistsAndIsValid($data[&#39;api_key&#39;] ?? &#39;&#39;);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; // if API key is valid&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $destination = new Destination();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $town = new Town();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $street = new Street();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $destination-&amp;gt;setDestination($data[&#39;destinationName&#39;]);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $townCode = $town-&amp;gt;getTownCodeFromTownName($data[&#39;townName&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $destination-&amp;gt;setTownCode($townCode);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $streetCode = $street-&amp;gt;getStreetCodeFromStreetName($data[&#39;streetName&#39;]);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=1;verticalAlign=top;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="280" width="452" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-4" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="HHYuuBf4bpGeSxRhmgnz-1" target="HHYuuBf4bpGeSxRhmgnz-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="730" y="40" as="sourcePoint" />
+            <mxPoint x="740" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-5" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="HHYuuBf4bpGeSxRhmgnz-2" target="HHYuuBf4bpGeSxRhmgnz-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="690" y="300" as="sourcePoint" />
+            <mxPoint x="740" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="HHYuuBf4bpGeSxRhmgnz-6" target="HHYuuBf4bpGeSxRhmgnz-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="615" y="710" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-6" value="?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="670" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="HHYuuBf4bpGeSxRhmgnz-8" target="HHYuuBf4bpGeSxRhmgnz-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-8" value="$street-&amp;gt;getTownCodeFromStreetCode($streetCode) != $townCode" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="267" y="760" width="294" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-9" value="sendResponse(&lt;div&gt;[&lt;/div&gt;&lt;div&gt;&amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &quot;message&quot; =&amp;gt; &quot;Invalid street name for town selected&quot;&lt;/div&gt;&lt;div&gt;] , 400)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="430" y="800" width="370" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="HHYuuBf4bpGeSxRhmgnz-17" target="HHYuuBf4bpGeSxRhmgnz-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-17" value="&lt;div&gt;$destination-&amp;gt;setStreetCode($streetCode);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;$response = json_decode($destination-&amp;gt;addDestination(), true);&lt;/div&gt;&lt;div&gt;sendResponse(&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; [&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;success&quot;,&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;data&quot; =&amp;gt; &quot;Destination added successfully&quot;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; ], 201);&lt;/div&gt;&lt;div&gt;)}&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="229" y="920" width="370" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="ZVU4E6ssyl7LaLAX6Ghd-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="HHYuuBf4bpGeSxRhmgnz-19" target="ZVU4E6ssyl7LaLAX6Ghd-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-19" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="1200" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZVU4E6ssyl7LaLAX6Ghd-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="HHYuuBf4bpGeSxRhmgnz-21" target="ZVU4E6ssyl7LaLAX6Ghd-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="HHYuuBf4bpGeSxRhmgnz-21" value="catch (ValidationException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="327" y="1280" width="174" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZVU4E6ssyl7LaLAX6Ghd-1" value="sendResponse(&lt;br&gt;&amp;nbsp; &amp;nbsp; [&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; &quot;implode(&#39;,&#39; , $e-&amp;gt;getErrors())&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; ],&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; 400&lt;/div&gt;&lt;div&gt;);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="514" y="1300" width="286" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="eGiqtXGmwZCIqOXlMT5P-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZVU4E6ssyl7LaLAX6Ghd-3" target="eGiqtXGmwZCIqOXlMT5P-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZVU4E6ssyl7LaLAX6Ghd-3" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="1440" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZVU4E6ssyl7LaLAX6Ghd-4" value="catch (ApiSecurityException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="327" y="1520" width="174" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="eGiqtXGmwZCIqOXlMT5P-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="eGiqtXGmwZCIqOXlMT5P-1" target="eGiqtXGmwZCIqOXlMT5P-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eGiqtXGmwZCIqOXlMT5P-1" value="sendResponse(&lt;br&gt;&amp;nbsp; &amp;nbsp; [&lt;br&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; $e-&amp;gt;getMessage(),&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; $e-&amp;gt;getCode()&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; ],&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; 400&lt;/div&gt;&lt;div&gt;);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="514" y="1520" width="286" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="eGiqtXGmwZCIqOXlMT5P-2" value="exit;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="637" y="1690" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="XypksWcJdip0Jx25nsOx-1" value="Filename: \endpoints\locations\addDestination.php&lt;div&gt;Last Update: 19-03-2025&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="2200" width="320" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="tyGAaEEKicN0LcVQhxSs" name="addBooking.php">
+    <mxGraphModel dx="880" dy="524" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-1" target="bujBcMcF1ZYik9zWbAEJ-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-1" value="&amp;lt;?php" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-2" target="bujBcMcF1ZYik9zWbAEJ-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-2" value="require_once __DIR__ . &#39;/../../includes/config.php&#39;;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/utility.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/user.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/userBookings.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/destination.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/responsHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/apiSecurityHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/Exceptions/validationException.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/validators/userValidator.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../vendor/autoload.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/JwtHelper.php&#39;;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="110" width="452" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-4" target="bujBcMcF1ZYik9zWbAEJ-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-4" value="use Helpers\JwtHelper" style="whiteSpace=wrap;html=1;align=left;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="330" width="452" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-6" target="bujBcMcF1ZYik9zWbAEJ-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-6" value="try {&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity = new ApiSecurity();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkHttps();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkRequestMethod(&#39;POST&#39;);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;rateLimiter();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; // Retrieve the Authorization header&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $headers = apache_request_headers();&lt;/div&gt;&lt;div&gt;&amp;nbsp;&amp;nbsp;&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=1;spacingLeft=20;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="186" y="420" width="456" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-8" target="bujBcMcF1ZYik9zWbAEJ-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-17" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="bujBcMcF1ZYik9zWbAEJ-16">
+          <mxGeometry x="-0.3" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-8" value="?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="620" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-10" target="bujBcMcF1ZYik9zWbAEJ-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-20" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="bujBcMcF1ZYik9zWbAEJ-19">
+          <mxGeometry x="-0.2333" y="4" relative="1" as="geometry">
+            <mxPoint y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-10" value="?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="860" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-12" target="bujBcMcF1ZYik9zWbAEJ-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-12" value="!isset($headers[&#39;Authorization&#39;])" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="319" y="700" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-15" value="throw new exception(&quot;Missing Authorization Number&quot;);" style="whiteSpace=wrap;html=1;align=left;spacingLeft=20;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="514" y="630" width="286" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-18" value="throw new Exception(&quot;Invalid Authorization header format. Expected &#39;Bearer &amp;lt;token&amp;gt;&#39;.&quot;" style="whiteSpace=wrap;html=1;align=center;spacingLeft=20;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="514" y="870" width="286" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-21" target="bujBcMcF1ZYik9zWbAEJ-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-21" value="$autHeader = $headers[&#39;Authorization&#39;];" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="188" y="760" width="452" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-25" target="bujBcMcF1ZYik9zWbAEJ-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-25" value="stripos($autHeader, &#39;Bearer&#39;) !==0)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="312" y="940" width="204" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-26" target="bujBcMcF1ZYik9zWbAEJ-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-26" value="&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Extract the token portion from the header&lt;/font&gt;&lt;div&gt;$jwtToken = substr($authHeader, 7);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Retrieve your secret key from the invironment (.env)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;$secretKey = getenv(&#39;JWT_KEY&#39;);&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="188" y="1000" width="452" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-28" target="bujBcMcF1ZYik9zWbAEJ-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-28" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="1205" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-30" target="bujBcMcF1ZYik9zWbAEJ-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-30" value="(!$secretKey)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="348" y="1290" width="132" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-31" value="throw new Exception(&quot;JWT_KEY is not set in environment variables.&quot;)" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="514" y="1215" width="286" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-35" target="bujBcMcF1ZYik9zWbAEJ-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-35" value="&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Instantiate the helper with the secret key&lt;/font&gt;&lt;div&gt;$decoded = new JwtHelper($secretKey);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Use the helper to decode and verify the token&lt;/font&gt;&lt;/div&gt;&lt;div&gt;$decoded = $jwtHelper-&amp;gt;decodeToken($jwtToken);&lt;/div&gt;&lt;div&gt;$userId = $decoded-&amp;gt;userId;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Validate the token against Redis to ensure it&#39;s not revoked&lt;/font&gt;&lt;/div&gt;&lt;div&gt;$redis = new Redis();&lt;/div&gt;&lt;div&gt;$redis-&amp;gt;connect(&#39;redis&#39;, 6379); // Adjust port as needed&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="188" y="1360" width="452" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-37" value="?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="1560" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-39" target="bujBcMcF1ZYik9zWbAEJ-43">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-39" value="!$redis-&amp;gt;ping()" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="366" y="1640" width="96" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-40" value="throw next exception(&quot;could not connect to Redis.&quot;);" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="516" y="1620" width="286" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.458;entryY=-0.017;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-37" target="bujBcMcF1ZYik9zWbAEJ-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-42" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="bujBcMcF1ZYik9zWbAEJ-41">
+          <mxGeometry x="0.1888" y="3" relative="1" as="geometry">
+            <mxPoint y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-43" target="bujBcMcF1ZYik9zWbAEJ-45">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-43" value="&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// The key used in the login script might be &quot;auth_token:userId&quot;&lt;/font&gt;&lt;div&gt;$redisKey = &quot;auth_token:&quot; . $decoded-&amp;gt;userId;&lt;/div&gt;&lt;div&gt;$storedToken = $redis-&amp;gt;get($redikKey);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="220" y="1724" width="388" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-45" target="bujBcMcF1ZYik9zWbAEJ-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-45" value="?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="1820" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-47" value="!$storedToken || $storedToken !== $jwtToken" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="288" y="1900" width="252" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-48" value="throw next exception(&quot;Token not found or mismatch in Redis (possibly revoked).&quot;);" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="514" y="1940" width="286" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-50" target="bujBcMcF1ZYik9zWbAEJ-52">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-50" value="&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Now that the token is valid, get the POST data&lt;/font&gt;&lt;div&gt;$data = $apiSecurity-&amp;gt;getJsonInput();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;$destination = new Destination();&lt;/div&gt;&lt;div&gt;$userBookings = new UserBookings();&lt;/div&gt;&lt;div&gt;$destinationId = $destination-&amp;gt;getDestinationName($data[&#39;destinationName&#39;]);&lt;/div&gt;&lt;div&gt;$userBookings = $userBookings-&amp;gt;addUserBooking($userId, $destinationId, $data[&#39;bookingDateTime&#39;] ?? date(&#39;Y-m-d&#39;));&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Return a success response&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;$response = [&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;success&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; &quot;Booking added successfully&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;userId&quot; =&amp;gt; $userId&lt;/div&gt;&lt;div&gt;];&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;sendResponse($response); }&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="170" y="2040" width="502" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.485;entryY=-0.071;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-47" target="bujBcMcF1ZYik9zWbAEJ-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-56" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-52" target="bujBcMcF1ZYik9zWbAEJ-55">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-57" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="bujBcMcF1ZYik9zWbAEJ-56">
+          <mxGeometry x="-0.463" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-52" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="381" y="2360" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-65" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-54" target="bujBcMcF1ZYik9zWbAEJ-58">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-54" value="validationException $e" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="342" y="2440" width="158" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-55" value="sendResponse([&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; implode(&quot;, &quot;, $e-&amp;gt;getErrors())&lt;/div&gt;&lt;div&gt;], 400);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="509" y="2425" width="286" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-58" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="381" y="2540" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-59" target="bujBcMcF1ZYik9zWbAEJ-66">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-59" value="ApiSecurityException $e" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="342" y="2620" width="158" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-60" target="bujBcMcF1ZYik9zWbAEJ-63">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-60" value="sendResponse([&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; $e-&amp;gt;getMessage()&lt;/div&gt;&lt;div&gt;], $e-&amp;gt;getCode());&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="514" y="2620" width="286" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-63" value="exit" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="637" y="2750" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-66" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="381" y="2770" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-68" value="Exception $e" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="342" y="2850" width="158" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="bujBcMcF1ZYik9zWbAEJ-69" target="bujBcMcF1ZYik9zWbAEJ-70">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-69" value="sendResponse([&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; $e-&amp;gt;getMessage()&lt;/div&gt;&lt;div&gt;], 500);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="514" y="2840" width="286" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="bujBcMcF1ZYik9zWbAEJ-70" value="exit" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="637" y="2970" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sbGn4nfOG_me5KtvPMEK-1" value="Filename: \endpoints\bookings\addBooking.php&lt;div&gt;Last Update: 19-03-2025&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="3360" width="320" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="BmnUo9BxtkhApqJqORH5" name="login.php">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="pSz5FJXEK4kDcvX-zUAq-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="pSz5FJXEK4kDcvX-zUAq-1" target="pSz5FJXEK4kDcvX-zUAq-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pSz5FJXEK4kDcvX-zUAq-1" value="&lt;font style=&quot;color: rgb(102, 102, 255);&quot;&gt;&amp;lt;?php&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pSz5FJXEK4kDcvX-zUAq-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="pSz5FJXEK4kDcvX-zUAq-2" target="pSz5FJXEK4kDcvX-zUAq-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pSz5FJXEK4kDcvX-zUAq-2" value="require_once __DIR__ . &#39;/../../includes/config.php&#39;;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/utility.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/user.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/responsHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/apiSecurityHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/Exceptions/validationException.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/validators/userValidator.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../vendor/autoload.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/JwtHelper.php&#39;;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="110" width="452" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="pSz5FJXEK4kDcvX-zUAq-3" target="GACRVp5Km_WsQ9EBu7A9-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pSz5FJXEK4kDcvX-zUAq-3" value="use Helpers\JwtHelper" style="whiteSpace=wrap;html=1;align=left;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="330" width="452" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-1" target="GACRVp5Km_WsQ9EBu7A9-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-1" value="try {&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity = new ApiSecurity();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; // Perform all security checks&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkHttps();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkRequestedMethod(&quot;POST&quot;);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;rateLimiter();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $data = $apiSecurity-&amp;gt;getJsonInput();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; UserValidator::validateLogin($data);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; // Initialize User Class and Set Credentials&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user = new User();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setUserEmail($data[&#39;email&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setUserPassword($data[&#39;password&#39;]);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; // Call the login method and get the response&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $response = $user-&amp;gt;login();&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; // Decode the JSON-encoded login response&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $responseData = json_decode($response, true);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; // Validate if the user is active&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; UserValidator::isUserActive($responseData);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=1;spacingLeft=20;verticalAlign=top;spacingTop=20;" vertex="1" parent="1">
+          <mxGeometry x="190" y="470" width="448" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-3" target="GACRVp5Km_WsQ9EBu7A9-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-17" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="GACRVp5Km_WsQ9EBu7A9-15">
+          <mxGeometry x="-0.0353" y="5" relative="1" as="geometry">
+            <mxPoint y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-3" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry x="486" y="880" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-5" target="GACRVp5Km_WsQ9EBu7A9-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-5" value="$responseData[&#39;status&#39;] === &#39;success&#39;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="418" y="960" width="216" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-6" target="GACRVp5Km_WsQ9EBu7A9-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-6" value="$secretKey = getenv(&#39;JWT_KEY&#39;);" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=0;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="890" width="276" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-8" target="GACRVp5Km_WsQ9EBu7A9-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="1040" />
+              <mxPoint x="160" y="1040" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-16" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="GACRVp5Km_WsQ9EBu7A9-14">
+          <mxGeometry x="-0.3171" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-8" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry x="69" y="1000" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-11" value="!$secretKey" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="79" y="1080" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-12" value="throw new Exception(&quot;Secret key is not set.&quot;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=0;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry x="190" y="1010" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-18" target="GACRVp5Km_WsQ9EBu7A9-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-18" value="&lt;font style=&quot;color: rgb(0, 255, 0);&quot;&gt;// Instantiate the helper with your secret key and algorithm&lt;/font&gt;&lt;div&gt;$jwtHelper = new JwtHelper($secretKey, &#39;HS256&#39;);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Build token payload (the helper will add &#39;iat&#39; and &#39;exp&#39; automatically)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;$payload = [&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;userId&quot; =&amp;gt; $responseData[&#39;userId&#39;],&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;roleId&quot; =&amp;gt; $responseData[&quot;roleId&quot;]&lt;/div&gt;&lt;div&gt;];&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 255, 0);&quot;&gt;// Generate the JWT token (with a 3600-second expiration)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;$jwt = $jwtHelper-&amp;gt;encodeToken($payload, 3600);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Optionally store the token in Redis for sessional management / revocation&lt;/font&gt;&lt;/div&gt;&lt;div&gt;$redis = new Redis();&lt;/div&gt;&lt;div&gt;$redis-&amp;gt;connect(&#39;redis&#39;,6379);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;align=left;spacingLeft=20;verticalAlign=top;spacingTop=20;" vertex="1" parent="1">
+          <mxGeometry x="302" y="1200" width="448" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-20" target="GACRVp5Km_WsQ9EBu7A9-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-25" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="GACRVp5Km_WsQ9EBu7A9-24">
+          <mxGeometry x="0.4667" y="3" relative="1" as="geometry">
+            <mxPoint x="11" y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-20" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry x="486" y="1500" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-22" target="GACRVp5Km_WsQ9EBu7A9-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-22" value="!$redis-&amp;gt;ping()" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="472" y="1580" width="108" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-23" value="throw new Exception(&quot;Could not connect to Redis&quot;);" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=0;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1510" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-26" target="GACRVp5Km_WsQ9EBu7A9-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-26" value="&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Set the token in Redis with a TTL of 3600 seconds&lt;/font&gt;&lt;div&gt;$redisKey = &quot;auth_token:&quot;.$responseData[&#39;userId&#39;];&lt;/div&gt;&lt;div&gt;$ttl = 3600; &lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;//1 hour&lt;/font&gt;&lt;/div&gt;&lt;div&gt;$result = $redis-&amp;gt;setex($redisKey, $ttl, $jwt);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="302" y="1640" width="448" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-34" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-28" target="GACRVp5Km_WsQ9EBu7A9-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-35" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="GACRVp5Km_WsQ9EBu7A9-34">
+          <mxGeometry x="0.1552" y="2" relative="1" as="geometry">
+            <mxPoint y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-28" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry x="486" y="1760" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-37" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-30" target="GACRVp5Km_WsQ9EBu7A9-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-30" value="!result" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="402" y="1840" width="248" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-33" value="error_log(&quot;Failed to add token to Redis&quot;);" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=0;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry x="69" y="1770" width="301" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-36" target="GACRVp5Km_WsQ9EBu7A9-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-41" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="GACRVp5Km_WsQ9EBu7A9-40">
+          <mxGeometry x="-0.2069" y="-3" relative="1" as="geometry">
+            <mxPoint y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-36" value="?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="486" y="1925" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-38" target="GACRVp5Km_WsQ9EBu7A9-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-38" value="&lt;font style=&quot;&quot;&gt;catch (ValidationException $e)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="432" y="2005" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-39" value="sendResponse(&lt;div&gt;[&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; implode(&#39;, &#39;, $e-&amp;gt;getErrors())&lt;/div&gt;&lt;div&gt;], 400);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;spacingTop=0;align=left;" vertex="1" parent="1">
+          <mxGeometry x="69" y="1910" width="301" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-42" target="GACRVp5Km_WsQ9EBu7A9-45">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-42" value="?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="486" y="2080" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-43" target="GACRVp5Km_WsQ9EBu7A9-50">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="526" y="2412" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-43" value="&lt;font style=&quot;&quot;&gt;catch(ApiSecurityException $e)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="432" y="2160" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-45" target="GACRVp5Km_WsQ9EBu7A9-47">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-45" value="sendResponse(&lt;div&gt;[&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; $e-&amp;gt;getMessage()&lt;/div&gt;&lt;div&gt;], $e-&amp;gt;getCode());&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;spacingTop=0;align=left;" vertex="1" parent="1">
+          <mxGeometry x="69" y="2065" width="301" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-47" value="exit" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="199.5" y="2200" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-50" target="GACRVp5Km_WsQ9EBu7A9-52">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-50" value="?" style="rhombus;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="486" y="2410" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-57" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="GACRVp5Km_WsQ9EBu7A9-51" target="GACRVp5Km_WsQ9EBu7A9-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-51" value="&lt;font style=&quot;color: rgb(255, 51, 153);&quot;&gt;catch (Exception $e)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="432" y="2490" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-52" value="sendResponse(&lt;div&gt;[&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; $e-&amp;gt;getMessage()&lt;/div&gt;&lt;div&gt;], 500);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;spacingTop=0;align=left;" vertex="1" parent="1">
+          <mxGeometry x="70" y="2395" width="301" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-53" value="exit" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="200.5" y="2530" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" source="GACRVp5Km_WsQ9EBu7A9-52" target="GACRVp5Km_WsQ9EBu7A9-53" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GACRVp5Km_WsQ9EBu7A9-56" value="&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Send the final response with the Token&amp;nbsp; (if generated)&lt;/font&gt;&lt;/div&gt;sendResponse($responseData)" style="whiteSpace=wrap;html=1;rounded=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="352" y="2585" width="348" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="LCM9XhdPYWwK8Kj3jocY-1" value="Filename: \endpoints\user\login.php&lt;div&gt;Last Update: 19-03-2025&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="3360" width="320" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="zJyzHhzx-F--fOnuigqu" name="logout.php">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="0_vhKYZoWJRvKjVeSpx7-2" target="0_vhKYZoWJRvKjVeSpx7-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-2" value="&lt;font style=&quot;color: rgb(102, 102, 255);&quot;&gt;&amp;lt;?php&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0_vhKYZoWJRvKjVeSpx7-4" target="0_vhKYZoWJRvKjVeSpx7-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-4" value="require_once __DIR__ . &#39;/../../includes/config.php&#39;;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/utility.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/responsHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/apiSecurityHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../vendor/autoload.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/JwtHelper.php&#39;;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="110" width="452" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0_vhKYZoWJRvKjVeSpx7-5" target="0_vhKYZoWJRvKjVeSpx7-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-5" value="use Helpers\JwtHelper" style="whiteSpace=wrap;html=1;align=left;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="270" width="452" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0_vhKYZoWJRvKjVeSpx7-7" target="0_vhKYZoWJRvKjVeSpx7-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-7" value="try {&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity = newApiSecurity();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; //Security checks&lt;br&gt;&lt;/font&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkHttps();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkRequestMethod(&#39;POST&#39;);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;rateLimiter();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; // Get the Authorization Header&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $headers = apache_request_headers();&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=1;spacingLeft=20;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="190" y="370" width="448" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0_vhKYZoWJRvKjVeSpx7-9" target="0_vhKYZoWJRvKjVeSpx7-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-9" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="580" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0_vhKYZoWJRvKjVeSpx7-11" target="0_vhKYZoWJRvKjVeSpx7-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-11" value="!isset($headers[&#39;Authroization&#39;])" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="384" y="660" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-12" value="throw new Exception(Missing Authorization header.&quot;);" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="500" y="590" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0_vhKYZoWJRvKjVeSpx7-14" target="0_vhKYZoWJRvKjVeSpx7-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-14" value="$authHeader = $headers[&#39;Authorization&#39;];" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="188" y="720" width="452" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0_vhKYZoWJRvKjVeSpx7-17" target="0_vhKYZoWJRvKjVeSpx7-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-17" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="820" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0_vhKYZoWJRvKjVeSpx7-20" target="0_vhKYZoWJRvKjVeSpx7-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-20" value="stripos($authHeader,&quot;Bearer&quot;) != 0" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="900" width="188" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-21" value="throw new Exception(&quot;Invalid Authorization header format. Expected &quot;Bearer &amp;lt;token&amp;gt;&#39;.&quot;;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="514" y="830" width="286" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0_vhKYZoWJRvKjVeSpx7-23" target="0_vhKYZoWJRvKjVeSpx7-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-23" value="&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Extract the token&lt;/font&gt;&lt;div&gt;$jwtToken = substr($authHeader,7);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Load the Secret Key&lt;/font&gt;&lt;/div&gt;&lt;div&gt;$secretKey = getEnv(&quot;JWT_KEY);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;align=left;spacingLeft=20;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="188" y="960" width="452" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0_vhKYZoWJRvKjVeSpx7-26" target="sVvoGw6pavX1jkIst9RB-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-27" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="sVvoGw6pavX1jkIst9RB-2">
+          <mxGeometry x="-0.2" y="-4" relative="1" as="geometry">
+            <mxPoint y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-26" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="1200" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="0_vhKYZoWJRvKjVeSpx7-28" target="sVvoGw6pavX1jkIst9RB-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0_vhKYZoWJRvKjVeSpx7-28" value="$secretKey" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="384" y="1280" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-1" value="throw new Exception(&quot;JWT_KEY is not set in environment variables.&quot;);" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="514" y="1210" width="286" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sVvoGw6pavX1jkIst9RB-3" target="sVvoGw6pavX1jkIst9RB-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-3" value="&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Instantiate the helper with yout secret key&lt;/font&gt;&lt;div&gt;$jwtHelper = new JwtHelper($secretKey);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Use the helper to decode and verify the token&lt;/font&gt;&lt;/div&gt;&lt;div&gt;$decoded = $jwtHelper-&amp;gt;decodeToken($jwtToken);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Connect to Redis and remove the token (or mark it revoked)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;$redis = new Redis();&lt;/div&gt;&lt;div&gt;$redis-&amp;gt;connect(&#39;redis&#39;, 6379);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="1340" width="452" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="sVvoGw6pavX1jkIst9RB-5" target="sVvoGw6pavX1jkIst9RB-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-26" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="sVvoGw6pavX1jkIst9RB-9">
+          <mxGeometry x="-0.1333" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-5" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="1550" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sVvoGw6pavX1jkIst9RB-7" target="sVvoGw6pavX1jkIst9RB-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-7" value="$redis-&amp;gt;ping()" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="348" y="1630" width="132" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-8" value="throw new Exception(&quot;Could not connect to Redis.&quot;);" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="514" y="1560" width="286" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-10" value="&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Based on how you stored it in the login endpoint&lt;/font&gt;&lt;div&gt;$redisKey = &quot;auth_token:&quot; . $decoded-&amp;gt;userId;&lt;/div&gt;&lt;div&gt;$storedToken = $redis-&amp;gt;get($redisKey);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;align=left;" vertex="1" parent="1">
+          <mxGeometry x="188" y="1694" width="452" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sVvoGw6pavX1jkIst9RB-12" target="sVvoGw6pavX1jkIst9RB-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-24" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="sVvoGw6pavX1jkIst9RB-16">
+          <mxGeometry x="-0.157" y="4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-12" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="1840" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sVvoGw6pavX1jkIst9RB-10" target="sVvoGw6pavX1jkIst9RB-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="1840" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sVvoGw6pavX1jkIst9RB-14" target="sVvoGw6pavX1jkIst9RB-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-14" value="!$storedToken" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="384" y="1920" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-15" value="&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Possibly already logged out or expired&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Return success anyway or handle differently&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;sendResponse([&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;success&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; &quot;You are already logged out.&quot;&lt;/div&gt;&lt;div&gt;], 200);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;verticalAlign=top;align=left;" vertex="1" parent="1">
+          <mxGeometry x="514" y="1900" width="286" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sVvoGw6pavX1jkIst9RB-17" target="sVvoGw6pavX1jkIst9RB-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-25" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="sVvoGw6pavX1jkIst9RB-21">
+          <mxGeometry x="-0.2197" y="4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-17" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="2040" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="sVvoGw6pavX1jkIst9RB-19" target="sVvoGw6pavX1jkIst9RB-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-19" value="$storedToken === $jwtToken" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="308" y="2120" width="212" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-20" value="$redis-&amp;gt;del($redisKey);" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;verticalAlign=top;align=left;" vertex="1" parent="1">
+          <mxGeometry x="514" y="2100" width="286" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sVvoGw6pavX1jkIst9RB-22" target="sVvoGw6pavX1jkIst9RB-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-22" value="&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Return a success response&lt;/font&gt;&lt;div&gt;sendResponse([&lt;/div&gt;&lt;div&gt;&quot;status&quot; =&amp;gt; &quot;success&quot;,&amp;nbsp;&lt;/div&gt;&lt;div&gt;&quot;message&quot; =&amp;gt; &quot;Logged out successfully.&quot;&lt;/div&gt;&lt;div&gt;]);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;verticalAlign=top;align=left;" vertex="1" parent="1">
+          <mxGeometry x="271" y="2190" width="286" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sVvoGw6pavX1jkIst9RB-28" target="sVvoGw6pavX1jkIst9RB-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-28" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="2360" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-30" value="&lt;font style=&quot;color: rgb(255, 51, 153);&quot;&gt;catch (Exception $e)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="268" y="2440" width="292" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sVvoGw6pavX1jkIst9RB-31" value="sendResponse([&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; $e-&amp;gt;getMessage()&lt;/div&gt;&lt;div&gt;]), 500)&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;spacingLeft=20;verticalAlign=top;align=left;" vertex="1" parent="1">
+          <mxGeometry x="513" y="2419.5" width="286" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="MVTqh6OgmjNyl_9U9LKE-1" value="Filename: \endpoints\user\logout.php&lt;div&gt;Last Update: 19-03-2025&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="3360" width="320" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="nm_0HUI9gjvpc1tQKguW" name="profileRead.php">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="-sIv1jn7qihaljce0b16-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="-sIv1jn7qihaljce0b16-2" target="-sIv1jn7qihaljce0b16-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-2" value="&lt;font style=&quot;color: rgb(102, 102, 255);&quot;&gt;&amp;lt;?php&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-sIv1jn7qihaljce0b16-4" target="-sIv1jn7qihaljce0b16-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-4" value="require_once __DIR__ . &#39;/../../includes/config.php&#39;;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/utility.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/user.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/responsHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/apiSecurityHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/Exceptions/validationException.class.php&#39;;&lt;br&gt;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/validators/userValidator.class.php&#39;;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="110" width="452" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-sIv1jn7qihaljce0b16-6" target="-sIv1jn7qihaljce0b16-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-6" value="try {&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity = new ApiSecurity();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; //Perform all the security checks&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkHttps();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkRequestMethod(&#39;POST&#39;);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;rateLimiter();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $data = $apiSecurity-&amp;gt;getJsonInput();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkIfAPIKeyExistsAndIdValid($data[&#39;api_key&#39;] ?? &#39;&#39;&#39;);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; UserValidator::checkForRequiredFields($data, [&#39;email&#39;]);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user = new User();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setUserEmail($data[&#39;email&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $response = $user-&amp;gt;profileRead();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; sendResponse(&#39;status&#39; =&amp;gt; &#39;successful&#39;, &#39;message&#39; =&amp;gt; $response]);&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="188" y="270" width="452" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-sIv1jn7qihaljce0b16-7" target="-sIv1jn7qihaljce0b16-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-7" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="590" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-9" value="sendResponse([&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot;=&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; implode(&#39;, &#39;,$e-&amp;gt;getErrors())&lt;/div&gt;&lt;div&gt;], 400)&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="510" y="590" width="286" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-sIv1jn7qihaljce0b16-11" target="-sIv1jn7qihaljce0b16-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-11" value="catch (ValidationException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="308" y="670" width="212" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="-sIv1jn7qihaljce0b16-12" target="-sIv1jn7qihaljce0b16-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-12" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="740" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CStWeRcg7dlbmqplrvWu-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-sIv1jn7qihaljce0b16-14" target="CStWeRcg7dlbmqplrvWu-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-14" value="sendResponse([&lt;div&gt;&quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&quot;message&quot; =&amp;gt; $e-&amp;gt;getMessage()&lt;/div&gt;&lt;div&gt;], $e-&amp;gt;getCode());&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="510" y="740" width="286" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="-sIv1jn7qihaljce0b16-16" value="catch (ApiSecurityException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="308" y="830" width="212" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8RK8kL4LZ-P9DnQpWLEE-1" value="Filename: \endpoints\user\profileRead.php&lt;div&gt;Last Update: 08-03-2025&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1000" width="320" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="CStWeRcg7dlbmqplrvWu-1" value="exit" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="633" y="840" width="40" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="UQHT22Qcre3_i3ThApLF" name="profileUpdate.php">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="WQ_Uxw1CbrlMhBoCH97o-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="WQ_Uxw1CbrlMhBoCH97o-2" target="WQ_Uxw1CbrlMhBoCH97o-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WQ_Uxw1CbrlMhBoCH97o-2" value="&lt;font style=&quot;color: rgb(102, 102, 255);&quot;&gt;&amp;lt;?php&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WQ_Uxw1CbrlMhBoCH97o-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="WQ_Uxw1CbrlMhBoCH97o-4" target="WQ_Uxw1CbrlMhBoCH97o-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WQ_Uxw1CbrlMhBoCH97o-4" value="require_once __DIR__ . &#39;/../../includes/config.php&#39;;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/utility.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/user.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/responsHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/apiSecurityHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/Exceptions/validationException.class.php&#39;;&lt;br&gt;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/validators/userValidator.class.php&#39;;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="110" width="452" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="WQ_Uxw1CbrlMhBoCH97o-5" target="ePME0erUvTwH6YtHMc5I-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WQ_Uxw1CbrlMhBoCH97o-5" value="try {&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity = new ApiSecurity();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; //Perform all the security checks&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkHttps();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkRequestMethod(&#39;POST&#39;);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;rateLimiter();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $data = $apiSecurity-&amp;gt;getJsonInput();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkIfAPIKeyExistsAndIsValid($data[&#39;api_key&#39;] ?? &#39;&#39;&#39;);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; UserValidator::validateProfileUpdate($data);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user = new User();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setUserEmail($data[&#39;email&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setUserFirstname($data[&#39;name&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setUserLastname($data[&#39;surname&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setUserAddress($data[&#39;houseNumber&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setStreetCode($data[&#39;street&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setTownCode($data[&#39;town&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setUserDob($data[&#39;dob&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setMobile($data[&#39;mobile&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; echo $user-&amp;gt;profileUpdate();&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;verticalAlign=top;spacingTop=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="270" width="452" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ePME0erUvTwH6YtHMc5I-2" target="ePME0erUvTwH6YtHMc5I-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-2" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="680" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-3" value="sendResponse([&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot;=&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; implode(&#39;, &#39;,$e-&amp;gt;getErrors())&lt;/div&gt;&lt;div&gt;], 400)&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="510" y="680" width="286" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ePME0erUvTwH6YtHMc5I-5" target="ePME0erUvTwH6YtHMc5I-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-5" value="catch (ValidationException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="308" y="760" width="212" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ePME0erUvTwH6YtHMc5I-7" target="ePME0erUvTwH6YtHMc5I-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-7" value="?" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;rounded=1;spacingLeft=0;" vertex="1" parent="1">
+          <mxGeometry x="374" y="830" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ePME0erUvTwH6YtHMc5I-9" target="ePME0erUvTwH6YtHMc5I-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-9" value="sendResponse([&lt;div&gt;&quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&quot;message&quot; =&amp;gt; $e-&amp;gt;getMessage()&lt;/div&gt;&lt;div&gt;], $e-&amp;gt;getCode());&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="510" y="830" width="286" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ePME0erUvTwH6YtHMc5I-10" target="ePME0erUvTwH6YtHMc5I-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-10" value="catch (ApiSecurityException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="308" y="920" width="212" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-11" value="exit" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="633" y="930" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ePME0erUvTwH6YtHMc5I-13" value="end" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="394" y="1010" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="YY0AYQP4rLIKkCJg5LRB-1" value="Filename: \endpoints\user\profileUpdate.php&lt;div&gt;Last Update: 08-03-2025&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1000" width="320" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="iiX-3Hh1rZfXJ-ziUEPe" name="readRoles.php">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZbBNERdgxgXjPqcYkhJB-2" target="ZbBNERdgxgXjPqcYkhJB-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-2" value="&lt;font style=&quot;color: rgb(102, 102, 255);&quot;&gt;&amp;lt;?php&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ZbBNERdgxgXjPqcYkhJB-4" target="ZbBNERdgxgXjPqcYkhJB-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-4" value="require_once __DIR__ . &#39;/../../includes/config.php&#39;;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/utility.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/role.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/responsHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/apiSecurityHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/Exceptions/validationException.class.php&#39;;&lt;br&gt;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/validators/userValidator.class.php&#39;;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="110" width="452" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ZbBNERdgxgXjPqcYkhJB-5" target="ZbBNERdgxgXjPqcYkhJB-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-5" value="try {&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity = new ApiSecurity();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; //Perform all the security checks&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkHttps();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkRequestMethod(&#39;POST&#39;);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;rateLimiter();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $data = $apiSecurity-&amp;gt;getJsonInput();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkIfAPIKeyExistsAndIsValid($data[&#39;api_key&#39;] ?? &#39;&#39;&#39;);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $role = new Role();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; echo $role-&amp;gt;roleRead();&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;verticalAlign=top;spacingTop=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="270" width="452" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZbBNERdgxgXjPqcYkhJB-6" target="ZbBNERdgxgXjPqcYkhJB-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-6" value="" style="rhombus;whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;spacingTop=20;" vertex="1" parent="1">
+          <mxGeometry x="374" y="520" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ZbBNERdgxgXjPqcYkhJB-8" target="ZbBNERdgxgXjPqcYkhJB-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-8" value="catch (ValidationException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="268" y="600" width="292" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="hgFDvvd-N-5WjX2EiwdB-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZbBNERdgxgXjPqcYkhJB-9" target="hgFDvvd-N-5WjX2EiwdB-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-9" value="" style="rhombus;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="685" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="g6C6FKfU3us1U9cMvNkV-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZbBNERdgxgXjPqcYkhJB-11" target="g6C6FKfU3us1U9cMvNkV-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-11" value="catch (ApiSecurityException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="268" y="760" width="292" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZbBNERdgxgXjPqcYkhJB-12" value="sendResponse([&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; implode (&#39;, &#39;, $e-&amp;gt;getErrors())&lt;/div&gt;&lt;div&gt;]), 400)&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;spacingTop=20;" vertex="1" parent="1">
+          <mxGeometry x="514" y="585" width="286" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="g6C6FKfU3us1U9cMvNkV-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="hgFDvvd-N-5WjX2EiwdB-1" target="g6C6FKfU3us1U9cMvNkV-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hgFDvvd-N-5WjX2EiwdB-1" value="sendResponse([&lt;div&gt;&quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&quot;message&quot; =&amp;gt; $e-&amp;gt;getMessage()&lt;/div&gt;&lt;div&gt;], $e-&amp;gt;getCode());&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="520" y="765" width="286" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="g6C6FKfU3us1U9cMvNkV-1" value="exit" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="643" y="870" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="g6C6FKfU3us1U9cMvNkV-3" value="End" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="394" y="930" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-79GnN3FyTkgR5W58kcs-1" value="Filename: \endpoints\user\readRoles.php&lt;div&gt;Last Update: 08-03-2025&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1000" width="320" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="juMpDz-4h4Y2IAIj-e30" name="registration.php">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Q65jNUcv4baTfjySV7gm-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-2" target="Q65jNUcv4baTfjySV7gm-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-2" value="&lt;font style=&quot;color: rgb(102, 102, 255);&quot;&gt;&amp;lt;?php&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-4" target="Q65jNUcv4baTfjySV7gm-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-4" value="require_once __DIR__ . &#39;/../../includes/config.php&#39;;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/utility.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/user.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/town.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/street.class.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/responsHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../helpers/apiSecurityHelper.php&#39;;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/Exceptions/validationException.class.php&#39;;&lt;br&gt;&lt;/div&gt;&lt;div&gt;require_once __DIR__ . &#39;/../../classes/validators/userValidator.class.php&#39;;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="110" width="452" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="414" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-6" target="Q65jNUcv4baTfjySV7gm-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-6" value="try {&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity = new ApiSecurity();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;&amp;nbsp; &amp;nbsp; //Perform all the security checks&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkHttps();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;checkRequestMethod(&#39;POST&#39;);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $apiSecurity-&amp;gt;rateLimiter();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $data = $apiSecurity-&amp;gt;getJsonInput();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; UserValidator::validateRegistration($data);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user = new User();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $town = new Town();&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $street = new Street();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setUserEmail($data[&#39;email&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setUserFirstname($data[&#39;fname&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setUserLastname($data[&#39;lname&#39;]);&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setUserAddress($data[&#39;houseNumber&#39;]);&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp; $townCode = $town-&amp;gt;getTownCodeFromTownName($data[&#39;townName&#39;]);&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp; $user-&amp;gt;setTownCode($townCode);&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp; $streetCode = $street-&amp;gt;getStreetCodeFromStreetName($data[&#39;streetName&#39;]);&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;spacingLeft=20;verticalAlign=top;spacingTop=20;" vertex="1" parent="1">
+          <mxGeometry x="148" y="310" width="532" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-7" target="Q65jNUcv4baTfjySV7gm-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-7" value="" style="rhombus;whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;spacingTop=20;" vertex="1" parent="1">
+          <mxGeometry x="374" y="760" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-9" target="Q65jNUcv4baTfjySV7gm-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-9" value="$street-&amp;gt;getTownCodeFromStreetCode($streetCode) != $townCode" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="228" y="840" width="372" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-10" target="Q65jNUcv4baTfjySV7gm-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-10" value="sendResponse([&lt;div&gt;&quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&quot;message&quot; =&amp;gt; &quot;Invalid street name from town selected&quot;],&lt;/div&gt;&lt;div&gt;400);&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;spacingTop=20;" vertex="1" parent="1">
+          <mxGeometry x="460" y="880" width="340" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-12" value="Exit" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="610" y="1030" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-14" target="Q65jNUcv4baTfjySV7gm-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-14" value="$user-&amp;gt;setStreetCode($streetCode);&lt;div&gt;$user-&amp;gt;setMobile($data[&#39;mobile&#39;]);&lt;/div&gt;&lt;div&gt;$user-&amp;gt;setUserDob($data[&#39;dob&#39;]);&lt;/div&gt;&lt;div&gt;$user-&amp;gt;setUserPassword($data[&#39;password&#39;]);&lt;/div&gt;&lt;div&gt;$user-&amp;gt;setUserConfirm($data[&#39;confirm&#39;]);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(0, 204, 0);&quot;&gt;// Call the registration method and decode its JSON response&lt;/font&gt;&lt;/div&gt;&lt;div&gt;$response = json_decode($user-&amp;gt;registration(), true);&lt;/div&gt;&lt;div&gt;sendResponse($response);&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;align=left;verticalAlign=top;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="188" y="1190" width="452" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-22" target="Q65jNUcv4baTfjySV7gm-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-16" target="Q65jNUcv4baTfjySV7gm-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-16" value="" style="rhombus;whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="374" y="1400" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-23" target="Q65jNUcv4baTfjySV7gm-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-18" target="Q65jNUcv4baTfjySV7gm-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-18" value="" style="rhombus;whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="374" y="1560" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-31" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-20" target="Q65jNUcv4baTfjySV7gm-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-20" value="" style="rhombus;whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="374" y="1780" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-22" value="catch(ValidationException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="269" y="1480" width="290" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-23" value="catch (ApiSecurityException $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="258" y="1640" width="312" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-25" target="Q65jNUcv4baTfjySV7gm-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-25" value="catch (Exception $e)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3399;" vertex="1" parent="1">
+          <mxGeometry x="258" y="1860" width="312" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-26" value="sendResponse([&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; implode(&#39;,&#39;, $e-&amp;gt;getErrors())&lt;/div&gt;&lt;div&gt;], 400);&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="514" y="1460" width="286" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q65jNUcv4baTfjySV7gm-28" target="Q65jNUcv4baTfjySV7gm-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-28" value="sendResponse([&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &quot;message&quot; =&amp;gt; $e-&amp;gt;getMessage()],&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; $e-&amp;gt;getCode());&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="514" y="1620" width="286" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-30" value="sendResponse([&lt;div&gt;&quot;status&quot; =&amp;gt; &quot;error&quot;,&lt;/div&gt;&lt;div&gt;&quot;message&quot; =&amp;gt; &quot;An unexpected error occurred. Please try again later.&quot;)&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;verticalAlign=top;rounded=1;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1850" width="286" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-34" value="Exit" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="637" y="1734" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q65jNUcv4baTfjySV7gm-36" value="End" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="394" y="1990" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lwRwpDUfohbyx0rlo6gR-1" value="Filename: \endpoints\user\registration.php&lt;div&gt;Last Update: 08-03-2025&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=20;" vertex="1" parent="1">
+          <mxGeometry x="40" y="2160" width="320" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
