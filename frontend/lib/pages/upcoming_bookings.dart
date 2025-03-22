@@ -16,8 +16,11 @@ class UpcomingBookingsPage extends ConsumerWidget {
     final roleID = user.userRole;
 
     final bookings = ref.watch(bookingsProvider);
-    final sorted = BookingSorter.sortBookings(bookings, user);
-    final upcomingBookings = sorted['upcoming']!;
+    // final sorted = BookingSorter.sortBookings(bookings, user);
+    // final upcomingBookings = sorted['upcoming']!;
+
+    final upcomingBookings = bookings; //TEMP
+    print('🧪 Showing ${upcomingBookings.length} bookings directly');
 
     return Column(
       children: [

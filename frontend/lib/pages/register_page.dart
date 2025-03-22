@@ -24,7 +24,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _mobileNumberController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   final formatter = DateFormat('yyyy-MM-dd');
 
@@ -66,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
       debugPrint('API_KEY not found in .env file');
       return;
     }
-    
+
     try {
       final response = await http.post(
         url,
@@ -78,18 +79,20 @@ class _RegisterPageState extends State<RegisterPage> {
       );
       debugPrint('Response status: ${response.statusCode}');
       debugPrint('Response body: ${response.body}');
-      
+
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         List<String> streets;
         if (data is List) {
-          streets = data
-              .map<String>((item) => item['streetName'].toString())
-              .toList();
+          streets =
+              data
+                  .map<String>((item) => item['streetName'].toString())
+                  .toList();
         } else if (data is Map && data.containsKey('streets')) {
-          streets = (data['streets'] as List)
-              .map<String>((item) => item['streetName'].toString())
-              .toList();
+          streets =
+              (data['streets'] as List)
+                  .map<String>((item) => item['streetName'].toString())
+                  .toList();
         } else {
           throw Exception('Unexpected response format for streets: $data');
         }
@@ -206,19 +209,17 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     Text(
                       'Your registration has been successfully submitted!',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(fontSize: 25),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyLarge!.copyWith(fontSize: 25),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 40),
                     Text(
                       'Your submission is now being reviewed by the Local Council staff. Once approved, you will be able to log in using the credentials you have set.',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(fontSize: 16),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyLarge!.copyWith(fontSize: 16),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -243,10 +244,9 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(height: 20),
             Text(
               'Registration Form',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(fontSize: 30),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge!.copyWith(fontSize: 30),
             ),
             const SizedBox(height: 20),
             Form(
@@ -297,59 +297,70 @@ class _RegisterPageState extends State<RegisterPage> {
                     _townsList.isEmpty
                         ? const CircularProgressIndicator()
                         : DropdownButtonFormField<String>(
-                            value: _selectedTown.isNotEmpty ? _selectedTown : null,
-                            hint: const Text('Select Town'),
-                            decoration: const InputDecoration(
-                              labelText: 'Select Town',
-                            ),
-                            items: _townsList.map((String town) {
-                              return DropdownMenuItem<String>(
-                                value: town,
-                                child: Text(town),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedTown = value!;
-                                _streetsList = [];
-                                _selectedStreet = '';
-                              });
-                              _fetchStreets(_selectedTown);
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please select a town';
-                              }
-                              return null;
-                            },
+                          value:
+                              _selectedTown.isNotEmpty ? _selectedTown : null,
+                          hint: const Text('Select Town'),
+                          decoration: const InputDecoration(
+                            labelText: 'Select Town',
                           ),
+                          items:
+                              _townsList.map((String town) {
+                                return DropdownMenuItem<String>(
+                                  value: town,
+                                  child: Text(town),
+                                );
+                              }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedTown = value!;
+                              _streetsList = [];
+                              _selectedStreet = '';
+                            });
+                            _fetchStreets(_selectedTown);
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select a town';
+                            }
+                            return null;
+                          },
+                        ),
                     const SizedBox(height: 10),
                     _selectedTown.isNotEmpty
                         ? _streetsList.isEmpty
                             ? const CircularProgressIndicator()
                             : DropdownButtonFormField<String>(
-                                value: _selectedStreet.isNotEmpty ? _selectedStreet : null,
-                                decoration: const InputDecoration(
-                                  labelText: 'Select Street',
-                                ),
-                                items: _streetsList.map((String street) {
-                                  return DropdownMenuItem<String>(
-                                    value: street,
-                                    child: Text(street),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedStreet = value!;
-                                  });
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please select a street';
-                                  }
-                                  return null;
-                                },
-                              )
+                              isExpanded: true, // to prevent overflow
+                              value:
+                                  _selectedStreet.isNotEmpty
+                                      ? _selectedStreet
+                                      : null,
+                              decoration: const InputDecoration(
+                                labelText: 'Select Street',
+                              ),
+                              items:
+                                  _streetsList.map((String street) {
+                                    return DropdownMenuItem<String>(
+                                      value: street,
+                                      child: Text(
+                                        street,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                      ),
+                                    );
+                                  }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedStreet = value!;
+                                });
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please select a street';
+                                }
+                                return null;
+                              },
+                            )
                         : const SizedBox.shrink(),
                     const SizedBox(height: 10),
                     CustomTextField(
