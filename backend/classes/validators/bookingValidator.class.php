@@ -39,7 +39,9 @@ class BookingValidator extends Utility {
             $errors[] = "Invalid booking ID.";
         }
 
+        // *************************************
         // 3. Validate booking status
+        // *************************************
         $validStatuses = ['pending', 'confirmed', 'driver en route', 'driver arrived', 'client picked up', 'completed', 'cancelled', 'client no show', 'rejected', 'failed'];
         if (!in_array($data['bookingStatus'], $validStatuses)) {
             $errors[] = "Invalid booking status.";
