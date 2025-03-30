@@ -1,5 +1,11 @@
 <?php
-	require_once __DIR__ . '/../includes/config.php';
+	$configFilePath = __DIR__ . '/../includes/config.php';
+	if (!file_exists($configFilePath)) {
+		die("Error: Configuration file not found.");
+	}
+
+	// Include the configuration file
+	require_once $configFilePath;
 
 	class Utility
 	{

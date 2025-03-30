@@ -3,8 +3,11 @@ require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/utility.class.php';
  
 class UserBookings {
+    private $_clientId;
     private $_userId;
     private $_destinationId;
+    private $_bookingId;
+    private $_bookingDetails;
     private $_bookingStatus;
     private $_bookingDate;
     public $conn;
@@ -14,15 +17,21 @@ class UserBookings {
     }
  
     // Getters and Setters
-    public function setUserId($var) { $this->_userId = $var; }
-    public function setDestinationId($var) { $this->_destinationId = $var; }
-    public function setBookingStatus($var) { $this->_bookingStatus = $var; }
-    public function setBookingDate($var) { $this->_bookingDate = $var; }
+    public function setBookingId($var)       { $this->_bookingId = $var; }
+    public function setClientId($var)       { $this->_clientId = $var; }
+    public function setUserId($var)         { $this->_userId = $var; }
+    public function setDestinationId($var)  { $this->_destinationId = $var; }
+    public function setBookingDetails($var) { $this->_bookingDetails = $var; }
+    public function setBookingStatus($var)  { $this->_bookingStatus = $var; }
+    public function setBookingDate($var)    { $this->_bookingDate = $var; }
  
-    public function getUserId() { return $this->_userId; }
-    public function getDestinationId() { return $this->_destinationId; }
-    public function getBookingStatus() { return $this->_bookingStatus; }
-    public function getBookingDate() { return $this->_bookingDate; }
+    public function getBookingId()           { return $this->_bookingId; }
+    public function getClientId()           { return $this->_clientId; }
+    public function getUserId()             { return $this->_userId; }
+    public function getDestinationId()      { return $this->_destinationId; }
+    public function getBookingDetails()     { return $this->_bookingDetails; }
+    public function getBookingStatus()      { return $this->_bookingStatus; }
+    public function getBookingDate()        { return $this->_bookingDate; }
  
     /**
      * Retrieve all bookings for a specific user.
@@ -133,15 +142,33 @@ class UserBookings {
             echo "Error: " . $e->getMessage();
         }
     }
+
+    public function updateBookingStatusR2($bookingId, $bookingStatus, $userId) {
+        try {
+            $stmt = $this->conn->prepare("
+                UPDATE bookings 
+                SET 
+                bookingStatus = ?,
+                modifiedBy = ?,
+                modifiedDate = NOW()
+                WHERE booking_id = ?
+            ");
+            $stmt->execute([$bookingStatus, $userId, $bookingId]);
  
-    public function updateBookingStatus($userId, $destinationId, $newStatus) {
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            echo "Error: ". $e->getMessage();
+        }
+    }
+ 
+    public function updateBookingStatus($userId, $destinationId, $bookingStatus) {
         try {
             $stmt = $this->conn->prepare("
                 UPDATE bookings 
                 SET bookingStatus = ? 
                 WHERE userId = ? AND destinationId = ?
             ");
-            $stmt->execute([$newStatus, $userId, $destinationId]);
+            $stmt->execute([$bookingStatus, $userId, $destinationId]);
  
             return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
