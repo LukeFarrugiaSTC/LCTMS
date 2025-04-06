@@ -76,6 +76,7 @@
                 return false;
             }
         }
+<<<<<<< HEAD
 
 		// ****************************************************
 		// This method is used to get all streets in a town
@@ -147,6 +148,8 @@
                 return false;
             }
         }
+=======
+>>>>>>> 7dc2828 (Add booking endpoints and classes Revision 2)
 
 		// ****************************************************
 		// This method is used to get all streets in a town

@@ -53,7 +53,8 @@
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
                 return $result['destinationId'];
             } catch (PDOException $e) {
-                echo "Error: ". $e->getMessage();
+                error_log("Error in getDestinationIdFromDestinationName: " . $e->getMessage());
+                return null;
             }
         }
 
