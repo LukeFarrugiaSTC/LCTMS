@@ -237,6 +237,9 @@ frontend/ios/Flutter/Flutter.podspec
 frontend/ios/.symlinks/
 frontend/ios/Pods/
 frontend/ios/Podfile.lock
+frontend/ios/Runner.xcodeproj/project.pbxproj
+frontend/ios/Flutter/Generated.xcconfig
+frontend/ios/Runner
 
 # macOS specific (if using Flutter desktop)
 frontend/macos/Flutter/ephemeral/
@@ -247,6 +250,7 @@ frontend/macos/Podfile.lock
 frontend/android/.gradle/
 frontend/android/app/build/
 frontend/android/local.properties
+frontend/android/app/src/main/res 
 
 # VS Code and IntelliJ IDEs
 frontend/.idea/
