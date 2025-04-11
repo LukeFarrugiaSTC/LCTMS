@@ -223,6 +223,8 @@ key.properties
 
 frontend/assets/certs/*
 
+frontend/windows/flutter/ephemeral/*
+
 # Flutter build outputs
 frontend/build/
 frontend/.dart_tool/

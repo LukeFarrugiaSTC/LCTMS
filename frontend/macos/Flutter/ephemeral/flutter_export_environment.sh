@@ -1,7 +1,12 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
+<<<<<<< HEAD
 export "FLUTTER_ROOT=/Users/emmamackay/development/flutter"
 export "FLUTTER_APPLICATION_PATH=/Users/emmamackay/LCTMS/frontend"
+=======
+export "FLUTTER_ROOT=C:\Users\malla112\Downloads\flutter_windows_3.29.2-stable\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Users\malla112\Documents\LCTMS\frontend"
+>>>>>>> 7e96741 (Added updateBookingStatus.php)
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=1.0.0"
