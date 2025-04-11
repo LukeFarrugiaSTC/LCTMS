@@ -1,10 +1,14 @@
 <?php
+
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/utility.class.php';
  
 class UserBookings {
+    private $_clientId;
     private $_userId;
     private $_destinationId;
+    private $_bookingId;
+    private $_bookingDetails;
     private $_bookingStatus;
     private $_bookingDate;
     public $conn;
@@ -14,15 +18,21 @@ class UserBookings {
     }
  
     // Getters and Setters
-    public function setUserId($var) { $this->_userId = $var; }
-    public function setDestinationId($var) { $this->_destinationId = $var; }
-    public function setBookingStatus($var) { $this->_bookingStatus = $var; }
-    public function setBookingDate($var) { $this->_bookingDate = $var; }
+    public function setBookingId($var)       { $this->_bookingId = $var; }
+    public function setClientId($var)       { $this->_clientId = $var; }
+    public function setUserId($var)         { $this->_userId = $var; }
+    public function setDestinationId($var)  { $this->_destinationId = $var; }
+    public function setBookingDetails($var) { $this->_bookingDetails = $var; }
+    public function setBookingStatus($var)  { $this->_bookingStatus = $var; }
+    public function setBookingDate($var)    { $this->_bookingDate = $var; }
  
-    public function getUserId() { return $this->_userId; }
-    public function getDestinationId() { return $this->_destinationId; }
-    public function getBookingStatus() { return $this->_bookingStatus; }
-    public function getBookingDate() { return $this->_bookingDate; }
+    public function getBookingId()           { return $this->_bookingId; }
+    public function getClientId()           { return $this->_clientId; }
+    public function getUserId()             { return $this->_userId; }
+    public function getDestinationId()      { return $this->_destinationId; }
+    public function getBookingDetails()     { return $this->_bookingDetails; }
+    public function getBookingStatus()      { return $this->_bookingStatus; }
+    public function getBookingDate()        { return $this->_bookingDate; }
  
     /**
      * Retrieve all bookings for a specific user.
@@ -133,33 +143,150 @@ class UserBookings {
             echo "Error: " . $e->getMessage();
         }
     }
+
+    /* **********************************************************************************
+     * Update the status of a booking.
+     * 
+     * @param int $bookingId        - The ID of the booking to update.
+     * @param string $bookingStatus - The new status of the booking.
+     * @param int $userId           - The ID of the user making the update.
+     * @return bool                 - True if the update was successful, false otherwise.
+     * **********************************************************************************/    
+    public function updateBookingStatusR2($bookingId, $bookingStatus, $userId) {
+        try {
+            $stmt = $this->conn->prepare("
+                UPDATE bookings 
+                SET 
+                bookingStatus = ?,
+                modifiedBy = ?,
+                modifiedDate = NOW()
+                WHERE booking_id = ?
+            ");
+            $stmt->execute([$bookingStatus, $userId, $bookingId]);
  
-    public function updateBookingStatus($userId, $destinationId, $newStatus) {
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            return json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
+        }
+    }
+ 
+    public function updateBookingStatus($userId, $destinationId, $bookingStatus) {
         try {
             $stmt = $this->conn->prepare("
                 UPDATE bookings 
                 SET bookingStatus = ? 
                 WHERE userId = ? AND destinationId = ?
             ");
-            $stmt->execute([$newStatus, $userId, $destinationId]);
+            $stmt->execute([$bookingStatus, $userId, $destinationId]);
  
             return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
-            echo "Error: ". $e->getMessage();
+            return json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
         }
     }
+
+    /* **********************************************************************************
+     * Find available booking slots free for a day
+     * 
+     * @param date $selectedDate   - Filter bookings for a particular day 
+     * **********************************************************************************/    
  
-    public function addUserBooking($userId, $destinationId, $bookingDateTime) {
+    public function getBookingCountsForDate($selectedDate){
         try {
-            $stmt = $this->conn->prepare("
-                INSERT INTO bookings (userId, destinationId, bookingStatus, bookingDate)
-                VALUES (?, ?, 'pending', ?)
-            ");
-            $stmt->execute([$userId, $destinationId, $bookingDateTime]);
+            // Define the times (one-hour interval)
+            $timeSlots = [
+                '08:00:00',
+                '09:00:00',
+                '10:00:00',
+                '11:00:00',
+                '12:00:00',
+                '13:00:00',
+                '14:00:00',
+            ];
+
+            $resultList = [];
+
+            foreach($timeSlots as $time){
+                $bookingDateTime = $selectedDate.' '.$time;
+
+                $stmt = $this->conn->prepare("
+                    SELECT COUNT(*) AS bookingCount
+                    FROM bookings
+                    WHERE bookingDate = ?
+                    AND bookingStatus != 'cancelled'
+                ");
+
+                $stmt->execute([$bookingDateTime]);
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                $resultList[] = [
+                    'time' => substr($time,0,5), 
+                    'bookings' => (int)($result['bookingCount'] ?? 0)
+                ];
+            } 
+
+            return [
+                'status' => 'success',
+                'date' => $selectedDate,
+                'times' => $resultList
+            ];
+        } catch (PDOException $e) {
+            error_log("Error in getBookingCountsForDate: " .$e->getMessage());
+
+            return [
+                'status' => 'error',
+                'message' => 'Database error: '.$e->getMessage()
+            ];
+
+        }
+    }
+
+    public function addUserBooking($clientId, $destinationId, $bookingDateTime, $userId){
+        //echo $clientId.'|'.$destinationId.'|'.$bookingDateTime.'|'.$userId;
+
+        try {
+            $sql = "INSERT INTO bookings 
+                    (
+                        clientId, 
+                        destinationId, 
+                        bookingStatus, 
+                        bookingDate, 
+                        createdBy, 
+                        createdDate
+                    ) 
+                    VALUES 
+                    (
+                        ?, 
+                        ?, 
+                        ?, 
+                        ?, 
+                        ?, 
+                        NOW()
+                    )";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$clientId, $destinationId, 'pending',$bookingDateTime, $userId]);
+
+            if($stmt->rowCount()>0){
+                error_log('Booking added successfully');
+                return true;
+            }else{
+                error_log('Booking not added');
+                return false;
+            }
  
             return $this->conn->lastInsertId();
         } catch (PDOException $e) {
-            echo "Error: ". $e->getMessage();
+            return json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
         }
     }
  
@@ -173,7 +300,10 @@ class UserBookings {
  
             return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
-            echo "Error: ". $e->getMessage();
+            return json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
         }
     }
  
@@ -188,7 +318,10 @@ class UserBookings {
  
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Error: ". $e->getMessage();
+            return json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
         }
     }
  
@@ -203,7 +336,10 @@ class UserBookings {
  
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Error: ". $e->getMessage();
+            return json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
         }
     }
  
@@ -218,7 +354,10 @@ class UserBookings {
  
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Error: ". $e->getMessage();
+            return json_encode([
+                "status" => "error",
+                "message" => $e->getMessage()
+            ]);
         }
     }
 }
