@@ -2,9 +2,11 @@ services:
   backend:
     build: ./backend
     expose:
-      - "80"       
+      - "80"   
     volumes:
       - ./backend:/var/www/html
+      - ./backend/logs:/var/www/html/logs:rw  # Changed to a bind mount
+      - backend-tmp:/var/www/html/tmp:rw
     depends_on:
       - mysql
       - redis
@@ -16,20 +18,49 @@ services:
       DB_NAME: ${DB_NAME}
       MAILER_DSN: ${MAILER_DSN}
       JWT_KEY: ${JWT_KEY}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+      - /var/run/apache2
+    networks:
+      - backend-network
+      - db-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$DB_USER -p ${DB_PASS}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   mysql:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASS}
     ports:
-      - "3306:3306"
+      - "127.0.0.1:3306:3306"  # Only expose to localhost
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./mysql-init:/docker-entrypoint-initdb.d
+      - ./mysql-init:/docker-entrypoint-initdb.d:ro
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1G
+    networks:
+      - db-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-psecret"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   nginx:
     build: ./nginx
@@ -43,28 +74,87 @@ services:
       - ./frontend/assets/certs:/etc/nginx/ssl
       - ./frontend/lib/config:/frontend/lib/config
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    # Remove tmpfs for nginx cache since we need persistent directories
+    # tmpfs:
+    #  - /var/cache/nginx
+    #  - /var/run
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+    networks:
+      - frontend-network
+      - backend-network
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   redis:
-    image: redis:alpine
+    image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"  # Only expose to localhost
+    volumes:
+      - redis-data:/data
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD}"]
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+    networks:
+      - backend-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   mailhog:
     image: mailhog/mailhog:latest
     platform: "linux/amd64"
     restart: always
     ports:
-      - "1025:1025"
-      - "8025:8025"
+      - "127.0.0.1:1025:1025"  # Only expose to localhost
+      - "127.0.0.1:8025:8025"  # Only expose to localhost
     volumes:
       - ./entrypoint.sh:/entrypoint.sh:ro
-      - ./config:/config
+      - ./config:/config:ro
     environment:
       MAIL_HOST: "127.0.0.1"
       MAIL_PORT: "1025"
     entrypoint: ["/entrypoint.sh"]
     command: ["-outgoing-smtp", "/config/outgoing_smtp.json"]
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+    networks:
+      - backend-network
 
 volumes:
   mysql-data:
-  nginx-ssl:
+  redis-data:
+  backend-tmp:
+  # backend-logs: <- Removed this volume since we're using a bind mount now
+  
+networks:
+  frontend-network:
+    driver: bridge
+  backend-network:
+    driver: bridge
+  db-network:
+    driver: bridge

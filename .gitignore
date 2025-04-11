@@ -222,3 +222,7 @@ key.properties
 **/api_config.dart
 
 frontend/assets/certs/*
+
+frontend/ios/*
+
+**/.metadata
