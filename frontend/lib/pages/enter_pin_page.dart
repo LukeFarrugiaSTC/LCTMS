@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:frontend/config/api_config.dart';
 import 'package:frontend/pages/update_password_page.dart';
 
+// Class for verifying the reset PIN sent to the user's email before allowing password reset
 class EnterPinPage extends StatefulWidget {
   final String email;
   const EnterPinPage({Key? key, required this.email}) : super(key: key);
@@ -42,10 +43,11 @@ class _EnterPinPageState extends State<EnterPinPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => UpdatePasswordPage(
-              email: widget.email,
-              pin: _pinController.text.trim(),
-            ),
+            builder:
+                (context) => UpdatePasswordPage(
+                  email: widget.email,
+                  pin: _pinController.text.trim(),
+                ),
           ),
         );
       } else {
@@ -119,9 +121,9 @@ class _EnterPinPageState extends State<EnterPinPage> {
               _isLoading
                   ? const CircularProgressIndicator()
                   : ElevatedButton(
-                      onPressed: _submitPin,
-                      child: const Text('Submit PIN'),
-                    ),
+                    onPressed: _submitPin,
+                    child: const Text('Submit PIN'),
+                  ),
             ],
           ),
         ),

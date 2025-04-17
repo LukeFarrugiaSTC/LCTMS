@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../../classes/Controllers/BaseApiController.php';
 require_once __DIR__ . '/../../classes/user.class.php';
+require_once __DIR__ . '/../../classes/street.class.php';
+require_once __DIR__ . '/../../classes/town.class.php';
 require_once __DIR__ . '/../../classes/validators/userValidator.class.php';
 require_once __DIR__ . '/../../classes/Exceptions/validationException.class.php';
 
@@ -14,12 +16,19 @@ class ProfileUpdateController extends BaseApiController {
             
             // Proceed with updating the user profile
             $user = new User();
+
+            $street = new Street();
+            $streetCode = $street->getStreetCodeFromStreetName($this->data['street']);
+
+            $town = new Town();
+            $townCode = $town->getTownCodeFromTownName($this->data['town']);
+
             $user->setUserEmail($this->data['email']);
             $user->setUserFirstname($this->data['name']);
             $user->setUserLastname($this->data['surname']);
             $user->setUserAddress($this->data['houseNumber']);
-            $user->setStreetCode($this->data['street']);
-            $user->setTownCode($this->data['town']);
+            $user->setStreetCode($streetCode);
+            $user->setTownCode($townCode);
             $user->setUserDob($this->data['dob']);
             $user->setMobile($this->data['mobile']);
             

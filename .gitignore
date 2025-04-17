@@ -222,3 +222,38 @@ key.properties
 **/api_config.dart
 
 frontend/assets/certs/*
+
+frontend/windows/flutter/ephemeral/*
+
+# Flutter build outputs
+frontend/build/
+frontend/.dart_tool/
+frontend/.packages
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/.metadata
+
+# iOS specific
+frontend/ios/Flutter/Flutter.framework
+frontend/ios/Flutter/Flutter.podspec
+frontend/ios/.symlinks/
+frontend/ios/Pods/
+frontend/ios/Podfile.lock
+frontend/ios/Runner.xcodeproj/project.pbxproj
+frontend/ios/Flutter/Generated.xcconfig
+frontend/ios/Runner
+
+# macOS specific (if using Flutter desktop)
+frontend/macos/Flutter/ephemeral/
+frontend/macos/Pods/
+frontend/macos/Podfile.lock
+
+# Android specific
+frontend/android/.gradle/
+frontend/android/app/build/
+frontend/android/local.properties
+frontend/android/app/src/main/res 
+
+# VS Code and IntelliJ IDEs
+frontend/.idea/
+frontend/.vscode/

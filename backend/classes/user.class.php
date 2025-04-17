@@ -210,6 +210,89 @@ class User {
         }
     }
 
+    // Retrieve the user's account details
+    public function getClientDetails() {
+        try {
+            $sql =  "SELECT ";
+            $sql .= "id, userEmail, userFirstname, userLastname, userAddress, client.streetCode, street.streetName, ";
+            $sql .= "client.townCode, town.townName, userDob, userMobile, isActive, roleId ";
+            $sql .= "FROM `lctms`.`users` AS client ";
+            $sql .= "LEFT JOIN `lctms`.`streets` AS street ON street.streetCode = client.streetCode ";
+            $sql .= "LEFT JOIN `lctms`.`towns` AS town ON town.townCode = client.townCode ";
+            $sql .= "WHERE client.userEmail=? LIMIT 1";
+            
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                $this->getUserEmail()
+            ]);
+
+            if ($stmt->rowCount() >0){
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                return json_encode([
+                    "status"        =>  "success",
+                    "message"       =>  "Client found",
+                    "clientId"      =>  $row['id'],
+                    "userEmail"     =>  $row['userEmail'],
+                    "userFirstname" =>  $row['userFirstname'],
+                    "userLastname"  =>  $row['userLastname'],
+                    "userAddress"   =>  $row['userAddress'],
+                    "streetName"    =>  $row['streetName'],
+                    "townName"      =>  $row['townName'],
+                    "userMobile"    =>  $row['userMobile']
+                ]);
+            } else {
+                return json_encode([
+                    "status"    =>  "error",
+                    "message"   =>  "Client not found. Please create a new client."
+                ]);
+            }
+        } catch (PDOException $e) {
+            return json_encode([
+                "status"    => "error",
+                "message"   => "Database Error: ".$e->getMessage()
+            ]);
+        }
+    }
+
+    public function createNewClient() {
+        try {
+            $sql = "INSERT INTO users 
+                    (userEmail, userFirstname, userLastname, userAddress, streetCode, townCode, userDob, userMobile, userPassword, roleId, isActive, createdDate) 
+                    VALUES 
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?, 3, 1, NOW())";
+            
+            $stmt = $this->conn->prepare($sql);
+    
+            // Handle optional fields
+            $dob = $this->getUserDob() ?: null;
+            $mobile = $this->getMobile() ?: null;
+    
+            $stmt->execute([
+                $this->getUserEmail(),
+                $this->getUserFirstname(),
+                $this->getUserLastname(),
+                $this->getUserAddress(),
+                $this->getStreetCode(),
+                $this->getTownCode(),
+                $dob,
+                $mobile,
+                password_hash('defaultPassword', PASSWORD_DEFAULT)
+            ]);
+    
+            return json_encode([
+                "status" => "success",
+                "message" => "Client created successfully",
+                "clientId" => $this->conn->lastInsertId()
+            ]);
+        } catch (PDOException $e) {
+            error_log($e->getMessage()); 
+            return json_encode([
+                "status" => "error",
+                "message" => "Database Error: " . $e->getMessage()
+            ]);
+        }
+    }    
+
     // Retrieve the user's profile details.
     public function profileRead() {
         try {

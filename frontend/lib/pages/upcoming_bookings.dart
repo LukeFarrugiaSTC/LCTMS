@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+//import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/helpers/booking_sorter.dart';
 import 'package:frontend/helpers/booking_status_helper.dart';
 import 'package:frontend/models/booking.dart';
 import 'package:frontend/providers/bookings_provider.dart';
-import 'package:frontend/providers/user_info_provider.dart';
 import 'package:frontend/widgets/bookings/bookings_list.dart';
 
+// Class displaying the list of upcoming bookings and allowing status updates
 class UpcomingBookingsPage extends ConsumerWidget {
   const UpcomingBookingsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userInfoProvider);
-    final roleID = user.userRole;
-
+    //const storage = FlutterSecureStorage();
+    //final user = storage.read(key: 'userID');
+    //final roleID = int.parse(storage.read(key: 'roleId').toString());
+    final roleID = 3;
     final bookings = ref.watch(bookingsProvider);
-    final sorted = BookingSorter.sortBookings(bookings, user);
+    final sorted = BookingSorter.sortBookings(bookings, roleID);
     final upcomingBookings = sorted['upcoming']!;
+
+    //final upcomingBookings = bookings; //TEMP
+    //print('🧪 Showing ${upcomingBookings.length} bookings directly');
 
     return Column(
       children: [

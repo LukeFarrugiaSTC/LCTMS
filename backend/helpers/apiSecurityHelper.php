@@ -66,6 +66,7 @@ class ApiSecurity {
             throw new ApiSecurityException("API Key is required", 403);
         }
         if(Utility::getMyApi_key() != $apiKey) {
+            //echo Utility::getMyApi_key();
             throw new ApiSecurityException("Invalid API Key", 403);
         } 
     }

@@ -1,3 +1,5 @@
+// This class represents a user in the system
+
 class User {
   const User({
     required this.userID,

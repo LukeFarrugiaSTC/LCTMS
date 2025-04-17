@@ -21,6 +21,7 @@
 	  	public function getTownName()			{	return $this->_townName;			}
 	  	public function getDistrictCode()		{	return $this->_districtCode;		}
 	  
+
 	  	public function townRead(){
 			try {
 			  	$stmt = $this->conn->prepare("SELECT townCode, townName, districtCode FROM towns;");	
@@ -75,5 +76,31 @@
                 return false;
             }
         }
+
+		// ****************************************************
+		// This method is used to get all streets in a town
+		// It takes the townCode using the getTownCode() method
+		// ****************************************************
+
+		public function townStreets(){
+			try {
+				$stmt = $this->conn->prepare("SELECT streetCode, streetName, townCode FROM streets WHERE townCode = ?;");
+
+				// Make sure to set the townCode before calling this function
+				$stmt->execute([$this->_townCode]);
+
+				// Fetch all results as an associative array
+				$streets = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+				// Return the JSON-encoded data
+				return json_encode(["status" => "success", "data" => $streets]);
+			} catch (PDOException $e) {
+				error_log($e->getMessage());
+				return json_encode([
+					"status"  => "error",
+					"message" => "An unexpected error occurred. Please try again later."
+				]);
+			}
+		}		
 	}
 ?>

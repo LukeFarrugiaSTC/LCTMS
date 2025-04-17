@@ -1,10 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/models/address.dart';
 import 'package:frontend/models/booking.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:frontend/config/api_config.dart';
 
+// Class managing booking data and sync with backend using Riverpod StateNotifier
 class BookingsNotifier extends StateNotifier<List<Booking>> {
-  BookingsNotifier() : super(_initialBookings);
+  BookingsNotifier() : super([]) {
+    fetchBookings();
+  }
 
+  // Updates the booking status for a specific booking ID
   void updateStatus(int bookingId, BookingStatus newStatus) {
     state =
         state.map((booking) {
@@ -15,103 +24,114 @@ class BookingsNotifier extends StateNotifier<List<Booking>> {
         }).toList();
   }
 
+  // Returns list of upcoming bookings (future bookings)
   List<Booking> get upcomingBookings =>
       state.where((b) => b.bookingTime.isAfter(DateTime.now())).toList();
 
+  // Returns list of past bookings (already occurred)
   List<Booking> get historyBookings =>
       state.where((b) => b.bookingTime.isBefore(DateTime.now())).toList();
 
-  //resets state so that refresh button works
+  // Resets bookings state and triggers re-fetch
   void resetBookings() {
-    state = _initialBookings.map((b) => b.copyWith()).toList();
+    fetchBookings();
+  }
+
+  // Fetches bookings from backend API using stored credentials
+  Future<void> fetchBookings() async {
+    try {
+      const storage = FlutterSecureStorage();
+      // Assuming you have the JWT token stored with key 'jwt'
+      final String? jwt = await storage.read(key: 'jwt_token');
+      if (jwt == null) {
+        throw Exception('Missing JWT token');
+      }
+
+      // If you still need email or apiKey for other reasons, you can fetch them
+      final String? email = await storage.read(key: 'email');
+      final String? apiKey = dotenv.env['API_KEY'];
+      if (email == null || apiKey == null) {
+        throw Exception('Missing credentials');
+      }
+
+      final response = await http.post(
+        Uri.parse('$apiBaseUrl/endpoints/bookings/getUsersBookings.php'),
+        headers: {
+          'Content-Type': 'application/json',
+          // Include the JWT token in the Authorization header
+          'Authorization': 'Bearer $jwt',
+        },
+        // Optionally, if your endpoint does not need a JSON body (since JWT is used), you could remove it.
+        body: jsonEncode({'email': email, 'api_key': apiKey}),
+      );
+
+      final responseBody = response.body;
+      final pattern = RegExp('.{1,800}'); // Adjust chunk size as needed
+      pattern.allMatches(responseBody).forEach((match) {
+        print(match.group(0));
+      });
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data['status'] == 'success') {
+          final bookingsRaw = data['bookings'] as List;
+
+          // Adjust parsing to match PHP response keys:
+          final parsedBookings =
+              (bookingsRaw).map<Booking>((json) {
+                return Booking(
+                  id:
+                      json['booking_id'] != null
+                          ? int.tryParse(json['booking_id'].toString())
+                          : null,
+                  userID: int.parse(json['userId'].toString()),
+                  name: json['name'] ?? '',
+                  surname: json['surname'] ?? '',
+                  bookingTime: DateTime.parse(json['bookingDate']),
+                  bookingStatus: _parseStatus(json['bookingStatus']),
+                  pickUpLocation: Address(
+                    houseNameNo: json['pickupHouse'] ?? '',
+                    street: json['pickupStreet'] ?? '',
+                    town: json['pickupTown'] ?? '',
+                  ),
+                  dropOffLocation: Address(
+                    houseNameNo:
+                        '', // If there's no house number for drop-off, use an empty string.
+                    street: json['dropoffStreet'] ?? '',
+                    town: json['dropoffTown'] ?? '',
+                  ),
+                );
+              }).toList();
+
+          state = parsedBookings;
+        } else {
+          print('Server error: ${data['message']}');
+        }
+      } else {
+        print('HTTP error: ${response.statusCode}');
+      }
+    } catch (e) {
+      final singleLineError = e.toString().replaceAll('\n', ' ');
+      print('Fetch error 1232: $singleLineError');
+    }
+  }
+
+  // Converts status string from backend into enum value
+  BookingStatus _parseStatus(String status) {
+    switch (status.toLowerCase()) {
+      case 'inprogress':
+        return BookingStatus.inProgress;
+      case 'completed':
+        return BookingStatus.completed;
+      case 'cancelled':
+        return BookingStatus.cancelled;
+      default:
+        return BookingStatus.booked;
+    }
   }
 }
 
+// Provider used to access and interact with booking data
 final bookingsProvider = StateNotifierProvider<BookingsNotifier, List<Booking>>(
   (ref) => BookingsNotifier(),
 );
-
-// -- Dummy Booking Data --
-
-final List<Address> _tempPickUpAddresses = [
-  Address(houseNameNo: '12', street: 'Triq id-Dwieli', town: 'Msida'),
-  Address(houseNameNo: '24', street: 'Triq id-Dghajjes', town: 'Msida'),
-  Address(houseNameNo: '48', street: 'Triq il-Kullegg', town: 'Msida'),
-  Address(houseNameNo: '32, Maria', street: 'Triq l-Isqof', town: 'Msida'),
-  Address(houseNameNo: '45', street: 'Triq il-Marina', town: 'Msida'),
-  Address(houseNameNo: '31', street: 'Triq il-Qasam', town: 'Msida'),
-];
-
-final List<Address> _tempDestinationAddresses = [
-  Address(houseNameNo: '85', street: 'Triq l-isptar', town: 'Swatar'),
-  Address(houseNameNo: '58', street: 'Triq il-Kontijiet', town: 'Valletta'),
-  Address(houseNameNo: '48', street: 'Triq il-Flus', town: 'Msida'),
-  Address(
-    houseNameNo: '7, Junior College',
-    street: 'Triq il-Kullegg',
-    town: 'Msida',
-  ),
-];
-
-final List<Booking> _initialBookings = [
-  Booking(
-    id: 0,
-    userID: 0,
-    name: 'Grace',
-    surname: 'Tanti',
-    pickUpLocation: _tempPickUpAddresses[0],
-    dropOffLocation: _tempDestinationAddresses[1],
-    bookingTime: DateTime(2025, 4, 15, 08, 00),
-    bookingStatus: BookingStatus.booked,
-  ),
-  Booking(
-    id: 1,
-    userID: 0,
-    name: 'Charles',
-    surname: 'Mifsud Bonnici',
-    pickUpLocation: _tempPickUpAddresses[1],
-    dropOffLocation: _tempDestinationAddresses[3],
-    bookingTime: DateTime(2025, 3, 15, 08, 30),
-    bookingStatus: BookingStatus.inProgress,
-  ),
-  Booking(
-    id: 2,
-    userID: 0,
-    name: 'Maria',
-    surname: 'Grech',
-    pickUpLocation: _tempPickUpAddresses[2],
-    dropOffLocation: _tempDestinationAddresses[3],
-    bookingTime: DateTime(2025, 3, 9, 12, 30),
-    bookingStatus: BookingStatus.cancelled,
-  ),
-  Booking(
-    id: 3,
-    userID: 0,
-    name: 'Andrea',
-    surname: 'Deguara',
-    pickUpLocation: _tempPickUpAddresses[3],
-    dropOffLocation: _tempDestinationAddresses[0],
-    bookingTime: DateTime(2025, 2, 18, 10, 00),
-    bookingStatus: BookingStatus.completed,
-  ),
-  Booking(
-    id: 4,
-    userID: 1,
-    name: 'Moira',
-    surname: 'Buhagiar',
-    pickUpLocation: _tempPickUpAddresses[4],
-    dropOffLocation: _tempDestinationAddresses[1],
-    bookingTime: DateTime(2025, 1, 25, 09, 30),
-    bookingStatus: BookingStatus.completed,
-  ),
-  Booking(
-    id: 5,
-    userID: 2,
-    name: 'Kola',
-    surname: 'Farrugia',
-    pickUpLocation: _tempPickUpAddresses[5],
-    dropOffLocation: _tempDestinationAddresses[2],
-    bookingTime: DateTime(2025, 1, 15, 15, 30),
-    bookingStatus: BookingStatus.cancelled,
-  ),
-];

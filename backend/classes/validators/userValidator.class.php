@@ -148,7 +148,14 @@ class UserValidator {
 
         self::checkForRequiredFields($data, $requiredFields);
 
-        //add method that checks if email exists in the database
+        if (!Utility::validateEmail($data['email'])) {
+            $errors[] = "Invalid email format.";
+        }
+
+        // Validate name
+        if (!Utility::validatePassword($data['password'])) {
+            $errors[] = "Invalid password.";
+        }
         
         if (!empty($errors)) {
             throw new ValidationException($errors);
