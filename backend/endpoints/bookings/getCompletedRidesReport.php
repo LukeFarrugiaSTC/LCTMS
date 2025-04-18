@@ -2,7 +2,7 @@
     require_once __DIR__ . '/../../classes/Controllers/BaseApiController.php';
     require_once __DIR__ . '/../../classes/userBookings.class.php';
     require_once __DIR__ . '/../../classes/destination.class.php';
-    require_once __DIR__ . '/../../vendor/autoload.php';
+    require_once __DIR__ . '/../../vendor/autoload.php'; 
 
     class GetCompletedRidesReportController extends BaseApiController {
         public function handle() {

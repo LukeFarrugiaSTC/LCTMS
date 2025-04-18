@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../classes/Controllers/JwtController.php';
 require_once __DIR__ . '/../../classes/userBookings.class.php';
 require_once __DIR__ . '/../../helpers/responseHelper.php';
 require_once __DIR__ . '/../../classes/Exceptions/validationException.class.php';
-require_once __DIR__ . '/../../classes/validators/userValidator.class.php';
+require_once __DIR__ . '/../../classes/validators/userValidator.class.php'; 
 
 class GetUserBookingsController extends JwtController {
     public function handle() {

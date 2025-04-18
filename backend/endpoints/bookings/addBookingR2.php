@@ -6,6 +6,22 @@
     require_once __DIR__ . '/../../classes/destination.class.php';
     require_once __DIR__ . '/../../vendor/autoload.php';
 
+    // =================================================================================
+    // API Request Format (for Flutter Developer)
+    //
+    // @ POST    api_key            => "api_key_here"
+    // @ POST    clientId           => "6"
+    // @ POST    destinationName    => "Mater Dei Hospital"
+    // @ POST    bookingDateTime    => "2025-04-12 10:00:00"
+    // @ POST    userId             => "5"
+    //
+    // Notes:
+    // - bookingDateTime must be in 'YYYY-MM-DD HH:MM:SS' format.
+    //
+    // Example:
+    // POST https://localhost:443/endpoints/bookings/addBookingR2.php
+    // ================================================================================== 
+
     class AddBookingController extends BaseApiController {
         public function handle() {
             try {
@@ -57,7 +73,7 @@
                         "message" => "booking created successfully",
                         "bookingDateTime" => $bookingDateTime,
                         "destinationName" => $destinationName
-                    ]);
+                    ]); 
                 } else {
                     sendResponse([
                         "status" => "error",

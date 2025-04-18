@@ -290,13 +290,13 @@ class UserBookings {
         }
     }
  
-    public function deleteUserBooking($userId, $destinationId) {
+    public function deleteUserBooking($clientId, $bookingId) {
         try {
             $stmt = $this->conn->prepare("
                 DELETE FROM bookings
-                WHERE userId = ? AND destinationId = ?
+                WHERE clientId = ? AND booking_id = ? 
             ");
-            $stmt->execute([$userId, $destinationId]);
+            $stmt->execute([$clientId, $bookingId]);
  
             return $stmt->rowCount() > 0;
         } catch (PDOException $e) {

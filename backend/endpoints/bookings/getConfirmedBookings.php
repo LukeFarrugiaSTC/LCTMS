@@ -19,7 +19,7 @@
     // Example:
     // POST https://localhost:443/endpoints/bookings/getConfirmedBookings.php
     // POST https://localhost:443/endpoints/bookings/getConfirmedBookings.php?export=csv
-    // ==================================================================================
+    // ================================================================================== 
 
     class GetConfirmedBookings extends BaseApiController
     {

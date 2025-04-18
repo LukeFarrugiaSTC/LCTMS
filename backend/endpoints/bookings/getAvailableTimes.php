@@ -51,6 +51,6 @@
 
     // Instantiate and handle the request
     $controller = new GetAvailableTimesController();
-    $controller->handle();
+    $controller->handle(); 
 
 ?>
