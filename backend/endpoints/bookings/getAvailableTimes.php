@@ -3,6 +3,19 @@
     require_once __DIR__ . '/../../classes/userBookings.class.php';
     require_once __DIR__ . '/../../vendor/autoload.php';
 
+    // =================================================================================
+    // API Request Format (for Flutter Developer)
+    //
+    // @ POST    api_key            => "api_key_here"
+    // @ POST    date               => "2025-04-20"
+    //
+    // Notes:
+    // - date MUST be greater than or equal to today's date.
+    //
+    // Example:
+    // POST https://localhost:443/endpoints/bookings/getAvailableTimes.php
+    // ================================================================================== 
+
     class GetAvailableTimesController extends BaseApiController {
         public function handle() {
             try {

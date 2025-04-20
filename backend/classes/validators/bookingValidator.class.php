@@ -65,7 +65,7 @@ class BookingValidator extends Utility {
         $errors = [];
 
         // 1. Check for required fields.
-        $requiredFields = ['bookingId', 'userId', 'bookingStatus'];
+        $requiredFields = ['bookingId', 'userId', 'clientEmail', 'bookingStatus'];
         self::checkForRequiredFields($data, $requiredFields);
 
         // 2. Validate booking ID.
@@ -78,7 +78,12 @@ class BookingValidator extends Utility {
             $errors[] = "Invalid user ID.";
         }
 
-        // 4. Validate booking status.
+        // 4. Validate client email address.
+        if (!Utility::validateEmail($data['clientEmail'])) {
+            $errors[] = "Invalid email format.";
+        }        
+
+        // 5. Validate booking status.
         $validStatuses = [
             'pending',
             'confirmed',

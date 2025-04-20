@@ -14,7 +14,7 @@
     // Notes:
     // - startDate must be in 'YYYY-MM-DD' format.
     // - startDate cannot be in the past.
-    // - export=csv is optional, returns CSV file if set.
+    // - export=csv is optional, returns CSV file if set. 
     //
     // Example:
     // POST https://localhost:443/endpoints/bookings/getConfirmedBookings.php

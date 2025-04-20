@@ -4,6 +4,23 @@
     require_once __DIR__ . '/../../classes/destination.class.php';
     require_once __DIR__ . '/../../vendor/autoload.php'; 
 
+    // ===================================================================================
+    // API Request Format (for Flutter Developer)
+    //
+    // @ POST    api_key            => "api_key_here"
+    // @ POST    startDate          => "2025-04-01"
+    // @ POST    endDate            => "2025-04-30"
+    // @ GET     export             => "csv" (optional, to export the report as CSV)
+    //
+    // Notes:
+    // - startDate and endDate must be in the past or today.
+    // - export=csv is optional, returns CSV file if set.
+    //
+    // Example:
+    // POST https://localhost:443/endpoints/bookings/getCompletedRidesReport.php
+    // POST https://localhost:443/endpoints/bookings/getCompletedRidesReport.php?export=csv
+    // ==================================================================================== 
+
     class GetCompletedRidesReportController extends BaseApiController {
         public function handle() {
             try {
@@ -27,7 +44,7 @@
                     ], 400);
                     exit;
                 }
-                if ($endDate && $endDate < $today) {
+                if ($endDate && $endDate <= $today) {
                     sendResponse([
                         "status" => "error",
                         "message" => "End date cannot be in the future."
