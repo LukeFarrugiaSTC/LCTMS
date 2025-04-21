@@ -1,4 +1,5 @@
 *.env
+.env
 */vendor/*
 */frontend/ios/*
 */frontend/macos/*
@@ -223,13 +224,10 @@ key.properties
 
 frontend/assets/certs/*
 
-<<<<<<< HEAD
 frontend/windows/flutter/ephemeral/*
-=======
 frontend/ios/*
 
 **/.metadata
->>>>>>> 572bf66 (working)
 
 # Flutter build outputs
 frontend/build/
