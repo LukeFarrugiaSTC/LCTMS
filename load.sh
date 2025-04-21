@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+mkdir -p ./frontend/assets/certs
+
 # Step 1: Update the API configuration file using your update script.
 echo "Updating API configuration..."
 ./ip-entrypoint.sh
