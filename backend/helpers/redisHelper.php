@@ -5,13 +5,6 @@ class RedisHelper {
     public function __construct() {
         $this->redis = new Redis();
         $this->redis->connect('redis', 6379);
-    
-        // Authenticate with Redis using environment variable
-        $redisPassword = getenv('REDIS_PASSWORD');
-        if ($redisPassword && !$this->redis->auth($redisPassword)) {
-            throw new Exception("Redis authentication failed");
-        }
-    
         // Verify the connection
         if (!$this->redis->ping()) {
             throw new Exception("Could not connect to Redis");

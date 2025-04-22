@@ -209,7 +209,7 @@ class User {
             ]);
         }
     }
-
+    
     // Retrieve the user's account details
     public function getClientDetails() {
         try {
@@ -303,7 +303,7 @@ class User {
 
             if ($stmt->rowCount() > 0) {
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                return json_encode([
+                return [
                     "status"        => "success",
                     "message"       => "Profile found",
                     "userEmail"     => $row['userEmail'],
@@ -316,7 +316,7 @@ class User {
                     "userMobile"    => $row['userMobile'],
                     "isActive"      => $row['isActive'],
                     "roleId"        => $row['roleId']
-                ]);
+                ];
             } else {
                 return json_encode([
                     "status"  => "error",

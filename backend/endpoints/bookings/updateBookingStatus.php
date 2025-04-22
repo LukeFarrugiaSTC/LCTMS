@@ -4,7 +4,7 @@
      * Author:      Andrew Mallia 
      * Date:        2025-03-30
      * Description: Update booking details
-     * **************************************
+     * ************************************** 
      */
     require_once __DIR__ . '/../../classes/Controllers/JwtController.php';
     require_once __DIR__ . '/../../classes/userBookings.class.php';
