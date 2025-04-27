@@ -10,6 +10,7 @@
             try {
                 // Validate API key if provided
                 $this->apiSecurity->checkIfAPIKeyExistsAndIsValid($this->data['api_key'] ?? '');
+                
                 // Validate required field(s)
                 UserValidator::checkForRequiredFields($this->data,['email']);
 

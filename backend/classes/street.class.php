@@ -62,18 +62,6 @@
             }
         }
 
-        public function getStreetNameFromStreetCode($streetCode) {
-            try {
-                $stmt = $this->conn->prepare("SELECT streetName FROM streets WHERE streetCode =?");
-                $stmt->execute([$streetCode]);
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                return $result['streetName'];
-            } catch (PDOException $e) {
-                error_log($e->getMessage());
-                return null;
-            }
-        }
-
         public function getTownCodeFromStreetCode($streetCode) {
             try {
                 $stmt = $this->conn->prepare("SELECT townCode FROM streets WHERE streetCode =?");

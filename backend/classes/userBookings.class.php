@@ -195,6 +195,9 @@ class UserBookings {
      * Find available booking slots free for a day
      * 
      * @param date $selectedDate   - Filter bookings for a particular day 
+     * 
+     * Notes:
+     * - The function checks for bookings that are not cancelled.
      * **********************************************************************************/    
  
     public function getBookingCountsForDate($selectedDate){
@@ -247,12 +250,58 @@ class UserBookings {
         }
     }
 
-    public function addUserBooking($clientId, $destinationId, $bookingDateTime, $userId){
-        //echo $clientId.'|'.$destinationId.'|'.$bookingDateTime.'|'.$userId;
-
+    /* *****************************************************************************************
+     * Check if a time slot is available for booking
+     * 
+     * @param datetime $bookingDateTime - The date and time of the booking.
+     * @return int - return the number of bookings available for the given time slot.
+     * 
+     * Notes:
+     * - This function requires $bookingDateTime, to count the number of bookings for the given 
+     *   time slot.
+     * - This function will not accept bookings if the number of bookings equals or exceeds 8.
+     * *****************************************************************************************/ 
+    public function checkIfBookingSlotIsFull($bookingDateTime) {
+        try {
+            $stmt = $this->conn->prepare("
+                SELECT COUNT(*) as count 
+                FROM bookings 
+                WHERE bookingDate = ?
+            ");
+            $stmt->execute([$bookingDateTime]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            $maxBookingsAllowed = 8; // adjust based on your system
+    
+            return $result['count'] >= $maxBookingsAllowed;
+        } catch (PDOException $e) {
+            error_log("Error checking booking slot: " . $e->getMessage());
+            return false; // fallback
+        }
+    }    
+     
+        
+    /* *****************************************************************************************
+     * Delete a booking for a specific client and booking ID.
+     * 
+     * @param int $clientId             - The ID of the client associated with the booking.
+     * @param int $destinationId        - The ID of the destination associated with the booking.
+     * @param datetime $bookingDateTime - The date and time of the booking.
+     * @param int $userId               - The ID of the user making the booking.
+     * 
+     * @return bool - True if the booking was deleted successfully, false otherwise.
+     * 
+     * Notes:
+     * - This function requires clientId, to represent the client requesting the booking. 
+     * - This function requires destinationId, to represent the destination of the booking.
+     * - This function requires bookingDateTime, to represent the date and time of the booking.
+     * - This function requires userId, to represent the user making the booking
+     * *****************************************************************************************/  
+    public function addUserBooking($clientId, $destinationId, $bookingDateTime, $userId, $userEmail){
         try {
             $sql = "INSERT INTO bookings 
                     (
+                        userId,
                         clientId, 
                         destinationId, 
                         bookingStatus, 
@@ -262,6 +311,7 @@ class UserBookings {
                     ) 
                     VALUES 
                     (
+                        ?,
                         ?, 
                         ?, 
                         ?, 
@@ -271,7 +321,7 @@ class UserBookings {
                     )";
 
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute([$clientId, $destinationId, 'pending',$bookingDateTime, $userId]);
+            $stmt->execute([$userId,$clientId, $destinationId, 'pending',$bookingDateTime, $userEmail]);
 
             if($stmt->rowCount()>0){
                 error_log('Booking added successfully');
@@ -290,29 +340,48 @@ class UserBookings {
         }
     }
  
-    public function deleteUserBooking($userId, $destinationId) {
+    /* **********************************************************************************
+     * Delete a booking for a specific client and booking ID.
+     * 
+     * @param int $clientId - The ID of the client associated with the booking.
+     * @param int $bookingId - The ID of the booking to delete.
+     * @return bool - True if the booking was deleted successfully, false otherwise.
+     * Filter bookings for a particular day 
+     * **********************************************************************************/       
+    public function deleteUserBooking($clientId, $bookingId) {
         try {
+            error_log("Attempting to delete booking: $bookingId for client: $clientId");
+    
             $stmt = $this->conn->prepare("
                 DELETE FROM bookings
-                WHERE userId = ? AND destinationId = ?
+                WHERE clientId = ? AND booking_id = ? 
             ");
-            $stmt->execute([$userId, $destinationId]);
- 
-            return $stmt->rowCount() > 0;
+            $stmt->execute([$clientId, $bookingId]);
+    
+            $rows = $stmt->rowCount();
+            error_log("Rows deleted: $rows");
+    
+            return $rows > 0;
         } catch (PDOException $e) {
-            return json_encode([
-                "status" => "error",
-                "message" => $e->getMessage()
-            ]);
+            error_log("Delete error: " . $e->getMessage());
+            return false;
         }
     }
  
-    public function getUsersCompletedBookings($userId) {
+    /* **********************************************************************************
+     * Delete a booking for a specific client and booking ID.
+     * 
+     * @param int $clientId - The ID of the client associated with the booking.
+     * 
+     * Notes:
+     * - Filter bookings for a particular clientId 
+     * **********************************************************************************/     
+    public function getUsersCompletedBookings($clientId) {
         try {
             $stmt = $this->conn->prepare("
                 SELECT destinationId, bookingStatus, bookingDate
                 FROM bookings
-                WHERE userId = ? AND bookingStatus = 'completed'
+                WHERE clientId = ? AND bookingStatus = 'completed'
             ");
             $stmt->execute([$userId]);
  
@@ -360,4 +429,55 @@ class UserBookings {
             ]);
         }
     }
+
+    /* **********************************************************************************
+     * Return userEmail from userId
+     * 
+     * @param int $userId   - The ID of the user associated with this booking.
+     * @return string       - return the userEmail of the userId provided.
+     * 
+     * Filter users by userId 
+     * **********************************************************************************/           
+     public function getUserEmailFromUserID($userId) {
+        try {
+            $sql = "SELECT userEmail FROM users WHERE id = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$userId]);
+    
+            if ($stmt->rowCount() > 0) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $row['userEmail'];
+            } else {
+                return null; // No user found
+            }
+        } catch (PDOException $e) {
+            error_log("Database Error: " . $e->getMessage());
+            return null; // Or throw new Exception("Database error") if preferred
+        } catch (Exception $e) {
+            error_log("Error: " . $e->getMessage());
+            return null;
+        }
+    }   
+
+     // Retrieve the userId of the clientEmail provided.
+     public function getUserIdFromUserEmail($clientEmail) {
+        try {
+            $sql = "SELECT id FROM users WHERE userEmail = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$clientEmail]);
+    
+            if ($stmt->rowCount() > 0) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $row['id'];
+            } else {
+                return null; // No user found
+            }
+        } catch (PDOException $e) {
+            error_log("Database Error: " . $e->getMessage());
+            return null; // Or throw new Exception("Database error") if preferred
+        } catch (Exception $e) {
+            error_log("Error: " . $e->getMessage());
+            return null;
+        }
+    }   
 }

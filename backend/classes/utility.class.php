@@ -27,12 +27,12 @@
 	  
 		// Validate if a name contains only letters 
 	  	public static function validateName($name) {
-			return preg_match("/^[a-zA-Z]+$/",$name);
+			return preg_match("/^[a-zA-Z\s'-]+$/",$name);
 		}
 	  
 	  	// Validate if surname contains only letters
 	  	public static function validateSurname($surname){
-			return preg_match("/^[a-zA-Z]+$/",$surname);
+			return preg_match("/^[a-zA-Z\s'-]+$/", $surname);
 		}
 	  
 	  	// Validate that address contains at least 1 character
