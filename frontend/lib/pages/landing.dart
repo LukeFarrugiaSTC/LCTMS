@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/models/user.dart';
-import 'package:frontend/widgets/book_ride.dart';
+import 'package:frontend/widgets/book_ridev2.dart';
 import 'package:frontend/widgets/main_drawer.dart';
 import 'package:frontend/providers/user_info_provider.dart';
 
@@ -16,7 +16,6 @@ class LandingPage extends ConsumerWidget {
     void setPage(String identifier) {
       if (identifier == '/login') {
         //logs out user
-        // => to do is to clear providers from user/ password and role once these are set up
         Navigator.pushNamedAndRemoveUntil(
           context,
           identifier,
@@ -34,7 +33,7 @@ class LandingPage extends ConsumerWidget {
       child: Scaffold(
         appBar: AppBar(title: const Text('Book a Ride')),
         drawer: MainDrawer(onSelectPage: setPage, roleId: user.userRole),
-        body: BookRide(showScaffold: false),
+        body: BookRideV2(showScaffold: false),
       ),
     );
   }

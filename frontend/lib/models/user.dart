@@ -4,10 +4,10 @@ class User {
   const User({
     required this.userID,
     required this.userRole,
-    required this.token,
+    required this.email,
   });
 
   final int userID;
   final int userRole;
-  final String token;
+  final String email;
 }
