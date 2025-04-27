@@ -1,21 +1,23 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/config/api_config.dart';
 import 'package:frontend/widgets/custom_text_field.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:frontend/providers/user_info_provider.dart';
 
-class BookRideV2 extends StatefulWidget {
+class BookRideV2 extends ConsumerStatefulWidget {
   const BookRideV2({super.key, this.showScaffold = true});
   final bool showScaffold;
 
   @override
-  State<BookRideV2> createState() => _BookRideState();
+  ConsumerState<BookRideV2> createState() => _BookRideState();
 }
 
-class _BookRideState extends State<BookRideV2> {
+class _BookRideState extends ConsumerState<BookRideV2> {
   final _keyForm = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
@@ -148,11 +150,14 @@ class _BookRideState extends State<BookRideV2> {
     final outputFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
     final formattedDate = outputFormat.format(dateTime);
 
-    final url = Uri.parse('$apiBaseUrl/endpoints/bookings/addBooking.php');
+    final url = Uri.parse('$apiBaseUrl/endpoints/bookings/addBookingR2.php');
+    print('API Key: ${dotenv.env['API_KEY']}');
     print('Selected destination: $_selectedDestination');
     print('Selected date: ${_bookingDateController.text}');
     print('Selected time: $_selectedTime');
     print('Formatted booking datetime: $formattedDate');
+    print('User ID: ${ref.read(userInfoProvider).userID}');
+    print('client ID: ${ref.read(userInfoProvider).email}');
     final response = await http.post(
       url,
       headers: {
@@ -160,8 +165,11 @@ class _BookRideState extends State<BookRideV2> {
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode({
+        'api_key': dotenv.env['API_KEY'],
         'destinationName': _selectedDestination,
         'bookingDateTime': formattedDate,
+        'userID': ref.read(userInfoProvider).userID,
+        'clientID': ref.read(userInfoProvider).email,
       }),
     );
 
@@ -226,6 +234,18 @@ class _BookRideState extends State<BookRideV2> {
 
   @override
   Widget build(BuildContext context) {
+    final clientEmail;
+    if (ref.read(userInfoProvider).userRole == 3) {
+      clientEmail = ref.read(userInfoProvider).email;
+    } else {
+      //Input code for when the admin cna create an order for a user.
+      clientEmail =
+          "test@example1.com"; //To be removed once functionality is implemented
+    }
+
+    _emailController.text =
+        clientEmail; //Email field is disabled and filled according to the clientEmail set
+
     Widget content;
     if (_isBooked) {
       content = Padding(
@@ -292,6 +312,7 @@ class _BookRideState extends State<BookRideV2> {
                   controller: _emailController,
                   textFieldType: TextFieldType.email,
                   textCapitalization: TextCapitalization.none,
+                  enabled: false,
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
