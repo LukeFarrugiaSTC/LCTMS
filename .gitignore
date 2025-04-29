@@ -260,4 +260,4 @@ frontend/android/app/src/main/res
 
 # VS Code and IntelliJ IDEs
 frontend/.idea/
-frontend/.vscode/
+frontend/.vscode/"build/" 
