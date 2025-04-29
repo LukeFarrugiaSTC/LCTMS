@@ -1,4 +1,4 @@
-<?php
+<?php 
 class RateLimiter {
     private $redis;
     private $maxRequests;
@@ -7,6 +7,20 @@ class RateLimiter {
     public function __construct($maxRequests = 60, $perSeconds = 60) {
         $this->redis = new Redis();
         $this->redis->connect('redis', 6379);
+
+        // Authenticate with Redis if password is set
+        $redisPassword = getenv('REDIS_PASSWORD');
+        if (!empty($redisPassword)) {
+            if (!$this->redis->auth($redisPassword)) {
+                throw new Exception("Redis authentication failed.");
+            }
+        }
+
+        // Verify the connection
+        if (!$this->redis->ping()) {
+            throw new Exception("Could not connect to Redis.");
+        }
+
         $this->maxRequests = $maxRequests;
         $this->perSeconds = $perSeconds;
     }
@@ -26,3 +40,4 @@ class RateLimiter {
         return true;
     }
 }
+?>

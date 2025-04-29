@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-//import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/helpers/booking_sorter.dart';
 import 'package:frontend/helpers/booking_status_helper.dart';
 import 'package:frontend/models/booking.dart';
@@ -22,7 +21,6 @@ class UpcomingBookingsPage extends ConsumerWidget {
     final upcomingBookings = sorted['upcoming']!;
 
     //final upcomingBookings = bookings; //TEMP
-    //print('🧪 Showing ${upcomingBookings.length} bookings directly');
 
     return Column(
       children: [

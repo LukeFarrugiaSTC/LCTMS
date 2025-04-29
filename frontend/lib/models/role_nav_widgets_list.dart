@@ -22,7 +22,7 @@ class RoleNavWidgetsList {
         {
           'title': 'Add Booking',
           'icon': 'post_add',
-          'destinationPath': '/book_ride',
+          'destinationPath': '/book_ridev2',
         },
         {'title': 'Users', 'icon': 'people', 'destinationPath': '/users'},
       ],
@@ -31,7 +31,7 @@ class RoleNavWidgetsList {
         {
           'title': 'Book a Ride!',
           'icon': 'post_add',
-          'destinationPath': '/book_ride',
+          'destinationPath': '/book_ridev2',
         },
         {
           'title': 'My Bookings',

@@ -8,7 +8,7 @@ import 'package:frontend/pages/profile.dart';
 import 'package:frontend/pages/register_page.dart';
 import 'package:frontend/pages/users.dart';
 import 'package:frontend/pages/view_bookings.dart';
-import 'package:frontend/widgets/book_ride.dart';
+import 'package:frontend/widgets/book_ridev2.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // Defining a colour scheme based on a seed colour
@@ -84,7 +84,7 @@ class LCTMS extends StatelessWidget {
         '/profile': (context) => const ProfilePage(),
         '/users': (context) => const UsersPage(),
         '/view_bookings': (context) => ViewBookingsPage(),
-        '/book_ride': (context) => BookRide(),
+        '/book_ridev2': (context) => BookRideV2(),
         '/contact_us': (context) => ContactUs(),
       },
     );
