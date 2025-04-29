@@ -29,18 +29,7 @@ class _BookRideState extends ConsumerState<BookRideV2> {
   String _selectedDestination = '';
   String? _destinationError;
 
-  final List<String> _timeSlots = [
-    '08:00',
-    '09:00',
-    '10:00',
-    '11:00',
-    '12:00',
-    '13:00',
-    '14:00',
-    '15:00',
-    '16:00',
-    '17:00',
-  ];
+  List<String> _timeSlots = [];
   String? _selectedTime;
 
   bool _isBooked = false;
@@ -118,6 +107,66 @@ class _BookRideState extends ConsumerState<BookRideV2> {
       setState(() {
         _bookingDateController.text = dateFormatter.format(pickedDate);
         _selectedTime = null;
+        _timeSlots = [];
+      });
+
+      final formattedDate = DateFormat(
+        'yyyy-MM-dd',
+      ).format(pickedDate); // API expects yyyy-MM-dd
+      await _fetchAvailableTimes(formattedDate);
+    }
+  }
+
+  Future<void> _fetchAvailableTimes(String selectedDate) async {
+    final String? apiKey = dotenv.env['API_KEY'];
+    if (apiKey == null || apiKey.isEmpty) {
+      setState(() {
+        _destinationError = 'API key is missing.';
+      });
+      return;
+    }
+
+    final url = Uri.parse(
+      '$apiBaseUrl/endpoints/bookings/getAvailableTimes.php',
+    );
+    final requestBody = {
+      'date': selectedDate, // "yyyy-MM-dd"
+      'api_key': apiKey,
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(requestBody),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data['status'] == 'success') {
+          List<String> availableTimes =
+              (data['times'] as List)
+                  .where((item) => item['bookings'] < 8)
+                  .map<String>((item) => item['time'].toString())
+                  .toList();
+
+          setState(() {
+            _timeSlots = availableTimes;
+            _selectedTime = null;
+          });
+        } else {
+          setState(() {
+            _destinationError = 'Failed to fetch available times.';
+          });
+        }
+      } else {
+        setState(() {
+          _destinationError = 'Error: ${response.statusCode}';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _destinationError = 'An error occurred: $e';
       });
     }
   }
@@ -168,8 +217,8 @@ class _BookRideState extends ConsumerState<BookRideV2> {
         'api_key': dotenv.env['API_KEY'],
         'destinationName': _selectedDestination,
         'bookingDateTime': formattedDate,
-        'userID': ref.read(userInfoProvider).userID,
-        'clientID': ref.read(userInfoProvider).email,
+        'userId': ref.read(userInfoProvider).userID,
+        'clientEmail': ref.read(userInfoProvider).email,
       }),
     );
 
@@ -180,11 +229,14 @@ class _BookRideState extends ConsumerState<BookRideV2> {
           _isBooked = true;
         });
       } else {
+        print('Booking API error: $data');
         setState(() {
           _destinationError = data['message'] ?? 'Booking failed.';
         });
       }
     } else {
+      print('Booking API failed with status: ${response.statusCode}');
+      print('Booking API failed response: ${response.body}');
       setState(() {
         _destinationError = 'Error: ${response.statusCode}. Please try again.';
       });

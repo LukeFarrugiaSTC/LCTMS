@@ -69,7 +69,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             userRole: data['roleId'],
             email: data['email'],
           );
-
           ref.read(userInfoProvider.notifier).loginUser(user);
 
           // Navigate to landing page (clear previous routes).

@@ -5,6 +5,15 @@ class RedisHelper {
     public function __construct() {
         $this->redis = new Redis();
         $this->redis->connect('redis', 6379);
+
+        // Authenticate if REDIS_PASSWORD is set
+        $redisPassword = getenv('REDIS_PASSWORD');
+        if (!empty($redisPassword)) {
+            if (!$this->redis->auth($redisPassword)) {
+                throw new Exception("Redis authentication failed.");
+            }
+        }
+
         // Verify the connection
         if (!$this->redis->ping()) {
             throw new Exception("Could not connect to Redis");
@@ -28,15 +37,21 @@ class RedisHelper {
         return $result;
     }
 
+    /**
+     * Retrieves the authentication token from Redis.
+     *
+     * @param int|string $userId
+     * @return mixed
+     */
     public function getAuthToken($userId) {
         $redisKey = "auth_token:" . $userId;
-        $result = $this->redis->getex($redisKey);
+        $result = $this->redis->get($redisKey);
         if (!$result) {
             error_log("Failed to retrieve token from Redis");
         }
         return $result;
     }
-    
+
     /**
      * Stores a password reset PIN in Redis with a given TTL.
      *
@@ -53,7 +68,7 @@ class RedisHelper {
         }
         return $result;
     }
-    
+
     /**
      * Retrieves the password reset PIN for a given email.
      *
@@ -64,7 +79,7 @@ class RedisHelper {
         $redisKey = "reset_pin:" . $email;
         return $this->redis->get($redisKey);
     }
-    
+
     /**
      * Deletes the stored reset PIN for a given email.
      *
