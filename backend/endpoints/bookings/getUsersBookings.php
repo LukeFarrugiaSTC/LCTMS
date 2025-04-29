@@ -9,7 +9,7 @@
     // =================================================================================
     // API Request Format (for Flutter Developer)
     //
-    // @ POST    api_key        => "api_key_here" ****
+    // @ POST    api_key        => "api_key_here" 
     // @ POST    userId         => "5"
     // @ POST    clientId       => "5"
     //
@@ -30,10 +30,10 @@
                 $formattedBookings = [];
                 foreach ($bookings as $booking) {
                     $formattedBookings[] = [
-                        'id'               => $booking['id'],
-                        'destinationName'  => $booking['destination_name'],
-                        'bookingDateTime'  => $booking['booking_datetime'],
-                        'status'           => $booking['status']
+                        'booking_id'        => $booking['booking_id'],
+                        'destinationName'   => $booking['destination_name'],
+                        'bookingDate'       => $booking['bookingDate'],
+                        'bookingStatus'     => $booking['bookingStatus']
                     ];
                 }
                 $response = [
