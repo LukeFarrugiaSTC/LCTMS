@@ -1,263 +1,79 @@
-*.env
-.env
-*/vendor/*
-*/frontend/ios/*
-*/frontend/macos/*
-*/frontend/web/*
-*/frontend/windows/*
-*/frontend/android/*
-
-frontend/macos/*
-frontend/ios/*
-frontend/android/*
-frontend/web/*
-frontend/linux/*
-frontend/test/*
-*/frontend/assets/certs/*
-
-# Generated files
+# Flutter & Dart build outputs
 .dart_tool/
 .packages
+.pub/
 .pub-cache/
+.build/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
 .pubspec.lock
-.flutter-plugins
-.flutter-plugins-dependencies
-
-# Build outputs
-/build/
-/android/app/build/
-/ios/Flutter/App.framework
-/ios/Flutter/Flutter.framework
-/ios/Flutter/Generated.xcconfig
-/ios/Pods
-
-# IntelliJ / Android Studio
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# Visual Studio Code
-.vscode/
-
-# macOS
-macos/Flutter/ephemeral/
-
-# Windows
-windows/Flutter/ephemeral/
-
-# Linux
-linux/Flutter/ephemeral/
-
-# Others
+*.dill
+*.bin
+*.lock
 *.log
 
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
-
-frontend/ios/*
-frontend/macos/*
-frontewn
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
-
-**/dgph
-*.mode1v3
-*.mode2v3
-*.moved-aside
-*.pbxuser
-*.perspectivev3
-**/*sync/
-.sconsign.dblite
-.tags*
-**/.vagrant/
-**/DerivedData/
-Icon?
-**/Pods/
-**/.symlinks/
-profile
-xcuserdata
-**/.generated/
-Flutter/App.framework
-Flutter/Flutter.framework
-Flutter/Flutter.podspec
-Flutter/Generated.xcconfig
-Flutter/ephemeral/
-Flutter/app.flx
-Flutter/app.zip
-Flutter/flutter_assets/
-Flutter/flutter_export_environment.sh
-ServiceDefinitions.json
-Runner/GeneratedPluginRegistrant.*
-
-# Exceptions to above rules.
-!default.mode1v3
-!default.mode2v3
-!default.pbxuser
-!default.perspectivev3
-
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
-
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
-
-# Flutter-related
-**/Flutter/ephemeral/
-**/Pods/
-
-# Xcode-related
-**/dgph
-**/xcuserdata/
-
-flutter/ephemeral/
-
-# Visual Studio user-specific files.
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-
-# Visual Studio build-related files.
-x64/
-x86/
-
-# Visual Studio cache files
-# files ending in .cache can be ignored
-*.[Cc]ache
-# but keep track of directories ending in .cache
-!*.[Cc]ache/
-
-gradle-wrapper.jar
-/.gradle
-/captures/
-/gradlew
-/gradlew.bat
-/local.properties
-GeneratedPluginRegistrant.java
-.cxx/
-
-# Remember to never publicly share your keystore.
-# See https://flutter.dev/to/reference-keystore
-key.properties
+# Environment and credentials
+.env
+*.env
 **/*.keystore
 **/*.jks
+key.properties
 
+# iOS
+ios/
+frontend/ios/
+**/Flutter/
+**/Pods/
+**/.symlinks/
+**/DerivedData/
+**/Runner.xcodeproj/project.pbxproj
+**/Podfile.lock
+**/Flutter/Generated.xcconfig
 
-**/api_config.dart
+# Android
+android/.gradle/
+frontend/android/.gradle/
+frontend/android/local.properties
+frontend/android/app/build/
 
-frontend/assets/certs/*
-
-frontend/windows/flutter/ephemeral/*
-frontend/ios/*
-
-**/.metadata
-
-# Flutter build outputs
-frontend/build/
-frontend/.dart_tool/
-frontend/.packages
-frontend/.flutter-plugins
-frontend/.flutter-plugins-dependencies
-frontend/.metadata
-
-# iOS specific
-frontend/ios/Flutter/Flutter.framework
-frontend/ios/Flutter/Flutter.podspec
-frontend/ios/.symlinks/
-frontend/ios/Pods/
-frontend/ios/Podfile.lock
-frontend/ios/Runner.xcodeproj/project.pbxproj
-frontend/ios/Flutter/Generated.xcconfig
-frontend/ios/Runner
-
-# macOS specific (if using Flutter desktop)
-frontend/macos/Flutter/ephemeral/
+# macOS
+macos/
+frontend/macos/
 frontend/macos/Pods/
 frontend/macos/Podfile.lock
 
-# Android specific
-frontend/android/.gradle/
-frontend/android/app/build/
-frontend/android/local.properties
-frontend/android/app/src/main/res 
+# Windows/Linux
+frontend/windows/
+frontend/linux/
 
-# VS Code and IntelliJ IDEs
-frontend/.idea/
-frontend/.vscode/
+# Web/Desktop
+frontend/web/
+
+# Visual Studio & IntelliJ files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+*.suo
+*.user
+*.sln.docstates
+
+# Flutter test/ephemeral/symbols
+frontend/test/
+**/Flutter/ephemeral/
+**/app.*.map.json
+**/app.*.symbols
+**/.metadata
+**/.generated/
+
+# Certificate files
+frontend/assets/certs/
+
+# Optional logs and history
+*.swp
+.DS_Store
+.history
+.atom/
+.svn/

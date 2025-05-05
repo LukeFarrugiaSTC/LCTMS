@@ -3,7 +3,7 @@ import 'package:frontend/models/user.dart';
 
 // Class managing user authentication state using Riverpod's StateNotifier
 class UserInfoNotifier extends StateNotifier<User> {
-  UserInfoNotifier() : super(User(userID: 0, userRole: 3, token: 'no_token'));
+  UserInfoNotifier() : super(User(userID: 0, userRole: 3, email: ''));
 
   //Method to add logged user's details
   void loginUser(User user) {
@@ -11,7 +11,7 @@ class UserInfoNotifier extends StateNotifier<User> {
   }
 
   void logoutUser(User user) {
-    state = User(userID: 0, userRole: 3, token: 'no_token');
+    state = User(userID: 0, userRole: 3, email: '');
   }
 }
 

@@ -4,16 +4,19 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:frontend/config/api_config.dart';
 import 'package:frontend/widgets/custom_text_field.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend/providers/user_info_provider.dart';
+import 'package:frontend/models/user.dart';
 
 // Class responsible for user authentication and login interaction
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   // Keys and controllers
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
@@ -60,6 +63,13 @@ class _LoginPageState extends State<LoginPage> {
           await storage.write(key: 'jwt_token', value: token);
           await storage.write(key: 'email', value: email);
           await storage.write(key: 'roleId', value: roleId.toString());
+
+          final user = User(
+            userID: data['userId'],
+            userRole: data['roleId'],
+            email: data['email'],
+          );
+          ref.read(userInfoProvider.notifier).loginUser(user);
 
           // Navigate to landing page (clear previous routes).
           Navigator.pushNamedAndRemoveUntil(
