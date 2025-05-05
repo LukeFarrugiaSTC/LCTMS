@@ -27,7 +27,7 @@
 
                 // Step 2: Check if export parameter is set
                 $export = isset($_GET['export']) ? $_GET['export'] : null;
-                
+
                 // Step 2: Query data
                 $userBookings = new UserBookings();
                 $pdo = $userBookings->conn;
