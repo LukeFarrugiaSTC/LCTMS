@@ -284,7 +284,7 @@ class _BookRideState extends ConsumerState<BookRideV2> {
     print('Selected time: $_selectedTime');
     print('Formatted booking datetime: $formattedDate');
     print('User ID: ${ref.read(userInfoProvider).userID}');
-    print('client ID: ${ref.read(userInfoProvider).email}');
+    print('client ID: ${_emailController.text}');
     final response = await http.post(
       url,
       headers: {
@@ -296,7 +296,7 @@ class _BookRideState extends ConsumerState<BookRideV2> {
         'destinationName': _selectedDestination,
         'bookingDateTime': formattedDate,
         'userId': ref.read(userInfoProvider).userID,
-        'clientEmail': ref.read(userInfoProvider).email,
+        'clientEmail': _emailController.text,
       }),
     );
 
