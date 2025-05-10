@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/providers/user_info_provider.dart';
+import 'package:frontend/models/client.dart';
 
 class BookRideV2 extends ConsumerStatefulWidget {
   const BookRideV2({super.key, this.showScaffold = true});
@@ -18,8 +19,10 @@ class BookRideV2 extends ConsumerStatefulWidget {
 }
 
 class _BookRideState extends ConsumerState<BookRideV2> {
-  final _keyForm = GlobalKey<FormState>();
+  final _keyForm = GlobalKey<FormState>(); //booking form key
+  final _adminKeyForm = GlobalKey<FormState>(); //admin form key
 
+  final TextEditingController _clientEmailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _surnameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -33,7 +36,9 @@ class _BookRideState extends ConsumerState<BookRideV2> {
   String? _selectedTime;
 
   bool _isBooked = false;
+  bool _isUserEmailMatch = false;
   final DateFormat dateFormatter = DateFormat('dd/MM/yyyy');
+  Client? client; //in case an admin is creating a booking for a client
 
   @override
   void initState() {
@@ -114,6 +119,79 @@ class _BookRideState extends ConsumerState<BookRideV2> {
         'yyyy-MM-dd',
       ).format(pickedDate); // API expects yyyy-MM-dd
       await _fetchAvailableTimes(formattedDate);
+    }
+  }
+
+  //Search Client email and if exists, return the client's details to proceed with the booking
+  Future<void> _fetchClientDetails() async {
+    final String? apiKey = dotenv.env['API_KEY'];
+    if (apiKey == null || apiKey.isEmpty) {
+      setState(() {
+        _destinationError = 'API key is missing.';
+      });
+      return;
+    }
+
+    final url = Uri.parse('$apiBaseUrl/endpoints/user/getClientDetails.php');
+    final requestBody = {
+      'email': _clientEmailController.text,
+      'api_key': apiKey,
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(requestBody),
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data['status'] == 'success') {
+          client = Client(
+            clientID: data['clientId'],
+            clientEmail: data['userEmail'],
+            clientFirstName: data['userFirstname'],
+            clientLastName: data['userLastname'],
+            clientAddress: data['userAddress'] ?? '',
+            streetName: data['streetName'],
+            townName: data['townName'],
+            clientMobile: data['userMobile'],
+          );
+          print(client?.clientID);
+          print(client?.clientEmail);
+          print(client?.clientFirstName);
+          print(client?.clientLastName);
+          print(client?.clientAddress);
+          print(client?.streetName);
+          print(client?.townName);
+          print(client?.clientMobile);
+
+          _nameController.text = client!.clientFirstName;
+          _surnameController.text = client!.clientLastName;
+
+          setState(() {
+            _isUserEmailMatch = true;
+          });
+        } else if (data['message'] ==
+            'Client not found. Please create a new client.') {
+          setState(() {
+            _destinationError = 'Client not found';
+          });
+        } else if (data['message'] == 'Invalid API Key') {
+          setState(() {
+            _destinationError = 'Invalid API Key';
+          });
+        } else {
+          setState(() {
+            _destinationError = 'An error has occurred!';
+          });
+        }
+      }
+    } catch (e) {
+      setState(() {
+        _destinationError = 'An error occurred: $e';
+      });
     }
   }
 
@@ -243,6 +321,14 @@ class _BookRideState extends ConsumerState<BookRideV2> {
     }
   }
 
+  bool _searchUserEmail() {
+    if (_adminKeyForm.currentState!.validate()) {
+      _adminKeyForm.currentState!.save();
+      return true;
+    }
+    return false;
+  }
+
   bool _bookRide() {
     if (_keyForm.currentState!.validate()) {
       if (_bookingDateController.text.isEmpty) {
@@ -268,10 +354,14 @@ class _BookRideState extends ConsumerState<BookRideV2> {
     _surnameController.clear();
     _emailController.clear();
     _bookingDateController.clear();
+    _clientEmailController.clear();
     setState(() {
       _selectedDestination =
           _destinationsList.isNotEmpty ? _destinationsList[0] : '';
       _selectedTime = null;
+      if (ref.read(userInfoProvider).userRole == 1) {
+        _isUserEmailMatch = false;
+      }
     });
   }
 
@@ -281,18 +371,20 @@ class _BookRideState extends ConsumerState<BookRideV2> {
     _surnameController.dispose();
     _emailController.dispose();
     _bookingDateController.dispose();
+    _clientEmailController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final clientEmail;
-    if (ref.read(userInfoProvider).userRole == 3) {
+    final userRole = ref.read(userInfoProvider).userRole;
+    if (userRole == 3) {
       clientEmail = ref.read(userInfoProvider).email;
+    } else if (userRole == 1 && _isUserEmailMatch) {
+      clientEmail = client!.clientEmail;
     } else {
-      //Input code for when the admin cna create an order for a user.
-      clientEmail =
-          "test@example1.com"; //To be removed once functionality is implemented
+      clientEmail = "";
     }
 
     _emailController.text =
@@ -318,6 +410,9 @@ class _BookRideState extends ConsumerState<BookRideV2> {
                 onPressed: () {
                   setState(() {
                     _isBooked = false;
+                    if (userRole == 1) {
+                      _isUserEmailMatch = false;
+                    }
                     _resetForm();
                   });
                 },
@@ -327,7 +422,7 @@ class _BookRideState extends ConsumerState<BookRideV2> {
           ),
         ),
       );
-    } else {
+    } else if (userRole == 3 || (userRole == 1 && _isUserEmailMatch)) {
       content = SingleChildScrollView(
         child: Form(
           key: _keyForm,
@@ -465,6 +560,52 @@ class _BookRideState extends ConsumerState<BookRideV2> {
                     ],
                   ),
                 ),
+              ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      content = SingleChildScrollView(
+        child: Form(
+          key: _adminKeyForm,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                Text(
+                  'Select User',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge!.copyWith(fontSize: 30),
+                ),
+                const SizedBox(height: 20),
+                CustomTextField(
+                  labelText: 'User Email Address',
+                  controller: _clientEmailController,
+                  textFieldType: TextFieldType.email,
+                ),
+                const SizedBox(height: 40),
+                ElevatedButton(
+                  onPressed: () async {
+                    _destinationError = null;
+                    if (_searchUserEmail()) {
+                      await _fetchClientDetails();
+                    }
+                  },
+                  child: const Text('Search User Email'),
+                ),
+                const SizedBox(height: 10),
+                //error message
+                if (_destinationError != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      _destinationError!,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
               ],
             ),
           ),

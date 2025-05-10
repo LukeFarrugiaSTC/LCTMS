@@ -1,0 +1,15 @@
+<resources>
+    <!-- Theme for the launch screen -->
+    <style name="LaunchTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <!-- Default app theme -->
+    <style name="NormalTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+</resources>
