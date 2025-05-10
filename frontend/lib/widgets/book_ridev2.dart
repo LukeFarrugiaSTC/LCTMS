@@ -9,6 +9,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/providers/user_info_provider.dart';
 import 'package:frontend/models/client.dart';
+import 'package:frontend/providers/bookings_provider.dart';
 
 class BookRideV2 extends ConsumerStatefulWidget {
   const BookRideV2({super.key, this.showScaffold = true});
@@ -306,6 +307,7 @@ class _BookRideState extends ConsumerState<BookRideV2> {
         setState(() {
           _isBooked = true;
         });
+        ref.read(bookingsProvider.notifier).resetBookings();
       } else {
         print('Booking API error: $data');
         setState(() {
