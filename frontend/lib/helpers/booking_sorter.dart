@@ -51,7 +51,24 @@ class BookingSorter {
     final now = DateTime.now();
     return (booking.bookingTime.isBefore(now) &&
         booking.bookingTime.isAfter(now.subtract(Duration(hours: 2))) &&
-        (booking.bookingStatus == BookingStatus.inProgress ||
-            booking.bookingStatus == BookingStatus.booked));
+        isOngoingStatus(booking));
+  }
+
+  //if the status of the booking is suitable for the ongoing bookings, these will return true
+  static bool isOngoingStatus(Booking booking) {
+    switch (booking.bookingStatus) {
+      case 'pending':
+        return true;
+      case 'confirmed':
+        return true;
+      case 'driverEnRoute':
+        return true;
+      case 'driverArrived':
+        return true;
+      case 'clientPickedUp':
+        return true;
+      default:
+        return false;
+    }
   }
 }

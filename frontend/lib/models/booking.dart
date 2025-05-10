@@ -1,7 +1,18 @@
 import 'package:frontend/models/address.dart';
 
 // Enum representing the different statuses a booking can have
-enum BookingStatus { booked, inProgress, completed, cancelled }
+enum BookingStatus {
+  pending,
+  confirmed,
+  driverEnRoute,
+  driverArrived,
+  clientPickedUp,
+  completed,
+  cancelled,
+  clientNoShow,
+  rejected,
+  failed,
+}
 
 class Booking {
   Booking({
