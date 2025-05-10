@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BookingDetails extends ConsumerStatefulWidget {
   const BookingDetails({super.key});
@@ -127,6 +128,23 @@ class _BookingDetailsPageState extends ConsumerState<BookingDetails> {
     }
   }
 
+  void _openGoogleMapsForPickup() async {
+    final pickup = _booking!.pickUpLocation;
+    final query = Uri.encodeComponent('${pickup.street}, ${pickup.town}');
+    final googleMapsUrl =
+        'google.navigation:q=$query&mode=d'; // 'd' = driving mode
+
+    final uri = Uri.parse(googleMapsUrl);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not open Google Maps.')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_booking == null || _currentStatus == null) {
@@ -152,11 +170,22 @@ class _BookingDetailsPageState extends ConsumerState<BookingDetails> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '${_booking!.name} ${_booking!.surname}',
-              style: Theme.of(
-                context,
-              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                Text(
+                  '${_booking!.name} ${_booking!.surname}',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                Spacer(),
+                if (roleID == 2)
+                  IconButton(
+                    onPressed: _openGoogleMapsForPickup,
+                    icon: Icon(Icons.location_on, color: Colors.black),
+                  ),
+              ],
             ),
             const SizedBox(height: 24),
 
