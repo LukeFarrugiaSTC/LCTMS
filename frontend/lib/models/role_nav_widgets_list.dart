@@ -11,28 +11,11 @@ class RoleNavWidgetsList {
           'icon': 'history',
           'destinationPath': '/view_bookings',
         },
-        {
-          'title': 'Add Booking',
-          'icon': 'post_add',
-          'destinationPath': '/book_ridev2',
-        },
-        {'title': 'Users', 'icon': 'people', 'destinationPath': '/users'},
       ],
       //Driver
-      2: [
-        {
-          'title': 'Bookings', // Title displayed in the navigation tile
-          'icon': 'history', // Icon identifier used in the UI
-          'destinationPath': '/view_bookings', // Route path for the screen
-        },
-      ],
+      2: [],
       //User
       3: [
-        {
-          'title': 'Book a Ride!',
-          'icon': 'post_add',
-          'destinationPath': '/book_ridev2',
-        },
         {
           'title': 'My Bookings',
           'icon': 'history',
