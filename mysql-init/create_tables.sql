@@ -47,15 +47,26 @@ CREATE TABLE IF NOT EXISTS destinations (
     FOREIGN KEY (townCode) REFERENCES towns(townCode)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
  
-CREATE TABLE IF NOT EXISTS bookings (
-    booking_id INT AUTO_INCREMENT PRIMARY KEY,
-    userId INT NOT NULL,
-    destinationId INT NOT NULL,
-    bookingStatus VARCHAR(100) NOT NULL,
-    bookingDate DATETIME NOT NULL,
-    FOREIGN KEY (userId) REFERENCES users(id),
-    FOREIGN KEY (destinationId) REFERENCES destinations(destinationId)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `bookings` (   
+  `booking_id` int NOT NULL AUTO_INCREMENT,   
+  `userId` int NOT NULL,   
+  `clientId` int NOT NULL,   
+  `destinationId` int NOT NULL,   
+  `bookingStatus` varchar(100) 
+  COLLATE utf8mb4_general_ci NOT NULL,   
+  `bookingDate` datetime NOT NULL,   
+  `createdBy` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,   
+  `createdDate` datetime DEFAULT NULL,   
+  `modifiedBy` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,   
+  `modifiedDate` datetime DEFAULT NULL,   
+  PRIMARY KEY (`booking_id`),   
+  KEY `idx_clientId` (`clientId`),   
+  KEY `idx_destinationId` (`destinationId`),   
+  KEY `bookings_ibfk_3_idx` (`userId`),   
+  CONSTRAINT `bookings_ibfk_1` FOREIGN KEY (`clientId`) REFERENCES `users` (`id`),   
+  CONSTRAINT `bookings_ibfk_2` FOREIGN KEY (`destinationId`) REFERENCES `destinations` (`destinationId`),   
+  CONSTRAINT `bookings_ibfk_3` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) 
+  ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `towns` (`townCode`, `townName`, `districtCode`) VALUES
 ('0001', 'H\'Attard', '11'),
