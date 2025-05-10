@@ -57,15 +57,18 @@ class BookingSorter {
   //if the status of the booking is suitable for the ongoing bookings, these will return true
   static bool isOngoingStatus(Booking booking) {
     switch (booking.bookingStatus) {
-      case 'pending':
+      case BookingStatus.pending:
         return true;
-      case 'confirmed':
+      case BookingStatus.confirmed:
         return true;
-      case 'driverEnRoute':
+      case BookingStatus.driverEnRoute:
         return true;
-      case 'driverArrived':
+      case BookingStatus.driverArrived:
         return true;
-      case 'clientPickedUp':
+      case BookingStatus.clientPickedUp:
+        return true;
+      case BookingStatus.cancelled:
+        print('I am here');
         return true;
       default:
         return false;
