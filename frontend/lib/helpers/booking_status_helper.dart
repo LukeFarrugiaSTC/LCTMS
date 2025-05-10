@@ -58,17 +58,18 @@ extension BookingStatusExtension on BookingStatus {
 // Returns the list of statuses that the current role is allowed to update to
 List<BookingStatus> getEditableStatusesForRole(int roleID) {
   switch (roleID) {
-    case 1: // Driver
+    case 1: // Admins
+      return BookingStatus.values; // Admins can access all statuses
+
+    case 2: // Driver
       return [
+        BookingStatus.confirmed,
         BookingStatus.driverEnRoute,
         BookingStatus.driverArrived,
         BookingStatus.clientPickedUp,
         BookingStatus.completed,
         BookingStatus.clientNoShow,
-      ]; // Drivers have limited control
-
-    case 2: // Admin
-      return BookingStatus.values; // Admins can access all statuses
+      ]; // Driver has limited control
 
     case 3: // User
       return [
