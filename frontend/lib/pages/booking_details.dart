@@ -10,6 +10,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:android_intent_plus/android_intent.dart';
+import 'dart:io' show Platform;
 
 class BookingDetails extends ConsumerStatefulWidget {
   const BookingDetails({super.key});
@@ -128,19 +130,27 @@ class _BookingDetailsPageState extends ConsumerState<BookingDetails> {
     }
   }
 
-  void _openGoogleMapsForPickup() async {
+  void _openGoogleMapsForPickup() {
     final pickup = _booking!.pickUpLocation;
     final query = Uri.encodeComponent('${pickup.street}, ${pickup.town}');
-    final googleMapsUrl =
-        'google.navigation:q=$query&mode=d'; // 'd' = driving mode
 
-    final uri = Uri.parse(googleMapsUrl);
+    if (Platform.isAndroid) {
+      final intent = AndroidIntent(
+        action: 'action_view',
+        data: 'google.navigation:q=$query&mode=d',
+        package: 'com.google.android.apps.maps',
+      );
 
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+      intent.launch().catchError((e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Google Maps launch failed: $e')),
+        );
+      });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not open Google Maps.')),
+        const SnackBar(
+          content: Text('Navigation is only supported on Android.'),
+        ),
       );
     }
   }
