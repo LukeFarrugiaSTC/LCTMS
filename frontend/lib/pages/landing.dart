@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend/models/user.dart';
+import 'package:frontend/pages/view_bookings.dart';
 import 'package:frontend/widgets/book_ridev2.dart';
 import 'package:frontend/widgets/main_drawer.dart';
 import 'package:frontend/providers/user_info_provider.dart';
@@ -27,13 +28,21 @@ class LandingPage extends ConsumerWidget {
       Navigator.pushNamed(context, identifier); //navigate to chosen screen
     }
 
+    Widget landingWidget(int roleNumber) {
+      if (roleNumber == 2) {
+        //Driver role
+        return ViewBookingsPage();
+      }
+      return BookRideV2(showScaffold: false); // admin or user
+    }
+
     return PopScope(
       canPop:
           false, //since there are is only the landing page in stack, this prevents the user from using the native back button
       child: Scaffold(
         appBar: AppBar(title: const Text('Book a Ride')),
         drawer: MainDrawer(onSelectPage: setPage, roleId: user.userRole),
-        body: BookRideV2(showScaffold: false),
+        body: landingWidget(ref.read(userInfoProvider).userRole),
       ),
     );
   }
