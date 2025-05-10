@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/helpers/booking_sorter.dart';
 import 'package:frontend/providers/bookings_provider.dart';
+import 'package:frontend/providers/user_info_provider.dart';
 //import 'package:frontend/providers/user_info_provider.dart';
 import 'package:frontend/widgets/bookings/bookings_list.dart';
 
@@ -16,7 +17,11 @@ class BookingHistoryPage extends ConsumerWidget {
     //final user = ref.watch(userInfoProvider);
     final roleID = 3;
     final bookings = ref.watch(bookingsProvider);
-    final sorted = BookingSorter.sortBookings(bookings, roleID);
+    final sorted = BookingSorter.sortBookings(
+      bookings,
+      roleID,
+      ref.read(userInfoProvider).userID,
+    );
     final historyBookings = sorted['history']!;
 
     return Column(

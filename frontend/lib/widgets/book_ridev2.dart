@@ -158,14 +158,14 @@ class _BookRideState extends ConsumerState<BookRideV2> {
             townName: data['townName'],
             clientMobile: data['userMobile'],
           );
-          print(client?.clientID);
-          print(client?.clientEmail);
-          print(client?.clientFirstName);
-          print(client?.clientLastName);
-          print(client?.clientAddress);
-          print(client?.streetName);
-          print(client?.townName);
-          print(client?.clientMobile);
+          // print(client?.clientID);
+          // print(client?.clientEmail);
+          // print(client?.clientFirstName);
+          // print(client?.clientLastName);
+          // print(client?.clientAddress);
+          // print(client?.streetName);
+          // print(client?.townName);
+          // print(client?.clientMobile);
 
           _nameController.text = client!.clientFirstName;
           _surnameController.text = client!.clientLastName;
@@ -278,13 +278,13 @@ class _BookRideState extends ConsumerState<BookRideV2> {
     final formattedDate = outputFormat.format(dateTime);
 
     final url = Uri.parse('$apiBaseUrl/endpoints/bookings/addBookingR2.php');
-    print('API Key: ${dotenv.env['API_KEY']}');
-    print('Selected destination: $_selectedDestination');
-    print('Selected date: ${_bookingDateController.text}');
-    print('Selected time: $_selectedTime');
-    print('Formatted booking datetime: $formattedDate');
-    print('User ID: ${ref.read(userInfoProvider).userID}');
-    print('client ID: ${_emailController.text}');
+    // print('API Key: ${dotenv.env['API_KEY']}');
+    // print('Selected destination: $_selectedDestination');
+    // print('Selected date: ${_bookingDateController.text}');
+    // print('Selected time: $_selectedTime');
+    // print('Formatted booking datetime: $formattedDate');
+    // print('User ID: ${ref.read(userInfoProvider).userID}');
+    // print('client ID: ${_emailController.text}');
     final response = await http.post(
       url,
       headers: {

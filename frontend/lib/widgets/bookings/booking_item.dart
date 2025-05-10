@@ -53,7 +53,7 @@ class BookingItem extends StatelessWidget {
 
             //Drop Off Address
             Text(
-              'Drop Off: ${booking.dropOffLocation.street}, ${booking.dropOffLocation.town}',
+              'Drop Off: ${booking.dropOffLocation}',
               style: Theme.of(context).textTheme.bodyLarge!,
             ),
 

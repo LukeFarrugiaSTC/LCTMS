@@ -10,6 +10,7 @@ import 'package:frontend/pages/users.dart';
 import 'package:frontend/pages/view_bookings.dart';
 import 'package:frontend/widgets/book_ridev2.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:frontend/pages/booking_details.dart';
 
 // Defining a colour scheme based on a seed colour
 var kcolourScheme = ColorScheme.fromSeed(
@@ -86,6 +87,7 @@ class LCTMS extends StatelessWidget {
         '/view_bookings': (context) => ViewBookingsPage(),
         '/book_ridev2': (context) => BookRideV2(),
         '/contact_us': (context) => ContactUs(),
+        '/bookingDetails': (context) => const BookingDetails(),
       },
     );
   }
