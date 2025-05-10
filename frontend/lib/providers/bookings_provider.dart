@@ -88,14 +88,28 @@ class BookingsNotifier extends StateNotifier<List<Booking>> {
   // Helper to convert string status into enum
   BookingStatus _parseStatus(String status) {
     switch (status.toLowerCase()) {
-      case 'inprogress':
-        return BookingStatus.inProgress;
+      case 'pending':
+        return BookingStatus.pending;
+      case 'confirmed':
+        return BookingStatus.confirmed;
+      case 'driver en route':
+        return BookingStatus.driverEnRoute;
+      case 'driver arrived':
+        return BookingStatus.driverArrived;
+      case 'client picked up':
+        return BookingStatus.clientPickedUp;
       case 'completed':
         return BookingStatus.completed;
       case 'cancelled':
         return BookingStatus.cancelled;
+      case 'client no show':
+        return BookingStatus.clientNoShow;
+      case 'rejected':
+        return BookingStatus.rejected;
+      case 'failed':
+        return BookingStatus.failed;
       default:
-        return BookingStatus.booked;
+        return BookingStatus.failed; // fallback
     }
   }
 }

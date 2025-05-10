@@ -24,7 +24,7 @@ class BookingValidator extends Utility {
     }
 
     public static function validateBooking(array $data) {
-
+        
     }
 
     public static function validateBookingAddR2(array $data) {
