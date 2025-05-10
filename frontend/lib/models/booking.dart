@@ -20,7 +20,7 @@ class Booking {
   final String name;
   final String surname;
   final Address pickUpLocation;
-  final Address dropOffLocation;
+  final String dropOffLocation;
   final DateTime bookingTime;
   BookingStatus bookingStatus;
 

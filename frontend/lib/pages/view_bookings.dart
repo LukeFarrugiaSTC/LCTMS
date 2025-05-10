@@ -33,13 +33,13 @@ class _ViewBookingsPageState extends ConsumerState<ViewBookingsPage> {
     // Optional delay to let the animation play
     await Future.delayed(const Duration(milliseconds: 300));
 
-    // 🆕 Reset bookings to simulate "refresh"
+    // Refresh bookings
     ref.read(bookingsProvider.notifier).resetBookings();
   }
 
   @override
   Widget build(BuildContext context) {
-    final pages = [const UpcomingBookingsPage(), const BookingHistoryPage()];
+    final pages = [const UpcomingBookings(), const BookingHistoryPage()];
     final titles = ['Bookings', 'Booking History'];
 
     return Scaffold(
