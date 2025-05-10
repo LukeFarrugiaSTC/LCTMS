@@ -6,7 +6,9 @@ import 'package:frontend/providers/bookings_provider.dart';
 
 // Class defining the view for toggling between upcoming and historical bookings
 class ViewBookingsPage extends ConsumerStatefulWidget {
-  const ViewBookingsPage({super.key});
+  const ViewBookingsPage({super.key, this.showScaffold = true});
+
+  final bool showScaffold;
 
   @override
   ConsumerState<ViewBookingsPage> createState() => _ViewBookingsPageState();
@@ -41,22 +43,27 @@ class _ViewBookingsPageState extends ConsumerState<ViewBookingsPage> {
   Widget build(BuildContext context) {
     final pages = [const UpcomingBookings(), const BookingHistoryPage()];
     final titles = ['Bookings', 'Booking History'];
+    final Widget content = pages[_selectedPageIndex];
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(titles[_selectedPageIndex]),
-        actions: [
-          IconButton(
-            onPressed: _rotateIcon,
-            icon: AnimatedRotation(
-              turns: _rotationAngle,
-              duration: const Duration(milliseconds: 300),
-              child: const Icon(Icons.refresh),
-            ),
-          ),
-        ],
-      ),
-      body: pages[_selectedPageIndex],
+      appBar:
+          widget.showScaffold
+              ? AppBar(
+                //shows app bar only if in user / admin role
+                title: Text(titles[_selectedPageIndex]),
+                actions: [
+                  IconButton(
+                    onPressed: _rotateIcon,
+                    icon: AnimatedRotation(
+                      turns: _rotationAngle,
+                      duration: const Duration(milliseconds: 300),
+                      child: const Icon(Icons.refresh),
+                    ),
+                  ),
+                ],
+              )
+              : null,
+      body: content,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPageIndex,
         onTap: _selectPage,
