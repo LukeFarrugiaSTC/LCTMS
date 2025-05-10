@@ -31,7 +31,7 @@ class LandingPage extends ConsumerWidget {
     Widget landingWidget(int roleNumber) {
       if (roleNumber == 2) {
         //Driver role
-        return ViewBookingsPage();
+        return ViewBookingsPage(showScaffold: false);
       }
       return BookRideV2(showScaffold: false); // admin or user
     }
@@ -40,7 +40,12 @@ class LandingPage extends ConsumerWidget {
       canPop:
           false, //since there are is only the landing page in stack, this prevents the user from using the native back button
       child: Scaffold(
-        appBar: AppBar(title: const Text('Book a Ride')),
+        appBar: AppBar(
+          title:
+              ref.read(userInfoProvider).userRole == 2
+                  ? const Text('Bookings')
+                  : const Text('Book a Ride'),
+        ),
         drawer: MainDrawer(onSelectPage: setPage, roleId: user.userRole),
         body: landingWidget(ref.read(userInfoProvider).userRole),
       ),
