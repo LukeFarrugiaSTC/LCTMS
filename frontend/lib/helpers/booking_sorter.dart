@@ -43,7 +43,7 @@ class BookingSorter {
   // Determines if a booking is scheduled for the future and not completed
   static bool _isUpcomingBooking(Booking booking) {
     return booking.bookingTime.isAfter(DateTime.now()) &&
-        booking.bookingStatus != BookingStatus.completed;
+        isOngoingStatus(booking);
   }
 
   // Determines if a booking is currently ongoing (within the last 2 hours)
