@@ -196,6 +196,7 @@ class _BookRideState extends ConsumerState<BookRideV2> {
     }
   }
 
+  //Function to get available times for the selected day
   Future<void> _fetchAvailableTimes(String selectedDate) async {
     final String? apiKey = dotenv.env['API_KEY'];
     if (apiKey == null || apiKey.isEmpty) {
@@ -279,13 +280,13 @@ class _BookRideState extends ConsumerState<BookRideV2> {
     final formattedDate = outputFormat.format(dateTime);
 
     final url = Uri.parse('$apiBaseUrl/endpoints/bookings/addBookingR2.php');
-    // print('API Key: ${dotenv.env['API_KEY']}');
-    // print('Selected destination: $_selectedDestination');
-    // print('Selected date: ${_bookingDateController.text}');
-    // print('Selected time: $_selectedTime');
-    // print('Formatted booking datetime: $formattedDate');
-    // print('User ID: ${ref.read(userInfoProvider).userID}');
-    // print('client ID: ${_emailController.text}');
+    print('API Key: ${dotenv.env['API_KEY']}');
+    print('Selected destination: $_selectedDestination');
+    print('Selected date: ${_bookingDateController.text}');
+    print('Selected time: $_selectedTime');
+    print('Formatted booking datetime: $formattedDate');
+    print('User ID: ${ref.read(userInfoProvider).userID}');
+    print('client ID: ${_emailController.text}');
     final response = await http.post(
       url,
       headers: {

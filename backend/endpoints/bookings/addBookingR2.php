@@ -1,6 +1,6 @@
 <?php
     header('Content-Type: application/json');
-    
+   
     require_once __DIR__ . '/../../classes/Controllers/BaseApiController.php';
     require_once __DIR__ . '/../../classes/userBookings.class.php';
     require_once __DIR__ . '/../../classes/validators/bookingValidator.class.php';
